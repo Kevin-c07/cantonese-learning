@@ -286,12 +286,12 @@
     </div>
   </div>
   <div class="footer">
-    🌟 Pure spoken Cantonese — no Chinese characters. Tap any card to hear pronunciation (Web Speech API).
+    🌟 Pure spoken Cantonese — no Chinese characters. Tap any card to hear pronunciation.
   </div>
 </div>
 
 <script>
-  // ========== ESSENTIALS (no Chinese characters) ==========
+  // ========== ESSENTIALS ==========
   const essentials = [
     { jyutping: "nei5 hou2", meaning: "Hello / How are you?" },
     { jyutping: "ngo5 hou2", meaning: "I'm fine" },
@@ -307,15 +307,14 @@
     { jyutping: "ting1 jat6", meaning: "Tomorrow" },
     { jyutping: "cam4 jat6", meaning: "Yesterday" },
     { jyutping: "deoi3 m4 zyu6", meaning: "Sorry" },
-    { jyutping: "m4 gan2", meaning: "You're welcome / Not at all" },
-    { jyutping: "ding6 naa5", meaning: "Or / either" },
+    { jyutping: "m4 gan2", meaning: "You're welcome" },
     { jyutping: "jat1 cai4", meaning: "Together" },
     { jyutping: "dang2 zan6", meaning: "Wait a moment" },
-    { jyutping: "hou2 leng3", meaning: "Very beautiful / nice" },
-    { jyutping: "hou2 hoeng1", meaning: "Very delicious / tasty" }
+    { jyutping: "hou2 leng3", meaning: "Very beautiful" },
+    { jyutping: "hou2 hoeng1", meaning: "Very delicious" }
   ];
 
-  // ========== CONVERSATIONS (real spoken phrases) ==========
+  // ========== CONVERSATIONS ==========
   const conversations = [
     { jyutping: "nei5 giu3 me1 meng2?", meaning: "What's your name?" },
     { jyutping: "ngo5 giu3 Ming4. nei5 le1?", meaning: "I'm Ming. And you?" },
@@ -323,27 +322,26 @@
     { jyutping: "ngo5 hai6 Mei5 Gwok3 jan4.", meaning: "I'm from America." },
     { jyutping: "nei5 sik1 m4 sik1 gong2 gwong2 dung1 waa2?", meaning: "Do you speak Cantonese?" },
     { jyutping: "ngo5 sik1 gong2 siu2 siu2.", meaning: "I speak a little." },
-    { jyutping: "m4 goi1, ngo5 soeng2 yam2 seoi2.", meaning: "Excuse me, I'd like some water." },
-    { jyutping: "yat1 cai4 heoi3 sik6 faan6 laa1", meaning: "Let's go eat together!" },
+    { jyutping: "m4 goi1, ngo5 soeng2 yam2 seoi2.", meaning: "Excuse me, I'd like water." },
+    { jyutping: "jat1 cai4 heoi3 sik6 faan6 laa1", meaning: "Let's go eat together!" },
     { jyutping: "gei2 dim2 zung1?", meaning: "What time is it?" },
     { jyutping: "hou2 hoi1 sam1 gin3 dou3 nei5", meaning: "Nice to meet you" },
-    { jyutping: "nei5 ho2 m4 ho2 yi5 gong2 maan6 di1?", meaning: "Can you speak slower?" },
+    { jyutping: "nei5 ho2 m4 ho2 ji5 gong2 maan6 di1?", meaning: "Can you speak slower?" },
     { jyutping: "ngo5 teng1 m4 ming4", meaning: "I don't understand" },
     { jyutping: "jau5 mou5 wai2 aa3?", meaning: "Do you have seats?" },
     { jyutping: "ngo5 soeng2 dim2 caan1", meaning: "I'd like to order" },
     { jyutping: "maai4 daan1, m4 goi1", meaning: "Check please" },
-    { jyutping: "ho2 m4 ho2 yi5 peng4 di1?", meaning: "Can it be cheaper?" },
-    { jyutping: "heoi3 m4 heoi3 yam2 caa4?", meaning: "Want to go for dim sum / tea?" },
+    { jyutping: "ho2 m4 ho2 ji5 peng4 di1?", meaning: "Can it be cheaper?" },
+    { jyutping: "heoi3 m4 heoi3 jam2 caa4?", meaning: "Want to go for tea/dim sum?" },
     { jyutping: "gau3 ming6 aa3!", meaning: "Help!" },
     { jyutping: "ngo5 dong6 sat1 lou6", meaning: "I'm lost" },
     { jyutping: "dang2 zan6 gin3", meaning: "See you later" },
-    { jyutping: "zeoi3 gan6 dim2 aa3?", meaning: "How's it going lately?" },
+    { jyutping: "zeoi3 gan6 dim2 aa3?", meaning: "How's it going?" },
     { jyutping: "mou5 man6 tai4", meaning: "No problem" },
-    { jyutping: "ji4 gaa1 gei2 dim2?", meaning: "What time is it now?" },
-    { jyutping: "yat1 go3, loeng5 go3, saam1 go3", meaning: "One, two, three (items/people)" }
+    { jyutping: "ji4 gaa1 gei2 dim2?", meaning: "What time is it now?" }
   ];
 
-  // ========== QUIZ (all about spoken Cantonese) ==========
+  // ========== QUIZ ==========
   const quizBank = [
     { question: "What does 'nei5 hou2' mean?", options: ["Goodbye", "Hello / How are you", "Thank you", "Sorry"], correct: 1 },
     { question: "How do you say 'Thank you (for a gift)'?", options: ["m4 goi1", "do1 ze6", "hou2 aa3", "m4 hai6"], correct: 1 },
@@ -351,7 +349,7 @@
     { question: "'m4 sik1' means:", options: ["I understand", "I don't know", "I'm happy", "Expensive"], correct: 1 },
     { question: "How do you ask 'How much?'", options: ["nei5 hou2 maa3", "gei2 do1 cin2", "bin1 go3", "hou2 leng3"], correct: 1 },
     { question: "'deoi3 m4 zyu6' means:", options: ["Sorry", "Thank you", "No problem", "See you"], correct: 0 },
-    { question: "What is 'Let's eat together' in Jyutping?", options: ["yat1 cai4 heoi3 sik6 faan6 laa1", "ngo5 sik6 zo2", "nei5 sek3 faan6 mei6?", "hou2 hoeng1"], correct: 0 },
+    { question: "What is 'Let's eat together'?", options: ["jat1 cai4 heoi3 sik6 faan6 laa1", "ngo5 sik6 zo2", "nei5 sek3 faan6 mei6", "hou2 hoeng1"], correct: 0 },
     { question: "'m4 goi1' is used for:", options: ["Apology", "Thank you (service)", "Good morning", "Help"], correct: 1 },
     { question: "How to say 'Today'?", options: ["gam1 jat6", "ting1 jat6", "cam4 jat6", "maan5 on1"], correct: 0 },
     { question: "What does 'hou2 leng3' mean?", options: ["Very delicious", "Very beautiful", "Very tired", "Very hungry"], correct: 1 },
@@ -359,7 +357,7 @@
     { question: "How to say 'I don't understand'?", options: ["ngo5 sik1", "ngo5 ming4 baak6", "ngo5 teng1 m4 ming4", "ngo5 m4 sik1"], correct: 2 },
     { question: "What is 'Help!' in Cantonese?", options: ["gau3 ming6 aa3", "deoi3 m4 zyu6", "m4 goi1", "hou2 aa3"], correct: 0 },
     { question: "'maai4 daan1' means:", options: ["Order food", "Check / Bill", "Eat fast", "Come in"], correct: 1 },
-    { question: "How to say 'Tomorrow'?", options: ["gam1 jat6", "ting1 jat6", "cam4 jat6", "jan4"], correct: 1 }
+    { question: "How to say 'Tomorrow'?", options: ["gam1 jat6", "ting1 jat6", "cam4 jat6", "daam1"], correct: 1 }
   ];
 
   // Speech function
@@ -381,18 +379,19 @@
     const container = document.getElementById('essentialsList');
     if (!container) return;
     container.innerHTML = '';
-    essentials.forEach(item => {
+    for (let i = 0; i < essentials.length; i++) {
+      const item = essentials[i];
       const card = document.createElement('div');
       card.className = 'conv-card';
-      card.innerHTML = `
-        <div class="jyutping-phrase">${item.jyutping}</div>
-        <div class="meaning">💬 ${item.meaning}</div>
-        <button class="play-btn" data-text="${item.jyutping}">🔊 Listen & Repeat</button>
-      `;
+      card.innerHTML = '<div class="jyutping-phrase">' + item.jyutping + '</div>' +
+        '<div class="meaning">💬 ' + item.meaning + '</div>' +
+        '<button class="play-btn" data-text="' + item.jyutping + '">🔊 Listen & Repeat</button>';
       const btn = card.querySelector('.play-btn');
-      btn.addEventListener('click', () => speakCantonese(item.jyutping));
+      btn.addEventListener('click', function() {
+        speakCantonese(this.getAttribute('data-text'));
+      });
       container.appendChild(card);
-    });
+    }
   }
 
   // Render conversations
@@ -400,21 +399,22 @@
     const container = document.getElementById('convoList');
     if (!container) return;
     container.innerHTML = '';
-    conversations.forEach(item => {
+    for (let i = 0; i < conversations.length; i++) {
+      const item = conversations[i];
       const card = document.createElement('div');
       card.className = 'conv-card';
-      card.innerHTML = `
-        <div class="jyutping-phrase">🗣️ ${item.jyutping}</div>
-        <div class="meaning">📌 ${item.meaning}</div>
-        <button class="play-btn" data-text="${item.jyutping}">🔊 Hear & Speak</button>
-      `;
+      card.innerHTML = '<div class="jyutping-phrase">🗣️ ' + item.jyutping + '</div>' +
+        '<div class="meaning">📌 ' + item.meaning + '</div>' +
+        '<button class="play-btn" data-text="' + item.jyutping + '">🔊 Hear & Speak</button>';
       const btn = card.querySelector('.play-btn');
-      btn.addEventListener('click', () => speakCantonese(item.jyutping));
+      btn.addEventListener('click', function() {
+        speakCantonese(this.getAttribute('data-text'));
+      });
       container.appendChild(card);
-    });
+    }
   }
 
-  // Quiz logic
+  // Quiz variables
   let currentQuizIndex = 0;
   let currentScore = 0;
   let quizLock = false;
@@ -423,42 +423,51 @@
   function loadQuiz() {
     const container = document.getElementById('quizContainer');
     if (!container) return;
+    
     if (currentQuizIndex >= quizBank.length) {
-      container.innerHTML = `
-        <div style="text-align: center; padding: 1rem;">
-          <h3>🎉 Quiz Complete! 🎉</h3>
-          <p style="font-size: 1.8rem; margin: 1rem 0;">Score: ${currentScore} / ${quizBank.length}</p>
-          <p>${currentScore === quizBank.length ? 'Perfect! You're ready to speak! 🌟' : 'Good job! Keep practicing! 💪'}</p>
-          <button class="next-quiz" id="restartQuiz">🔄 Restart Quiz</button>
-        </div>
-      `;
+      container.innerHTML = '<div style="text-align: center; padding: 1rem;">' +
+        '<h3>🎉 Quiz Complete! 🎉</h3>' +
+        '<p style="font-size: 1.8rem; margin: 1rem 0;">Score: ' + currentScore + ' / ' + quizBank.length + '</p>' +
+        '<p>' + (currentScore === quizBank.length ? 'Perfect! You\'re ready to speak! 🌟' : 'Good job! Keep practicing! 💪') + '</p>' +
+        '<button class="next-quiz" id="restartQuiz">🔄 Restart Quiz</button>' +
+        '</div>';
       const restart = document.getElementById('restartQuiz');
-      if (restart) restart.addEventListener('click', () => {
-        currentQuizIndex = 0;
-        currentScore = 0;
-        quizLock = false;
-        loadQuiz();
-      });
+      if (restart) {
+        restart.addEventListener('click', function() {
+          currentQuizIndex = 0;
+          currentScore = 0;
+          quizLock = false;
+          loadQuiz();
+        });
+      }
       return;
     }
+    
     currentQuestion = quizBank[currentQuizIndex];
     quizLock = false;
-    container.innerHTML = `
-      <div class="quiz-question">❓ ${currentQuestion.question}</div>
-      <div class="quiz-options" id="quizOptions"></div>
-      <div class="quiz-feedback" id="quizFeedback"></div>
-      <button class="next-quiz" id="nextBtn" disabled>Next →</button>
-    `;
+    
+    let optionsHtml = '';
+    for (let i = 0; i < currentQuestion.options.length; i++) {
+      optionsHtml += '<div class="quiz-opt" data-idx="' + i + '">' + currentQuestion.options[i] + '</div>';
+    }
+    
+    container.innerHTML = '<div class="quiz-question">❓ ' + currentQuestion.question + '</div>' +
+      '<div class="quiz-options" id="quizOptions">' + optionsHtml + '</div>' +
+      '<div class="quiz-feedback" id="quizFeedback"></div>' +
+      '<button class="next-quiz" id="nextBtn" disabled>Next →</button>';
+    
     const optionsDiv = document.getElementById('quizOptions');
-    currentQuestion.options.forEach((opt, idx) => {
-      const optDiv = document.createElement('div');
-      optDiv.className = 'quiz-opt';
-      optDiv.textContent = opt;
-      optDiv.dataset.idx = idx;
-      optDiv.addEventListener('click', () => handleQuizAnswer(idx, optDiv));
-      optionsDiv.appendChild(optDiv);
-    });
-    document.getElementById('nextBtn').addEventListener('click', () => {
+    const optDivs = optionsDiv.querySelectorAll('.quiz-opt');
+    for (let i = 0; i < optDivs.length; i++) {
+      const optDiv = optDivs[i];
+      const idx = parseInt(optDiv.getAttribute('data-idx'));
+      optDiv.addEventListener('click', function() {
+        handleQuizAnswer(idx, optDiv);
+      });
+    }
+    
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.addEventListener('click', function() {
       if (quizLock) {
         currentQuizIndex++;
         loadQuiz();
@@ -472,24 +481,28 @@
     const feedback = document.getElementById('quizFeedback');
     const allOptions = document.querySelectorAll('.quiz-opt');
     quizLock = true;
+    
     if (isCorrect) {
       currentScore++;
       feedback.innerHTML = '✅ Correct! Great job!';
       element.style.backgroundColor = '#c8e6c8';
     } else {
-      feedback.innerHTML = `❌ Wrong! Correct answer: ${currentQuestion.options[currentQuestion.correct]}`;
+      feedback.innerHTML = '❌ Wrong! Correct answer: ' + currentQuestion.options[currentQuestion.correct];
       element.style.backgroundColor = '#ffe1cf';
-      allOptions.forEach(opt => {
-        if (parseInt(opt.dataset.idx) === currentQuestion.correct) {
+      for (let i = 0; i < allOptions.length; i++) {
+        const opt = allOptions[i];
+        if (parseInt(opt.getAttribute('data-idx')) === currentQuestion.correct) {
           opt.style.backgroundColor = '#c8e6c8';
           opt.style.border = '1px solid #2b9c7c';
         }
-      });
+      }
     }
-    allOptions.forEach(opt => {
-      opt.style.pointerEvents = 'none';
-      opt.style.opacity = '0.7';
-    });
+    
+    for (let i = 0; i < allOptions.length; i++) {
+      allOptions[i].style.pointerEvents = 'none';
+      allOptions[i].style.opacity = '0.7';
+    }
+    
     document.getElementById('nextBtn').disabled = false;
   }
 
@@ -497,18 +510,26 @@
   function initTabs() {
     const tabs = document.querySelectorAll('.tab-btn');
     const panels = document.querySelectorAll('.panel');
-    tabs.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.tab;
-        tabs.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        panels.forEach(p => p.classList.remove('active-panel'));
+    for (let i = 0; i < tabs.length; i++) {
+      const btn = tabs[i];
+      btn.addEventListener('click', function() {
+        const target = this.getAttribute('data-tab');
+        for (let j = 0; j < tabs.length; j++) {
+          tabs[j].classList.remove('active');
+        }
+        this.classList.add('active');
+        for (let j = 0; j < panels.length; j++) {
+          panels[j].classList.remove('active-panel');
+        }
         document.getElementById(target).classList.add('active-panel');
-        if (target === 'quiz') loadQuiz();
+        if (target === 'quiz') {
+          loadQuiz();
+        }
       });
-    });
+    }
   }
 
+  // Initialize everything
   renderEssentials();
   renderConversations();
   loadQuiz();
