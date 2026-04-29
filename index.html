@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Cantonese Cafe · Learn Cantonese Online</title>
+  <title>Cantonese Talk · Speak Only · No Characters</title>
   <style>
     * {
       margin: 0;
@@ -12,9 +12,9 @@
     }
 
     body {
-      background: linear-gradient(145deg, #fef9e6 0%, #fff5e8 100%);
-      font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang HK', 'Microsoft YaHei', sans-serif;
-      color: #2c2b28;
+      background: linear-gradient(145deg, #f0f9f4 0%, #e6f2ec 100%);
+      font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+      color: #1e2a2c;
       line-height: 1.5;
       padding: 2rem 1.5rem;
     }
@@ -30,31 +30,31 @@
     }
 
     .hero h1 {
-      font-size: 3rem;
-      background: linear-gradient(135deg, #c73f1e, #e68a2e);
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #0f6b5e, #2b9c7c);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
       letter-spacing: -0.5px;
-      display: inline-block;
-      margin-bottom: 0.5rem;
     }
 
-    .hero .charm {
-      font-size: 1.8rem;
-      margin-top: 0.25rem;
-      color: #b45f2b;
+    .hero .sub {
+      font-size: 1.2rem;
+      color: #2c6e5c;
+      background: #d9f0e8cc;
+      backdrop-filter: blur(4px);
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      margin-top: 0.8rem;
+      font-weight: 500;
     }
 
     .hero p {
-      font-size: 1.2rem;
-      max-width: 700px;
+      font-size: 1rem;
+      max-width: 600px;
       margin: 1rem auto 0;
-      color: #5a4a3a;
-      background: #fff3e0cc;
-      padding: 0.75rem 1.5rem;
-      border-radius: 60px;
-      backdrop-filter: blur(3px);
+      color: #4a7a6a;
     }
 
     .tab-bar {
@@ -63,32 +63,32 @@
       justify-content: center;
       gap: 0.8rem;
       margin-bottom: 2rem;
-      border-bottom: 2px solid #ffddb0;
+      border-bottom: 2px solid #c3e0d4;
       padding-bottom: 0.75rem;
     }
 
     .tab-btn {
       background: transparent;
       border: none;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
       padding: 0.6rem 1.5rem;
       border-radius: 40px;
       cursor: pointer;
       transition: 0.2s;
-      color: #7b5a3e;
+      color: #2d6a5c;
       font-family: inherit;
     }
 
     .tab-btn.active {
-      background: #e68a2e;
+      background: #2b9c7c;
       color: white;
-      box-shadow: 0 6px 12px rgba(198, 63, 30, 0.25);
+      box-shadow: 0 6px 12px rgba(27, 94, 74, 0.2);
     }
 
     .tab-btn:hover:not(.active) {
-      background: #ffead5;
-      color: #b45a2a;
+      background: #d1efe7;
+      color: #0e5e4c;
     }
 
     .panel {
@@ -101,88 +101,68 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px);}
+      from { opacity: 0; transform: translateY(6px);}
       to { opacity: 1; transform: translateY(0);}
     }
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.5rem;
       margin: 1.5rem 0 1rem;
     }
 
-    .vocab-card, .phrase-card {
+    .conv-card {
       background: white;
       border-radius: 28px;
-      padding: 1rem 1.2rem;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05), 0 2px 6px rgba(0,0,0,0.03);
-      transition: all 0.2s;
-      border: 1px solid #ffe1be;
+      padding: 1.2rem;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      transition: 0.2s;
+      border: 1px solid #cde8e0;
     }
 
-    .vocab-card:hover, .phrase-card:hover {
+    .conv-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 18px 28px -10px rgba(0,0,0,0.12);
-      border-color: #f5bc84;
+      box-shadow: 0 16px 28px -8px rgba(0, 0, 0, 0.1);
+      border-color: #94c7b5;
     }
 
-    .jyutping {
-      font-family: 'Courier New', monospace;
-      font-weight: 600;
-      color: #c9512c;
-      letter-spacing: 0.3px;
-      font-size: 0.9rem;
-      background: #fff1e4;
-      display: inline-block;
-      padding: 0.2rem 0.7rem;
-      border-radius: 30px;
-      margin-top: 0.4rem;
-    }
-
-    .chinese-char {
-      font-size: 1.7rem;
-      font-weight: 600;
-      margin-right: 0.6rem;
-      font-family: 'Noto Sans CJK HK', 'PingFang HK', 'Segoe UI Emoji', sans-serif;
+    .jyutping-phrase {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: 'Courier New', 'SF Mono', monospace;
+      color: #1f6e5c;
+      letter-spacing: 0.5px;
+      word-break: break-word;
     }
 
     .meaning {
+      color: #3a5e54;
       font-size: 0.95rem;
-      color: #4a3b2c;
-      margin-top: 0.5rem;
-      border-top: 1px dashed #ffd9b5;
-      padding-top: 0.5rem;
+      margin-top: 0.7rem;
+      border-left: 3px solid #5fc1a4;
+      padding-left: 0.75rem;
+      margin-bottom: 0.8rem;
     }
 
     .play-btn {
-      background: #ffedd5;
+      background: #e6f4ef;
       border: none;
       font-size: 0.9rem;
-      padding: 0.3rem 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem 1.2rem;
       border-radius: 40px;
       cursor: pointer;
-      margin-top: 0.75rem;
-      font-weight: 500;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      color: #1b6c58;
       transition: 0.1s;
-      color: #c34f28;
     }
 
     .play-btn:hover {
-      background: #e68a2e;
+      background: #2b9c7c;
       color: white;
-      transform: scale(0.97);
-    }
-
-    .phrase-line {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 10px;
-      justify-content: space-between;
     }
 
     .quiz-area {
@@ -191,402 +171,348 @@
       padding: 1.8rem;
       margin-top: 1rem;
       box-shadow: 0 12px 28px rgba(0,0,0,0.05);
-      border: 1px solid #ffe1be;
+      border: 1px solid #cde8e0;
     }
 
     .quiz-question {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 600;
       margin-bottom: 1rem;
+      color: #1a4e42;
     }
 
     .quiz-options {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
     }
 
     .quiz-opt {
-      background: #fff2e6;
-      padding: 0.7rem 1.4rem;
+      background: #f0faf6;
+      padding: 0.7rem 1.3rem;
       border-radius: 60px;
       cursor: pointer;
       transition: 0.1s;
-      border: 1px solid #ffdbb5;
+      border: 1px solid #bcd9cf;
       font-weight: 500;
     }
 
     .quiz-opt:hover {
-      background: #ffdbb5;
+      background: #c7e6dc;
     }
 
     .quiz-feedback {
-      margin-top: 1rem;
       font-weight: 500;
-      padding: 0.5rem;
+      padding: 0.5rem 0;
     }
 
     .next-quiz {
-      background: #e68a2e;
+      background: #2b9c7c;
       border: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
+      padding: 0.6rem 1.4rem;
+      border-radius: 60px;
       color: white;
       font-weight: bold;
-      margin-top: 0.8rem;
       cursor: pointer;
+      margin-top: 0.6rem;
     }
 
-    .footer-note {
+    .next-quiz:disabled {
+      background: #b9d4ca;
+      cursor: default;
+    }
+
+    .footer {
       margin-top: 3rem;
       text-align: center;
-      font-size: 0.85rem;
-      color: #b69063;
-      border-top: 1px solid #ffddb0;
+      font-size: 0.8rem;
+      color: #6e9c8c;
+      border-top: 1px solid #cde0d8;
       padding-top: 1.5rem;
-    }
-
-    .category-badge {
-      background: #e68a2e20;
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      color: #c73f1e;
-      display: inline-block;
-      margin-bottom: 0.5rem;
     }
 
     @media (max-width: 650px) {
       body { padding: 1rem; }
-      .hero h1 { font-size: 2.2rem; }
-      .chinese-char { font-size: 1.4rem; }
+      .jyutping-phrase { font-size: 1.1rem; }
+      .hero h1 { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="hero">
-    <h1>🥢 粵語咖啡室 · Cantonese Cafe</h1>
-    <div class="charm">學習廣東話 | 六聲九調 · 生活實用</div>
-    <p>🗣️ 聽得明 · 講得正 · 由淺入深</p>
+    <h1>🗣️ Cantonese Talk</h1>
+    <div class="sub">jyutping only · speak · no characters</div>
+    <p>🎧 Tap any card to hear pronunciation. Practice speaking out loud!</p>
   </div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" data-tab="vocab">📖 核心詞彙</button>
-    <button class="tab-btn" data-tab="phrases">💬 日常短語</button>
-    <button class="tab-btn" data-tab="quiz">🧠 小測驗</button>
-    <button class="tab-btn" data-tab="tips">🎋 粵語小貼士</button>
+    <button class="tab-btn active" data-tab="essentials">✨ Essentials</button>
+    <button class="tab-btn" data-tab="convos">💬 Conversations</button>
+    <button class="tab-btn" data-tab="quiz">🧠 Quiz</button>
+    <button class="tab-btn" data-tab="guide">📘 Speaking Guide</button>
   </div>
 
-  <div id="vocab" class="panel active-panel">
-    <h2>📚 基礎詞彙 + 進階詞彙 <span style="font-size: 0.8rem;">🔊 點擊發音</span></h2>
-    <div class="card-grid" id="vocabList"></div>
+  <div id="essentials" class="panel active-panel">
+    <h2>🔹 Essential Words & Phrases</h2>
+    <div class="card-grid" id="essentialsList"></div>
   </div>
 
-  <div id="phrases" class="panel">
-    <h2>🗨️ 實用對話短語 (日常 + 旅遊 + 餐飲)</h2>
-    <div class="card-grid" id="phrasesList"></div>
+  <div id="convos" class="panel">
+    <h2>🗯️ Real Conversations</h2>
+    <div class="card-grid" id="convoList"></div>
   </div>
 
   <div id="quiz" class="panel">
     <div class="quiz-area" id="quizContainer"></div>
   </div>
 
-  <div id="tips" class="panel">
-    <div style="background: white; border-radius: 2rem; padding: 1.8rem; border: 1px solid #ffe1be;">
-      <h3>🎯 粵語學習小錦囊</h3>
-      <ul style="margin-top: 1rem; margin-left: 1.5rem; line-height: 1.7;">
-        <li>🔊 <strong>九聲六調</strong>：粵語有6個基本聲調，例如「詩 史 試 時 市 事」(si1 si2 si3 si4 si5 si6)。多模仿音頻。</li>
-        <li>📖 <strong>口語 vs 書面語</strong>：粵語口語詞彙不同於書面語，例如「佢」(他)、「食飯」(吃飯)、「邊度」(哪裡)。</li>
-        <li>🎧 <strong>多聽多跟讀</strong>：推薦觀看港劇、聽粵語歌，本站內置發音功能可模仿。</li>
-        <li>✍️ <strong>Jyutping 粵拼</strong>：學會粵拼能快速掌握發音，如「你好」nei5 hou2。</li>
-        <li>📱 每日學習5個生詞＋2個短語，持續進步。</li>
-        <li>🍜 <strong>常用量詞</strong>：個(go3)、隻(zek3)、杯(bui1)、碗(wun2)。</li>
+  <div id="guide" class="panel">
+    <div style="background: white; border-radius: 2rem; padding: 1.8rem; border: 1px solid #cde8e0;">
+      <h3>🎯 How to Speak Cantonese (No Writing Needed)</h3>
+      <ul style="margin-top: 1rem; margin-left: 1.2rem; line-height: 1.8;">
+        <li>🎵 <strong>6 Tones (Jyutping numbers)</strong><br>
+        si1 (high flat) · si2 (high rising) · si3 (mid level)<br>
+        si4 (low falling) · si5 (low rising) · si6 (low level)</li>
+        <li>🗣️ <strong>Key sounds</strong><br>
+        "c" = ts (like "cats") · "z" = ds · "ng" = nasal sound</li>
+        <li>💬 <strong>Question pattern:</strong> Raise your tone at the end<br>
+        Example: nei5 hou2 maa3? (How are you?)</li>
+        <li>🔊 <strong>Always tap the card + repeat aloud</strong> — best way to learn!</li>
+        <li>✅ <strong>Politeness:</strong> "m4 goi1" = excuse me / thanks for service<br>
+        "do1 ze6" = thank you for a gift or favor</li>
       </ul>
-      <div style="margin-top: 1.2rem; background: #fff2e6; padding: 0.8rem 1rem; border-radius: 28px;">
-        💡 特別提醒：懶音現象 (n/l 不分) 很常見，但努力區分會更標準。jyut6 jyu5 (粵語) 加油！
-      </div>
     </div>
   </div>
-  <div class="footer-note">
-    🌟 基於 Web Speech API 發音 (支援粵語) · 超過50個詞彙短語 · 不斷練習就會進步！
+  <div class="footer">
+    🌟 Pure spoken Cantonese — no Chinese characters. Tap any card to hear pronunciation (Web Speech API).
   </div>
 </div>
 
 <script>
-  // ========== 擴充詞彙庫 (40+ 詞彙) ==========
-  const vocabulary = [
-    // 基礎代詞
-    { chinese: "我", jyutping: "ngo5", meaning: "我" },
-    { chinese: "你", jyutping: "nei5", meaning: "你" },
-    { chinese: "佢", jyutping: "keoi5", meaning: "他/她" },
-    { chinese: "我哋", jyutping: "ngo5 dei6", meaning: "我們" },
-    { chinese: "你哋", jyutping: "nei5 dei6", meaning: "你們" },
-    { chinese: "佢哋", jyutping: "keoi5 dei6", meaning: "他們/她們" },
-    // 飲食
-    { chinese: "食飯", jyutping: "sik6 faan6", meaning: "吃飯" },
-    { chinese: "飲水", jyutping: "jam2 seoi2", meaning: "喝水" },
-    { chinese: "飲茶", jyutping: "jam2 caa4", meaning: "喝茶 / 飲茶" },
-    { chinese: "食早餐", jyutping: "sik6 zou2 caan1", meaning: "吃早餐" },
-    { chinese: "食晚餐", jyutping: "sik6 maan5 caan1", meaning: "吃晚餐" },
-    { chinese: "好味", jyutping: "hou2 mei6", meaning: "好吃 / 美味" },
-    { chinese: "飽", jyutping: "baau2", meaning: "飽了" },
-    { chinese: "餓", jyutping: "ngo6", meaning: "餓" },
-    // 日常用語
-    { chinese: "好靚", jyutping: "hou2 leng3", meaning: "很漂亮" },
-    { chinese: "多謝", jyutping: "do1 ze6", meaning: "謝謝 (禮物/幫助)" },
-    { chinese: "唔該", jyutping: "m4 goi1", meaning: "謝謝 (服務)/勞駕" },
-    { chinese: "早晨", jyutping: "zou2 san4", meaning: "早安 / 早上好" },
-    { chinese: "午安", jyutping: "ng5 on1", meaning: "午安" },
-    { chinese: "晚安", jyutping: "maan5 on1", meaning: "晚安" },
-    { chinese: "再見", jyutping: "zoi3 gin3", meaning: "再見" },
-    // 購物與數字
-    { chinese: "幾多錢", jyutping: "gei2 do1 cin2", meaning: "多少錢" },
-    { chinese: "邊度", jyutping: "bin1 dou6", meaning: "哪裡" },
-    { chinese: "呢個", jyutping: "ni1 go3", meaning: "這個" },
-    { chinese: "嗰個", jyutping: "go2 go3", meaning: "那個" },
-    { chinese: "平啲", jyutping: "peng4 di1", meaning: "便宜一點" },
-    { chinese: "貴", jyutping: "gwai3", meaning: "貴" },
-    // 時間
-    { chinese: "今日", jyutping: "gam1 jat6", meaning: "今天" },
-    { chinese: "聽日", jyutping: "ting1 jat6", meaning: "明天" },
-    { chinese: "尋日", jyutping: "cam4 jat6", meaning: "昨天" },
-    { chinese: "幾點", jyutping: "gei2 dim2", meaning: "幾點鐘" },
-    // 情感/狀態
-    { chinese: "開心", jyutping: "hoi1 sam1", meaning: "開心" },
-    { chinese: "傷心", jyutping: "soeng1 sam1", meaning: "傷心" },
-    { chinese: "鍾意", jyutping: "zung1 ji3", meaning: "喜歡" },
-    { chinese: "唔鍾意", jyutping: "m4 zung1 ji3", meaning: "不喜歡" },
-    { chinese: "攰", jyutping: "gui6", meaning: "累" },
-    { chinese: "眼瞓", jyutping: "ngaan5 fan3", meaning: "睏" },
-    // 交通
-    { chinese: "巴士", jyutping: "baa1 si2", meaning: "巴士" },
-    { chinese: "地鐵", jyutping: "dei6 tit3", meaning: "地鐵" },
-    { chinese: "的士", jyutping: "dik1 si2", meaning: "計程車" },
-    { chinese: "去邊度", jyutping: "heoi3 bin1 dou6", meaning: "去哪裡" }
+  // ========== ESSENTIALS (no Chinese characters) ==========
+  const essentials = [
+    { jyutping: "nei5 hou2", meaning: "Hello / How are you?" },
+    { jyutping: "ngo5 hou2", meaning: "I'm fine" },
+    { jyutping: "do1 ze6", meaning: "Thank you (for gift/favor)" },
+    { jyutping: "m4 goi1", meaning: "Excuse me / Thanks (for service)" },
+    { jyutping: "hou2 aa3", meaning: "Okay / Alright" },
+    { jyutping: "m4 hai6", meaning: "No / It's not" },
+    { jyutping: "hai6 aa3", meaning: "Yes / That's right" },
+    { jyutping: "m4 sik1", meaning: "I don't know / don't understand" },
+    { jyutping: "gei2 do1 cin2", meaning: "How much money?" },
+    { jyutping: "bin1 dou6", meaning: "Where?" },
+    { jyutping: "gam1 jat6", meaning: "Today" },
+    { jyutping: "ting1 jat6", meaning: "Tomorrow" },
+    { jyutping: "cam4 jat6", meaning: "Yesterday" },
+    { jyutping: "deoi3 m4 zyu6", meaning: "Sorry" },
+    { jyutping: "m4 gan2", meaning: "You're welcome / Not at all" },
+    { jyutping: "ding6 naa5", meaning: "Or / either" },
+    { jyutping: "jat1 cai4", meaning: "Together" },
+    { jyutping: "dang2 zan6", meaning: "Wait a moment" },
+    { jyutping: "hou2 leng3", meaning: "Very beautiful / nice" },
+    { jyutping: "hou2 hoeng1", meaning: "Very delicious / tasty" }
   ];
 
-  // ========== 擴充短語庫 (25+ 實用短語) ==========
-  const phrases = [
-    // 基本問候
-    { phrase: "你好嗎？", jyutping: "nei5 hou2 maa3?", meaning: "你好嗎？" },
-    { phrase: "我好好，多謝。", jyutping: "ngo5 hou2 hou2, do1 ze6.", meaning: "我很好，謝謝。" },
-    { phrase: "最近點呀？", jyutping: "zeoi3 gan6 dim2 aa3?", meaning: "最近怎麼樣？" },
-    // 餐廳/飲食
-    { phrase: "唔該，呢個幾多錢？", jyutping: "m4 goi1, ni1 go3 gei2 do1 cin2?", meaning: "請問，這個多少錢？" },
-    { phrase: "有冇位呀？", jyutping: "jau5 mou5 wai2 aa3?", meaning: "有沒有位置？" },
-    { phrase: "我想點餐", jyutping: "ngo5 soeng2 dim2 caan1", meaning: "我想點餐" },
-    { phrase: "俾杯水我", jyutping: "bei2 bui1 seoi2 ngo5", meaning: "給我一杯水" },
-    { phrase: "埋單", jyutping: "maai4 daan1", meaning: "買單 / 結帳" },
-    // 日常對話
-    { phrase: "對唔住", jyutping: "deoi3 m4 zyu6", meaning: "對不起" },
-    { phrase: "冇問題", jyutping: "mou5 man6 tai4", meaning: "沒問題" },
-    { phrase: "你叫咩名？", jyutping: "nei5 giu3 me1 meng2?", meaning: "你叫什麼名字？" },
-    { phrase: "我識講少少廣東話", jyutping: "ngo5 sik1 gong2 siu2 siu2 gwong2 dung1 waa2", meaning: "我會說一點點粵語" },
-    { phrase: "我聽唔明", jyutping: "ngo5 teng1 m4 ming4", meaning: "我聽不懂" },
-    { phrase: "可唔可以講慢啲？", jyutping: "ho2 m4 ho2 ji5 gong2 maan6 di1?", meaning: "可以說慢一點嗎？" },
-    // 購物
-    { phrase: "可唔可以平啲？", jyutping: "ho2 m4 ho2 ji5 peng4 di1?", meaning: "可以便宜一點嗎？" },
-    { phrase: "有冇其他顏色？", jyutping: "jau5 mou5 kei4 taa1 ngaan4 sik1?", meaning: "有沒有其他顏色？" },
-    // 邀約
-    { phrase: "一齊食飯啦", jyutping: "jat1 cai4 sik6 faan6 laa1", meaning: "一起吃飯吧" },
-    { phrase: "去唔去飲茶？", jyutping: "heoi3 m4 heoi3 jam2 caa4?", meaning: "去不去喝茶？" },
-    // 應急
-    { phrase: "救命呀！", jyutping: "gau3 ming6 aa3!", meaning: "救命啊！" },
-    { phrase: "幫我 call 白車", jyutping: "bong1 ngo5 call baak6 ce1", meaning: "幫我叫救護車" },
-    { phrase: "我盪失路", jyutping: "ngo5 dong6 sat1 lou6", meaning: "我迷路了" },
-    // 數字短語
-    { phrase: "幾多個人？", jyutping: "gei2 do1 go3 jan4?", meaning: "幾個人？" },
-    { phrase: "一個", jyutping: "jat1 go3", meaning: "一個" },
-    { phrase: "兩個", jyutping: "loeng5 go3", meaning: "兩個" },
-    // 時間相關
-    { phrase: "而家幾點？", jyutping: "ji4 gaa1 gei2 dim2?", meaning: "現在幾點？" },
-    { phrase: "等陣見", jyutping: "dang2 zan6 gin3", meaning: "待會見" }
+  // ========== CONVERSATIONS (real spoken phrases) ==========
+  const conversations = [
+    { jyutping: "nei5 giu3 me1 meng2?", meaning: "What's your name?" },
+    { jyutping: "ngo5 giu3 Ming4. nei5 le1?", meaning: "I'm Ming. And you?" },
+    { jyutping: "nei5 hai6 bin1 dou6 jan4?", meaning: "Where are you from?" },
+    { jyutping: "ngo5 hai6 Mei5 Gwok3 jan4.", meaning: "I'm from America." },
+    { jyutping: "nei5 sik1 m4 sik1 gong2 gwong2 dung1 waa2?", meaning: "Do you speak Cantonese?" },
+    { jyutping: "ngo5 sik1 gong2 siu2 siu2.", meaning: "I speak a little." },
+    { jyutping: "m4 goi1, ngo5 soeng2 yam2 seoi2.", meaning: "Excuse me, I'd like some water." },
+    { jyutping: "yat1 cai4 heoi3 sik6 faan6 laa1", meaning: "Let's go eat together!" },
+    { jyutping: "gei2 dim2 zung1?", meaning: "What time is it?" },
+    { jyutping: "hou2 hoi1 sam1 gin3 dou3 nei5", meaning: "Nice to meet you" },
+    { jyutping: "nei5 ho2 m4 ho2 yi5 gong2 maan6 di1?", meaning: "Can you speak slower?" },
+    { jyutping: "ngo5 teng1 m4 ming4", meaning: "I don't understand" },
+    { jyutping: "jau5 mou5 wai2 aa3?", meaning: "Do you have seats?" },
+    { jyutping: "ngo5 soeng2 dim2 caan1", meaning: "I'd like to order" },
+    { jyutping: "maai4 daan1, m4 goi1", meaning: "Check please" },
+    { jyutping: "ho2 m4 ho2 yi5 peng4 di1?", meaning: "Can it be cheaper?" },
+    { jyutping: "heoi3 m4 heoi3 yam2 caa4?", meaning: "Want to go for dim sum / tea?" },
+    { jyutping: "gau3 ming6 aa3!", meaning: "Help!" },
+    { jyutping: "ngo5 dong6 sat1 lou6", meaning: "I'm lost" },
+    { jyutping: "dang2 zan6 gin3", meaning: "See you later" },
+    { jyutping: "zeoi3 gan6 dim2 aa3?", meaning: "How's it going lately?" },
+    { jyutping: "mou5 man6 tai4", meaning: "No problem" },
+    { jyutping: "ji4 gaa1 gei2 dim2?", meaning: "What time is it now?" },
+    { jyutping: "yat1 go3, loeng5 go3, saam1 go3", meaning: "One, two, three (items/people)" }
   ];
 
-  // ========== 擴充測驗庫 (15 題) ==========
+  // ========== QUIZ (all about spoken Cantonese) ==========
   const quizBank = [
-    { question: "「多謝」的粵拼是？", options: ["do1 ze6", "do1 je6", "dou1 ze6", "daa1 ze6"], correct: 0 },
-    { question: "「早晨」意思是？", options: ["晚安", "早安/早上好", "午安", "晚上好"], correct: 1 },
-    { question: "「邊度」代表什麼？", options: ["這邊", "那裡", "哪裡", "邊個"], correct: 2 },
-    { question: "「食飯」的粵語發音對應哪個意思？", options: ["喝水", "煮飯", "吃飯", "好吃"], correct: 2 },
-    { question: "「你好嗎？」粵拼正確寫法？", options: ["lei5 hou2 maa1", "nei5 hou2 maa3?", "nei5 ho2 maa3", "nei5 hou2 maa5"], correct: 1 },
-    { question: "「鍾意」喺粵語入面即係？", options: ["討厭", "喜歡", "討好", "鍾情於某人"], correct: 1 },
-    { question: "以下邊個係「謝謝」嘅粵語講法？", options: ["唔該 / 多謝", "多謝謝", "麻煩晒", "勞駕"], correct: 0 },
-    { question: "「我哋」意思是？", options: ["我們", "你們", "他們", "我的"], correct: 0 },
-    { question: "「埋單」是什麼意思？", options: ["買單/結帳", "買菜", "埋頭", "單據"], correct: 0 },
-    { question: "「好味」的粵拼是？", options: ["hou2 mei6", "hou2 wai6", "hou2 mei5", "hou2 ng6"], correct: 0 },
-    { question: "「救命」的粵語是？", options: ["gau3 ming6", "gau3 meng6", "gau1 ming6", "gaau3 ming6"], correct: 0 },
-    { question: "「聽日」代表？", options: ["昨天", "今天", "明天", "後天"], correct: 2 },
-    { question: "「唔該」通常在什麼場合使用？", options: ["道歉", "感謝服務", "問候", "告別"], correct: 1 },
-    { question: "「有冇位呀？」意思係？", options: ["有沒有錢", "有沒有位置", "有沒有時間", "有沒有朋友"], correct: 1 },
-    { question: "「我等陣見」的「等陣」是什麼意思？", options: ["等一下", "等一陣子", "等待", "等車"], correct: 0 }
+    { question: "What does 'nei5 hou2' mean?", options: ["Goodbye", "Hello / How are you", "Thank you", "Sorry"], correct: 1 },
+    { question: "How do you say 'Thank you (for a gift)'?", options: ["m4 goi1", "do1 ze6", "hou2 aa3", "m4 hai6"], correct: 1 },
+    { question: "What is 'where?' in Jyutping?", options: ["gei2 do1", "bin1 dou6", "gam1 jat6", "deoi3 m4 zyu6"], correct: 1 },
+    { question: "'m4 sik1' means:", options: ["I understand", "I don't know", "I'm happy", "Expensive"], correct: 1 },
+    { question: "How do you ask 'How much?'", options: ["nei5 hou2 maa3", "gei2 do1 cin2", "bin1 go3", "hou2 leng3"], correct: 1 },
+    { question: "'deoi3 m4 zyu6' means:", options: ["Sorry", "Thank you", "No problem", "See you"], correct: 0 },
+    { question: "What is 'Let's eat together' in Jyutping?", options: ["yat1 cai4 heoi3 sik6 faan6 laa1", "ngo5 sik6 zo2", "nei5 sek3 faan6 mei6?", "hou2 hoeng1"], correct: 0 },
+    { question: "'m4 goi1' is used for:", options: ["Apology", "Thank you (service)", "Good morning", "Help"], correct: 1 },
+    { question: "How to say 'Today'?", options: ["gam1 jat6", "ting1 jat6", "cam4 jat6", "maan5 on1"], correct: 0 },
+    { question: "What does 'hou2 leng3' mean?", options: ["Very delicious", "Very beautiful", "Very tired", "Very hungry"], correct: 1 },
+    { question: "'jat1 cai4' means:", options: ["One time", "Together", "One person", "First"], correct: 1 },
+    { question: "How to say 'I don't understand'?", options: ["ngo5 sik1", "ngo5 ming4 baak6", "ngo5 teng1 m4 ming4", "ngo5 m4 sik1"], correct: 2 },
+    { question: "What is 'Help!' in Cantonese?", options: ["gau3 ming6 aa3", "deoi3 m4 zyu6", "m4 goi1", "hou2 aa3"], correct: 0 },
+    { question: "'maai4 daan1' means:", options: ["Order food", "Check / Bill", "Eat fast", "Come in"], correct: 1 },
+    { question: "How to say 'Tomorrow'?", options: ["gam1 jat6", "ting1 jat6", "cam4 jat6", "jan4"], correct: 1 }
   ];
 
+  // Speech function
   function speakCantonese(text) {
     if (!window.speechSynthesis) {
-      alert("抱歉，您的瀏覽器不支持語音發音。");
+      alert("Browser doesn't support speech. Try Chrome/Safari/Edge.");
       return;
     }
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'zh-HK';
-    utterance.rate = 0.9;
+    utterance.rate = 0.85;
     utterance.pitch = 1.0;
-    utterance.volume = 1;
     window.speechSynthesis.speak(utterance);
   }
 
-  function renderVocab() {
-    const container = document.getElementById('vocabList');
+  // Render essentials
+  function renderEssentials() {
+    const container = document.getElementById('essentialsList');
     if (!container) return;
     container.innerHTML = '';
-    vocabulary.forEach(item => {
+    essentials.forEach(item => {
       const card = document.createElement('div');
-      card.className = 'vocab-card';
+      card.className = 'conv-card';
       card.innerHTML = `
-        <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap;">
-          <span class="chinese-char">${item.chinese}</span>
-          <span class="jyutping">${item.jyutping}</span>
-        </div>
-        <div class="meaning">📖 ${item.meaning}</div>
-        <button class="play-btn" data-text="${item.chinese}">🔊 發音</button>
+        <div class="jyutping-phrase">${item.jyutping}</div>
+        <div class="meaning">💬 ${item.meaning}</div>
+        <button class="play-btn" data-text="${item.jyutping}">🔊 Listen & Repeat</button>
       `;
       const btn = card.querySelector('.play-btn');
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        speakCantonese(btn.getAttribute('data-text'));
-      });
+      btn.addEventListener('click', () => speakCantonese(item.jyutping));
       container.appendChild(card);
     });
   }
 
-  function renderPhrases() {
-    const container = document.getElementById('phrasesList');
+  // Render conversations
+  function renderConversations() {
+    const container = document.getElementById('convoList');
     if (!container) return;
     container.innerHTML = '';
-    phrases.forEach(p => {
+    conversations.forEach(item => {
       const card = document.createElement('div');
-      card.className = 'phrase-card';
+      card.className = 'conv-card';
       card.innerHTML = `
-        <div class="phrase-line">
-          <span class="chinese-char" style="font-size:1.3rem;">${p.phrase}</span>
-          <span class="jyutping">${p.jyutping}</span>
-        </div>
-        <div class="meaning">✨ ${p.meaning}</div>
-        <button class="play-btn" data-phrase="${p.phrase}">🗣️ 讀出句子</button>
+        <div class="jyutping-phrase">🗣️ ${item.jyutping}</div>
+        <div class="meaning">📌 ${item.meaning}</div>
+        <button class="play-btn" data-text="${item.jyutping}">🔊 Hear & Speak</button>
       `;
       const btn = card.querySelector('.play-btn');
-      btn.addEventListener('click', () => {
-        speakCantonese(btn.getAttribute('data-phrase'));
-      });
+      btn.addEventListener('click', () => speakCantonese(item.jyutping));
       container.appendChild(card);
     });
   }
 
+  // Quiz logic
   let currentQuizIndex = 0;
   let currentScore = 0;
   let quizLock = false;
-  let currentQuestionObj = null;
+  let currentQuestion = null;
 
-  function loadQuizQuestion() {
-    const quizContainer = document.getElementById('quizContainer');
-    if (!quizContainer) return;
+  function loadQuiz() {
+    const container = document.getElementById('quizContainer');
+    if (!container) return;
     if (currentQuizIndex >= quizBank.length) {
-      quizContainer.innerHTML = `
+      container.innerHTML = `
         <div style="text-align: center; padding: 1rem;">
-          <h3>🎉 測驗完成！ 🎉</h3>
-          <p style="font-size: 1.8rem; margin: 1rem 0;">你嘅總分： ${currentScore} / ${quizBank.length}</p>
-          <p style="margin-bottom: 1rem;">${currentScore === quizBank.length ? '完美！你好叻呀！🌟' : '繼續努力，進步中！💪'}</p>
-          <button class="next-quiz" id="restartQuizBtn">🔄 重新測驗</button>
+          <h3>🎉 Quiz Complete! 🎉</h3>
+          <p style="font-size: 1.8rem; margin: 1rem 0;">Score: ${currentScore} / ${quizBank.length}</p>
+          <p>${currentScore === quizBank.length ? 'Perfect! You're ready to speak! 🌟' : 'Good job! Keep practicing! 💪'}</p>
+          <button class="next-quiz" id="restartQuiz">🔄 Restart Quiz</button>
         </div>
       `;
-      const restartBtn = document.getElementById('restartQuizBtn');
-      if (restartBtn) {
-        restartBtn.addEventListener('click', () => {
-          currentQuizIndex = 0;
-          currentScore = 0;
-          quizLock = false;
-          loadQuizQuestion();
-        });
-      }
+      const restart = document.getElementById('restartQuiz');
+      if (restart) restart.addEventListener('click', () => {
+        currentQuizIndex = 0;
+        currentScore = 0;
+        quizLock = false;
+        loadQuiz();
+      });
       return;
     }
-    currentQuestionObj = quizBank[currentQuizIndex];
+    currentQuestion = quizBank[currentQuizIndex];
     quizLock = false;
-    quizContainer.innerHTML = `
-      <div class="quiz-question">❓ ${currentQuestionObj.question}</div>
+    container.innerHTML = `
+      <div class="quiz-question">❓ ${currentQuestion.question}</div>
       <div class="quiz-options" id="quizOptions"></div>
       <div class="quiz-feedback" id="quizFeedback"></div>
-      <button class="next-quiz" id="nextQuizBtn" disabled>下一題 →</button>
+      <button class="next-quiz" id="nextBtn" disabled>Next →</button>
     `;
     const optionsDiv = document.getElementById('quizOptions');
-    currentQuestionObj.options.forEach((opt, idx) => {
+    currentQuestion.options.forEach((opt, idx) => {
       const optDiv = document.createElement('div');
       optDiv.className = 'quiz-opt';
-      optDiv.innerText = opt;
+      optDiv.textContent = opt;
       optDiv.dataset.idx = idx;
-      optDiv.addEventListener('click', () => handleAnswer(idx, optDiv));
+      optDiv.addEventListener('click', () => handleQuizAnswer(idx, optDiv));
       optionsDiv.appendChild(optDiv);
     });
-    const nextBtn = document.getElementById('nextQuizBtn');
-    nextBtn.addEventListener('click', () => {
+    document.getElementById('nextBtn').addEventListener('click', () => {
       if (quizLock) {
         currentQuizIndex++;
-        loadQuizQuestion();
+        loadQuiz();
       }
     });
   }
 
-  function handleAnswer(selectedIdx, element) {
+  function handleQuizAnswer(selected, element) {
     if (quizLock) return;
-    const isCorrect = (selectedIdx === currentQuestionObj.correct);
-    const feedbackDiv = document.getElementById('quizFeedback');
+    const isCorrect = (selected === currentQuestion.correct);
+    const feedback = document.getElementById('quizFeedback');
     const allOptions = document.querySelectorAll('.quiz-opt');
     quizLock = true;
     if (isCorrect) {
       currentScore++;
-      feedbackDiv.innerHTML = '✅ 正確！ 好叻！';
+      feedback.innerHTML = '✅ Correct! Great job!';
       element.style.backgroundColor = '#c8e6c8';
     } else {
-      feedbackDiv.innerHTML = `❌ 錯咗！ 正確答案係： ${currentQuestionObj.options[currentQuestionObj.correct]}`;
+      feedback.innerHTML = `❌ Wrong! Correct answer: ${currentQuestion.options[currentQuestion.correct]}`;
       element.style.backgroundColor = '#ffe1cf';
       allOptions.forEach(opt => {
-        if (parseInt(opt.dataset.idx) === currentQuestionObj.correct) {
+        if (parseInt(opt.dataset.idx) === currentQuestion.correct) {
           opt.style.backgroundColor = '#c8e6c8';
-          opt.style.border = '1px solid #4caf50';
+          opt.style.border = '1px solid #2b9c7c';
         }
       });
     }
     allOptions.forEach(opt => {
       opt.style.pointerEvents = 'none';
-      opt.style.opacity = '0.8';
+      opt.style.opacity = '0.7';
     });
-    const nextBtn = document.getElementById('nextQuizBtn');
-    nextBtn.disabled = false;
+    document.getElementById('nextBtn').disabled = false;
   }
 
   // Tab switching
-  const tabs = document.querySelectorAll('.tab-btn');
-  const panels = document.querySelectorAll('.panel');
-  tabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetTab = btn.getAttribute('data-tab');
-      tabs.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      panels.forEach(panel => panel.classList.remove('active-panel'));
-      const activePanel = document.getElementById(targetTab);
-      if (activePanel) activePanel.classList.add('active-panel');
-      if (targetTab === 'quiz') {
-        loadQuizQuestion();
-      }
+  function initTabs() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.panel');
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabs.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        panels.forEach(p => p.classList.remove('active-panel'));
+        document.getElementById(target).classList.add('active-panel');
+        if (target === 'quiz') loadQuiz();
+      });
     });
-  });
+  }
 
-  renderVocab();
-  renderPhrases();
-  loadQuizQuestion();
+  renderEssentials();
+  renderConversations();
+  loadQuiz();
+  initTabs();
 </script>
 </body>
 </html>
