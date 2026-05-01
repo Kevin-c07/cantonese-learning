@@ -258,7 +258,6 @@
       <div class="sidebar-item" data-panel="tone_mistakes"><span class="icon">⚠️</span>Common Tone Mistakes</div>
       <div class="sidebar-item" data-panel="idioms"><span class="icon">🀄</span>Chinese Idioms</div>
       <div class="sidebar-item" data-panel="riddles"><span class="icon">🔮</span>Chinese Riddles</div>
-      <div class="sidebar-item" data-panel="dimsum"><span class="icon">🥟</span>Dim Sum Menu</div>
       <div class="sidebar-item" data-panel="mtr"><span class="icon">🚇</span>Hong Kong MTR</div>
     </div>
     <div class="sidebar-divider"></div>
@@ -350,7 +349,6 @@
     <div class="panel" id="panel-tone_mistakes"><div class="panel-header"><h2>⚠️ Common Tone Mistakes</h2></div><div id="grid-tone_mistakes"></div></div>
     <div class="panel" id="panel-idioms"><div class="panel-header"><h2>🀄 Chinese Idioms</h2></div><div id="tone-legend-idioms"></div><div class="card-grid" id="grid-idioms"></div></div>
     <div class="panel" id="panel-riddles"><div class="panel-header"><h2>🔮 Chinese Riddles</h2></div><div id="grid-riddles"></div></div>
-    <div class="panel" id="panel-dimsum"><div class="panel-header"><h2>🥟 Dim Sum Menu</h2></div><div id="tone-legend-dimsum"></div><div class="card-grid" id="grid-dimsum"></div></div>
     <div class="panel" id="panel-mtr"><div class="panel-header"><h2>🚇 Hong Kong MTR</h2></div><div id="grid-mtr"></div></div>
 
     <!-- QUIZ -->
@@ -1015,25 +1013,42 @@ const VOCAB = {
     {jp:"dung1 jat3",hz:"冬日",en:"Winter day"},
   ],
   slang:[
-    {jp:"tiu4 lou6 nei5 gaa3 gaa3?",hz:"條路你嫁㗎？",en:"Move it! (lit. 'Is the road married to you?')"},
-    {jp:"nei5 m4 ceot1 seng1 mou5 jan4 waa6 nei5 aa2",hz:"你唔出聲冇人話你啞",en:"If you don't speak, no one will think you're mute — shut up"},
-    {jp:"nei5 gam3 gap1 heoi3 tau4 toi1 aa3?",hz:"你咁急去投胎呀？",en:"Are you rushing to get reincarnated? — to reckless people"},
-    {jp:"dang2 dou3 geng2 dou1 coeng4",hz:"等到頸都長",en:"I've waited until my neck is long — been waiting forever"},
-    {jp:"haam4 sap1 lou2",hz:"鹹濕佬",en:"Pervert / lecherous man"},
-    {jp:"bei2 jan4 gwaan1",hz:"俾人昆",en:"Got scammed / fooled"},
-    {jp:"gau3 gau6",hz:"狗噏",en:"Talking nonsense (lit. 'dog barking')"},
-    {jp:"tai2 siu2 nei5",hz:"睇小你",en:"Look down on / underestimate you"},
-    {jp:"soeng6 dong6 aa3 maa3",hz:"上當啊嘛",en:"Yeah right / As if I'd fall for that (sarcastic)"},
-    {jp:"seoi2 fan6 sou3",hz:"水份數",en:"Exaggerated story / full of hot air"},
-    {jp:"lek1 zai2",hz:"叻仔",en:"Clever boy (can be genuine OR sarcastic)"},
-    {jp:"nei5 zan1 hai6 hou2 lek1",hz:"你真係好叻",en:"You're so talented! (often sarcastic)"},
-    {jp:"zan1 sik6 gaa3?",hz:"真食㗎？",en:"For real? (sarcastic)"},
-    {jp:"nei5 gong2 dung6 aa3",hz:"你講棟啊",en:"You're making that up"},
-    {jp:"seon3 nei5 dou1 so4",hz:"信你都傻",en:"Only an idiot would believe you"},
-    {jp:"hoe1 seoi2 zai2",hz:"吹水仔",en:"Bullshitter / exaggerator"},
+    {jp:"tiu4 lou6 nei5 gaa3 gaa3?", hz:"條路你嫁㗎？", en:"Move it! (lit. 'Is the road married to you?') — tell someone blocking the way"},
+    {jp:"nei5 m4 ceot1 seng1 mou5 jan4 waa6 nei5 aa2", hz:"你唔出聲冇人話你啞", en:"If you don't speak, no one will think you're deaf — shut up"},
+    {jp:"nei5 gam3 gap1 heoi3 tau4 toi1 aa3?", hz:"你咁急去投胎呀？", en:"Are you in a rush to get reincarnated? — to reckless drivers/people"},
+    {jp:"dang2 dou3 geng2 dou1 coeng4", hz:"等到頸都長", en:"I've waited until my neck is long — I've been waiting forever"},
+    {jp:"nei5 sai3 go3 sik6 bo1 lei1 daai6 gaa3?", hz:"你細個食玻璃大㗎？", en:"Did you eat glass growing up? — you're so sharp-tongued"},
+
+    {jp:"haam4 sap1 lou2",hz:"鹹濕佬",en:"Pervert / lecherous man (very common)"},
+    {jp:"daai6 lou6",hz:"大碌",en:"Bullshit / worthless (slang, vulgar)"},
     {jp:"on9",hz:"on9",en:"Stupid idiot (vulgar internet slang — recognition only)"},
     {jp:"diu2",hz:"屌",en:"F*** (extremely vulgar — do NOT use)"},
     {jp:"sik6 si2",hz:"食屎",en:"Eat sh*t — expression of frustration"},
+    {jp:"bei2 jan4 gwaan1",hz:"俾人昆",en:"Got scammed / fooled"},
+    {jp:"gau3 gau6",hz:"狗噏",en:"Talking nonsense / bullshitting (lit. 'dog barking')"},
+    {jp:"tai2 siu2 nei5",hz:"睇小你",en:"Look down on you / underestimate you"},
+    {jp:"daa2 gaa1 si1",hz:"打茄輪",en:"Make out / French kiss (slang)"},
+
+    {jp:"soeng6 dong6 aa3 maa3",hz:"上當啊嘛",en:"Yeah right / As if I'd fall for that (sarcastic)"},
+    {jp:"seoi2 fan6 sou3",hz:"水份數",en:"Exaggerated story / full of hot air"},
+    {jp:"gong2 gau3 waa6",hz:"講狗話",en:"Talking bullshit / speaking nonsense"},
+    {jp:"zaam1 gaau3",hz:"陰莮",en:"Sneaky / two-faced person"},
+    {jp:"lek1 zai2",hz:"叻仔",en:"Clever boy (can be genuine OR sarcastic — tone matters!)"},
+    {jp:"nei5 zan1 hai6 hou2 lek1",hz:"你真係好叻",en:"You're so talented! (OFTEN sarcastic — 'Yeah, you're such a genius...')"},
+    {jp:"hai6 lo3, nei5 teoi1 dak1",hz:"係囉，你推得",en:"Yeah right, you push it (sarcastic: 'Sure, whatever')"},
+    {jp:"zan1 sik6 gaa3?",hz:"真食㗎？",en:"Really? (sarcastic: 'Are you for real?')"},
+    {jp:"nei5 gong2 dung6 aa3",hz:"你講棟啊",en:"You're making that up / lying"},
+    {jp:"hang4 sai3",hz:"行事",en:"Yeah sure / as if (dismissive sarcasm)"},
+    {jp:"m4 goi1 nei5 aa3",hz:"唔該你啊",en:"Thanks a lot (can be genuine OR sarcastic)"},
+    {jp:"deoi3 m4 zyu6 lo3",hz:"對唔住囉",en:"Ohhh sorry then (sarcastic apology — 'Well excuse me!')"},
+    {jp:"zou6 me1 je5 aa3?",hz:"做咩嘢啊？",en:"What are you doing? (can be aggressive/sarcastic)"},
+    
+    {jp:"sui1 dou1 m4 seon3 nei5",hz:"隨都唔信你",en:"No one would believe you"},
+    {jp:"nei5 gong2 zeoi3 daai6",hz:"你講最大",en:"You're telling the biggest story = You're full of it"},
+    {jp:"paau1 m4 sik1 min6",hz:"拋唔識面",en:"You can't even keep a straight face saying that"},
+    {jp:"seon3 nei5 dou1 so4",hz:"信你都傻",en:"Only an idiot would believe you"},
+    {jp:"hoe1 seoi2 zai2",hz:"吹水仔",en:"Bullshitter / exaggerator"},
+    {jp:"daa2 dei6 gong2 waa6",hz:"打地講話",en:"Talking out of your ass (vulgar but common)"},
   ],
   verbs:[
     {jp:"heoi3",hz:"去",en:"Go"},{jp:"lei4",hz:"嚟",en:"Come"},
@@ -1090,17 +1105,6 @@ const VOCAB = {
     {jp:"sam1 jyu2 jau4",hz:"心有餘",en:"The spirit is willing (but flesh is weak)"},
     {jp:"gaau3 jan4 zi1 yu2",hz:"教人知魚",en:"Teach a man to fish"},
     {jp:"jat1 bou6 jat1 geoi6",hz:"一步一腳印",en:"One step at a time (steady progress)"},
-  ],
-  dimsum:[
-    {jp:"haa1 gaau2",hz:"蝦餃",en:"Prawn dumplings (har gow)"},{jp:"siu1 maai2",hz:"燒賣",en:"Siu mai"},
-    {jp:"fung6 zaau2",hz:"鳳爪",en:"Chicken feet"},{jp:"lau4 saa1 baau1",hz:"流沙包",en:"Custard lava bun"},
-    {jp:"lo4 baak6 gou1",hz:"蘿蔔糕",en:"Turnip cake"},{jp:"coeng4 fan2",hz:"腸粉",en:"Rice noodle rolls"},
-    {jp:"daan6 taat3",hz:"蛋撻",en:"Egg tart"},{jp:"wu4 gok3",hz:"芋角",en:"Taro puff"},
-    {jp:"caa4 siu1 baau1",hz:"叉燒包",en:"BBQ pork bun"},{jp:"paai4 gwat1",hz:"排骨",en:"Spare ribs"},
-    {jp:"zaa3 loeng2",hz:"炸兩",en:"Fried dough rice roll"},{jp:"jat1 wut6 caa4",hz:"一壺茶",en:"One pot of tea"},
-    {jp:"maa4 lai4 gou1",hz:"馬拉糕",en:"Steamed sponge cake"},
-    {jp:"nai5 wong4 bau1",hz:"奶皇包",en:"Steamed custard bun"},
-    {jp:"cyu4 zyu1 gou1",hz:"豬腸糕",en:"Rice flour layer cake"},
   ],
 };
 
@@ -1378,7 +1382,7 @@ const TOPIC_LABELS={
   people:"People",places:"Places",professions:"Professions",pronouns:"Pronouns",
   school:"School",seasons:"Seasons",special_occasions:"Special Occasions",sport:"Sport",
   christmas:"Christmas",verbs:"Verbs",weather:"Weather",classifiers:"Classifiers",
-  idioms:"Idioms",dimsum:"Dim Sum",slang:"Slang & Sarcasm (18+)",
+  idioms:"Idioms",slang:"Slang & Sarcasm (18+)",
 };
 
 function buildPool(topicKeys){
