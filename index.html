@@ -13,7 +13,7 @@
   <title>Cantonese Study Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0e0f13;--surface:#161820;--surface2:#1e2028;--border:#2a2c36;--accent:#e8b86d;--accent2:#6d9ee8;--accent3:#e86d8c;--text:#e8e4dc;--text-muted:#7a7a8c;--text-dim:#4a4a5c;--green:#6dcc9e;--red:#e86d6d;--sidebar-w:260px;--t1:#f5c842;--t2:#6dcc9e;--t3:#6d9ee8;--t4:#e86d6d;--t5:#cc8dcc;--t6:#e8b86d;}
+    :root{--bg:#0e0f13;--surface:#161820;--surface2:#1e2028;--border:#2a2c36;--accent:#e8b86d;--accent2:#6d9ee8;--accent3:#e86d8c;--text:#e8e4dc;--text-muted:#7a7a8c;--text-dim:#4a4a5c;--green:#6dcc9e;--red:#e86d6d;--sidebar-w:260px;--t1:#f5c842;--t2:#6dcc9e;--t3:#6d9ee8;--t4:#e86d6d;--t5:#cc8dcc;--t6:#e8b86d;--t0:#9a8c7a;}
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
     .top-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:.85rem 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:200;}
@@ -62,7 +62,8 @@
     .t4{color:var(--t4);}.t4 .tone-bar{background:var(--t4);}
     .t5{color:var(--t5);}.t5 .tone-bar{background:var(--t5);}
     .t6{color:var(--t6);}.t6 .tone-bar{background:var(--t6);}
-    .t0{color:var(--text-muted);}.t0 .tone-bar{background:var(--text-dim);}
+    .t0{color:var(--t0);}.t0 .tone-bar{background:var(--t0);}
+    .jp-punct{font-size:.95rem;font-weight:700;color:var(--text-muted);line-height:1;align-self:center;padding:0 1px;}
     .card-hanzi{font-family:'Noto Serif TC',serif;font-size:1.3rem;color:var(--text-muted);margin-bottom:.4rem;letter-spacing:.05em;}
     .card-meaning{font-size:.88rem;color:var(--text-muted);border-left:2px solid var(--accent2);padding-left:.6rem;line-height:1.5;margin-bottom:.8rem;}
     .card-buttons{display:flex;gap:.4rem;flex-wrap:wrap;}
@@ -288,7 +289,7 @@
           <span style="background:var(--t3);color:#000;padding:2px 10px;border-radius:20px;font-size:.8rem;font-weight:700;">T3 Mid Flat ─</span>
           <span style="background:var(--t4);color:#000;padding:2px 10px;border-radius:20px;font-size:.8rem;font-weight:700;">T4 Low Falling ↘</span>
           <span style="background:var(--t5);color:#000;padding:2px 10px;border-radius:20px;font-size:.8rem;font-weight:700;">T5 Low Rising ↗</span>
-          <span style="background:var(--t6);color:#000;padding:2px 10px;border-radius:20px;font-size:.8rem;font-weight:700;">T6 Low Flat ─</span>
+          <span style="background:var(--t0);color:#fff;padding:2px 10px;border-radius:20px;font-size:.8rem;font-weight:700;">T0 Neutral ·</span>
         </div>
         <p style="margin-top:.8rem;font-size:.82rem;">🔊 = normal speed &nbsp;|&nbsp; 🐢 = slow (half speed) — great for catching every syllable</p>
       </div>
@@ -382,7 +383,7 @@
       <button id="playbackBtn" class="btn-primary" style="display:none;background:var(--accent2);">▶️ Playback</button>
       <button id="saveRecordingBtn" class="btn-primary" style="display:none;">💾 Save</button>
       <button id="deleteThisRecBtn" class="btn-primary" style="display:none;background:var(--red);">🗑️ Delete existing</button>
-      <button onclick="closeRecordingModal()" class="btn-primary" style="background:var(--text-dim);">Close</button>
+      <button id="closeModalBtn" class="btn-primary" style="background:var(--text-dim);">Close</button>
     </div>
   </div>
 </div>
@@ -1124,6 +1125,7 @@ function getToneNum(s){const m=s.match(/([1-6])$/);return m?parseInt(m[1]):0;}
 function stripTone(s){return s.replace(/[1-6]$/,'');}
 function renderJyutping(jp){
   return jp.split(' ').map(syl=>{
+    if(!syl.trim()||/^[^a-zA-Z0-9]+$/.test(syl)) return `<span class="jp-punct">${syl}</span>`;
     const t=getToneNum(syl),cls=t>0?`t${t}`:'t0',base=stripTone(syl),path=TONE_PATHS[t]||'';
     return `<span class="syllable ${cls}" title="Tone ${t}: ${(TONE_NAMES[t]||{}).label||''} ${(TONE_NAMES[t]||{}).symbol||''}"><span class="syl-text">${base}<sup style="font-size:.6em;opacity:.7;">${t||''}</sup></span>${t>0?`<svg class="tone-shape" viewBox="0 0 20 12" xmlns="http://www.w3.org/2000/svg"><path d="${path}" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`:'<div class="tone-bar"></div>'}</span>`;
   }).join(' ');
@@ -1627,6 +1629,7 @@ sideItems.forEach(item=>{
     const panel=document.getElementById('panel-'+target);
     if(panel)panel.classList.add('active');
     if(target==='quiz')loadQuiz();
+    if(target==='recordings_manager')renderRecordingsManager();
     if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open');
   });
 });
@@ -1640,10 +1643,15 @@ document.getElementById('globalSearch').addEventListener('input',function(){
 });
 document.getElementById('exportAllBtn').addEventListener('click',exportAllRecordings);
 document.getElementById('importAllBtn').addEventListener('click',()=>{const inp=document.createElement('input');inp.type='file';inp.accept='application/json';inp.onchange=e=>{if(e.target.files[0])importRecordings(e.target.files[0]);};inp.click();});
-document.getElementById('clearRecordingsBtn').addEventListener('click',()=>{if(confirm('Delete ALL recordings?')){localStorage.removeItem('customAudio');updateStorageInfo();}});
+document.getElementById('manageRecBtn').addEventListener('click',()=>{
+  const target=document.querySelector('[data-panel="recordings_manager"]');
+  if(target)target.click();
+});
 document.getElementById('startRecordBtn').addEventListener('click',startRecording);
 document.getElementById('stopRecordBtn').addEventListener('click',stopRecording);
 document.getElementById('saveRecordingBtn').addEventListener('click',saveRecording);
+document.getElementById('deleteThisRecBtn').addEventListener('click',deleteCurrentRec);
+document.getElementById('closeModalBtn').addEventListener('click',closeRecordingModal);
 
 updateStorageInfo();
 loadQuiz();
