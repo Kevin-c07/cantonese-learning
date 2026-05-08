@@ -1476,14 +1476,38 @@ function renderRecordingsManager(){
     </div>`;
   const list=document.getElementById('recList');
   keys.sort().forEach(phrase=>{
-    const audio=new Audio(recs[phrase]);
+    const audioData = recs[phrase];
     const item=document.createElement('div');
     item.className='rec-item';
     item.innerHTML=`
       <span class="rec-item-phrase" title="${phrase}">${phrase}</span>
-      <button class="rec-item-play" onclick="new Audio(loadCustomRecordings()['${phrase.replace(/'/g,"\\'")}']).play()">▶ Play</button>
+      <button class="rec-item-play" data-phrase="${phrase.replace(/'/g,"\\'")}">▶ Play</button>
       <button class="rec-item-play" onclick="speak('${phrase.replace(/'/g,"\\'")}',undefined,0.45)" style="color:var(--text-dim);" title="TTS slow">🐢</button>
-      <button class="rec-item-del" onclick="deleteRecording('${phrase.replace(/'/g,"\\'")}');renderRecordingsManager();refreshAllGrids();">🗑️</button>`;
+      <button class="rec-item-del" data-phrase="${phrase.replace(/'/g,"\\'")}">🗑️</button>`;
+    
+    // Fix: Create audio element and store reference
+    const playBtn = item.querySelector('.rec-item-play:first-child');
+    const audioObj = new Audio(audioData);
+    playBtn.onclick = (e) => {
+      e.stopPropagation();
+      try {
+        audioObj.currentTime = 0;
+        audioObj.play().catch(err => console.warn('Playback error:', err));
+      } catch(err) {
+        console.warn('Audio playback failed:', err);
+      }
+    };
+    
+    const delBtn = item.querySelector('.rec-item-del');
+    delBtn.onclick = (e) => {
+      e.stopPropagation();
+      if(confirm(`Delete recording for "${phrase}"?`)){
+        deleteRecording(phrase);
+        renderRecordingsManager();
+        refreshAllGrids();
+      }
+    };
+    
     list.appendChild(item);
   });
 }
@@ -1880,18 +1904,16 @@ function scorerDrawModelPitch(jp){
   }
   
   if (tones.length === 0) {
-    // Default to a neutral curve if no tones detected
     for (let i = 0; i < 30; i++) tones.push(3);
   }
   
-  // Define pitch shapes for each tone (normalized 0-1 scale, higher = higher pitch)
   const P = {
-    1: [0.85, 0.85, 0.85, 0.85, 0.85], // High flat
-    2: [0.55, 0.65, 0.78, 0.88, 0.92], // High rising
-    3: [0.55, 0.55, 0.55, 0.55, 0.55], // Mid flat
-    4: [0.65, 0.48, 0.35, 0.25, 0.18], // Low falling
-    5: [0.28, 0.38, 0.52, 0.66, 0.78], // Low rising
-    6: [0.28, 0.28, 0.28, 0.28, 0.28]  // Low flat
+    1: [0.85, 0.85, 0.85, 0.85, 0.85],
+    2: [0.55, 0.65, 0.78, 0.88, 0.92],
+    3: [0.55, 0.55, 0.55, 0.55, 0.55],
+    4: [0.65, 0.48, 0.35, 0.25, 0.18],
+    5: [0.28, 0.38, 0.52, 0.66, 0.78],
+    6: [0.28, 0.28, 0.28, 0.28, 0.28]
   };
   
   let points = [];
@@ -1900,7 +1922,6 @@ function scorerDrawModelPitch(jp){
     points.push(...shape);
   }
   
-  // Smooth and resample to 100 points for consistent display
   const smoothed = [];
   for (let i = 0; i < points.length; i++) {
     let sum = points[i];
@@ -1913,7 +1934,6 @@ function scorerDrawModelPitch(jp){
   scorerRefPitchData = scorerResample(smoothed, 80);
   scorerDrawPitchCurve(canvas, scorerRefPitchData, '#6dcc9e', 'Reference pitch');
   
-  // Also draw reference waveform placeholder
   const refWaveCanvas = document.getElementById('refWaveCanvas');
   if (refWaveCanvas) {
     const w = refWaveCanvas.offsetWidth || 300;
@@ -1967,6 +1987,18 @@ function scorerClearCanvas(id){
   const c=document.getElementById(id);if(!c)return;const W=c.offsetWidth||300;c.width=W;c.height=80;
   const ctx=c.getContext('2d');ctx.fillStyle='#1e2028';ctx.fillRect(0,0,W,80);
   ctx.fillStyle='rgba(255,255,255,.08)';ctx.font='11px DM Sans,sans-serif';ctx.textAlign='center';ctx.fillText('—',W/2,44);ctx.textAlign='left';
+}
+function scorerResample(arr, n) {
+  if (!arr || arr.length === 0) return new Array(n).fill(0.5);
+  const result = new Array(n);
+  for (let i = 0; i < n; i++) {
+    const srcIdx = (i / (n - 1)) * (arr.length - 1);
+    const lo = Math.floor(srcIdx);
+    const hi = Math.min(lo + 1, arr.length - 1);
+    const t = srcIdx - lo;
+    result[i] = arr[lo] * (1 - t) + arr[hi] * t;
+  }
+  return result;
 }
 function scorerResample(arr, n) {
   if (!arr || arr.length === 0) return new Array(n).fill(0.5);
@@ -2257,11 +2289,31 @@ function scorerBuildQuickPicks() {
   // No longer needed - using topic grid instead
   scorerBuildTopicGrid();
 }
-  
+
 </script>
 
 updateStorageInfo();
 loadQuiz();
+  
+if(target==='pronunciation_scorer'){
+  scorerBuildTopicGrid();
+  scorerSelectedTopic = null;
+  scorerSelectedWord = null;
+  scorerCurrentWordList = [];
+  document.getElementById('scorerTopicStage').style.display = 'block';
+  document.getElementById('scorerWordStage').style.display = 'none';
+  document.getElementById('scorerRecordStage').style.display = 'none';
+  document.getElementById('scorerResultStage').style.display = 'none';
+}
+// Add this for recordings manager - scroll to top of content
+if(target==='recordings_manager'){
+  // Small delay to ensure content is rendered
+  setTimeout(() => {
+    const mainContent = document.getElementById('mainContent');
+    if(mainContent) mainContent.scrollTop = 0;
+  }, 50);
+}
+
 </script>
 </body>
 </html>
