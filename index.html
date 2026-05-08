@@ -197,6 +197,15 @@
       .storage-panel{bottom:10px;right:10px;max-width:240px;padding:.8rem;}
       .convo-line{grid-template-columns:auto 1fr;}
       .convo-hz,.convo-listen{grid-column:1/-1;}
+      
+    @keyframes toastIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+      .streak-widget{display:flex;align-items:center;gap:.4rem;background:rgba(232,184,109,.1);border:1px solid rgba(232,184,109,.3);border-radius:20px;padding:.25rem .75rem;cursor:default;user-select:none;flex-shrink:0;}
+      .streak-fire{font-size:1rem;line-height:1;}
+      .streak-count{font-family:'Space Mono',monospace;font-size:.85rem;font-weight:700;color:var(--accent);}
+      .streak-label{font-size:.7rem;color:var(--text-muted);}
+      .streak-widget.cold .streak-fire{filter:grayscale(1);opacity:.5;}
+      .streak-widget.cold .streak-count{color:var(--text-dim);}
+      .streak-toast{position:fixed;top:70px;right:20px;background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:.8rem 1.2rem;z-index:500;font-size:.88rem;color:var(--accent);display:flex;align-items:center;gap:.6rem;box-shadow:0 8px 30px rgba(0,0,0,.4);animation:toastIn .3s ease;pointer-events:none;}
     }
   </style>
 </head>
@@ -205,6 +214,7 @@
   <button class="hamburger" id="hamburger">☰</button>
   <div class="logo">廣東話 <span>Cantonese Study Hub</span></div>
   <input type="text" class="top-search" placeholder="🔍 search vocab…" id="globalSearch">
+  <div id="streakWidget" class="streak-widget" title="Your daily study streak"><span class="streak-fire">🔥</span><span class="streak-count" id="streakCount">0</span><span class="streak-label">day streak</span></div>
 </div>
 <div class="layout">
   <nav class="sidebar" id="sidebar">
@@ -1652,6 +1662,38 @@ document.getElementById('stopRecordBtn').addEventListener('click',stopRecording)
 document.getElementById('saveRecordingBtn').addEventListener('click',saveRecording);
 document.getElementById('deleteThisRecBtn').addEventListener('click',deleteCurrentRec);
 document.getElementById('closeModalBtn').addEventListener('click',closeRecordingModal);
+
+(function(){
+  const KS='studyStreak',KD='lastStudyDate';
+  function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function load(){return{count:parseInt(localStorage.getItem(KS)||'0'),last:localStorage.getItem(KD)||''};}
+  function save(c,d){localStorage.setItem(KS,String(c));localStorage.setItem(KD,d);}
+  function ui(c,toast){
+    const w=document.getElementById('streakWidget'),n=document.getElementById('streakCount');
+    if(!w||!n)return;
+    n.textContent=c;
+    w.classList.toggle('cold',c===0);
+    if(toast&&c>1){
+      const t=document.createElement('div');
+      t.className='streak-toast';
+      t.innerHTML='🔥 <strong>'+c+' day streak!</strong> Keep it up!';
+      document.body.appendChild(t);
+      setTimeout(()=>t.remove(),3500);
+    }
+  }
+  const t=today(),{count,last}=load();
+  if(last===t){ui(count,false);}
+  else if(last===''){save(1,t);ui(1,false);}
+  else{
+    const diff=Math.round((new Date(t)-new Date(last))/86400000);
+    if(diff===1){save(count+1,t);ui(count+1,true);}
+    else{save(1,t);ui(1,false);}
+  }
+})();
+
+updateStorageInfo();
+loadQuiz();
+</script>
 
 updateStorageInfo();
 loadQuiz();
