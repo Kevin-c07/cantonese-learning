@@ -410,63 +410,93 @@
     <!-- QUIZ -->
     <div class="panel" id="panel-quiz"><div class="panel-header"><h2>📝 Smart Quiz</h2><p>Track progress by topic — target weak spots</p></div><div class="quiz-wrap" id="quizWrap"></div></div>
 
-    <!-- PRONUNCIATION SCORER -->
+    <!-- PRONUNCIATION SCORER - Updated with topic selection -->
     <div class="panel" id="panel-pronunciation_scorer">
-      <div class="panel-header"><h2>🎤 Pronunciation Scorer</h2><p>Pick a phrase, listen to the reference, record yourself — then see your pitch contour compared side by side</p></div>
+      <div class="panel-header"><h2>🎤 Pronunciation Scorer</h2><p>Select a topic → pick a word → listen and record your voice → get instant pitch feedback</p></div>
       <div class="scorer-wrap">
-        <div class="scorer-stage">
-          <h3>① Pick a phrase to practise</h3>
-          <div style="display:flex;gap:.6rem;margin-bottom:.8rem;flex-wrap:wrap;">
-            <input type="text" id="scorerCustomInput" placeholder="Type any Jyutping or 漢字…" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.45rem .9rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;min-width:160px;">
-            <button class="scorer-btn primary" onclick="scorerSetCustom()">Set →</button>
-          </div>
-          <p style="font-size:.75rem;color:var(--text-dim);margin-bottom:.6rem;">Or pick a quick phrase:</p>
-          <div class="scorer-quick-picks" id="scorerQuickPicks"></div>
+        <!-- Topic Selection Stage -->
+        <div class="scorer-stage" id="scorerTopicStage">
+          <h3>① Choose a topic to practice</h3>
+          <div class="topic-grid" id="scorerTopicGrid" style="max-height:300px;overflow-y:auto;margin-bottom:1rem;"></div>
+          <div class="scorer-status" id="scorerTopicStatus">Select a topic above to see available words</div>
         </div>
-        <div class="scorer-stage" id="scorerTargetStage" style="display:none;">
-          <h3>② Listen to the reference, then record yourself</h3>
-          <div class="scorer-target">
-            <div><div class="scorer-target-jp" id="scorerPhraseJp">—</div><div class="scorer-target-hz" id="scorerPhraseHz">—</div></div>
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-              <button class="scorer-btn primary" onclick="scorerPlayReference()">🔊 Listen</button>
-              <button class="scorer-btn" onclick="scorerPlaySlow()">🐢 Slow</button>
-            </div>
-          </div>
-          <div class="scorer-canvases">
-            <div class="scorer-canvas-wrap"><label>📢 Reference waveform</label><canvas id="refWaveCanvas" height="80"></canvas></div>
-            <div class="scorer-canvas-wrap"><label>🎤 Your waveform</label><canvas id="userWaveCanvas" height="80"></canvas></div>
-          </div>
-          <div class="scorer-pitch-wrap">
-            <label>Pitch contour — shape matters most for Cantonese tones</label>
-            <div class="scorer-pitch-canvases">
-              <canvas id="refPitchCanvas" height="70"></canvas>
-              <canvas id="userPitchCanvas" height="70"></canvas>
-            </div>
-          </div>
-          <div class="scorer-btn-row">
-            <button class="scorer-btn primary" id="scorerRecordBtn" onclick="scorerStartRecord()">⏺ Record yourself</button>
-            <button class="scorer-btn" id="scorerStopBtn" onclick="scorerStopRecord()" style="display:none;">⏹ Stop</button>
-            <button class="scorer-btn" id="scorerPlaybackBtn" onclick="scorerPlayback()" style="display:none;">▶ Playback</button>
-            <button class="scorer-btn primary" id="scorerScoreBtn" onclick="scorerAnalyse()" style="display:none;">📊 Score me</button>
-          </div>
-          <div class="scorer-status" id="scorerStatus">Press 🔊 Listen to hear the reference, then press ⏺ Record.</div>
+
+        <!-- Word Selection Stage (appears after topic chosen) -->
+        <div class="scorer-stage" id="scorerWordStage" style="display:none;">
+          <h3>② Pick a word to pronounce <span id="scorerCurrentTopicName"></span></h3>
+          <div class="scorer-quick-picks" id="scorerWordGrid" style="max-height:250px;overflow-y:auto;margin-bottom:1rem;"></div>
+          <button class="scorer-btn" onclick="scorerBackToTopics()">← Back to topics</button>
         </div>
-        <div class="scorer-stage" id="scorerResultStage" style="display:none;">
-          <h3>③ Your results</h3>
-          <div class="scorer-result">
-            <div class="scorer-score-ring" id="scorerRing">—</div>
-            <div class="scorer-score-label" id="scorerScoreLabel">Overall score</div>
-            <div class="scorer-feedback" id="scorerFeedback"></div>
-            <div class="scorer-bars" id="scorerSubBars"></div>
+
+      <!-- Recording Stage -->
+      <div class="scorer-stage" id="scorerRecordStage" style="display:none;">
+        <h3>③ Listen & record: <span id="scorerSelectedWordLabel"></span></h3>
+        <div class="scorer-target">
+          <div><div class="scorer-target-jp" id="scorerPhraseJp">—</div><div class="scorer-target-hz" id="scorerPhraseHz">—</div></div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <button class="scorer-btn primary" onclick="scorerPlayReference()">🔊 Listen (normal)</button>
+            <button class="scorer-btn" onclick="scorerPlaySlow()">🐢 Slow</button>
           </div>
-          <div class="scorer-btn-row">
-            <button class="scorer-btn primary" onclick="scorerReset()">🔄 Try again</button>
-            <button class="scorer-btn" onclick="scorerPickNew()">📋 New phrase</button>
+        </div>
+        <div class="scorer-canvases">
+          <div class="scorer-canvas-wrap"><label>📢 Reference waveform</label><canvas id="refWaveCanvas" height="80"></canvas></div>
+          <div class="scorer-canvas-wrap"><label>🎤 Your waveform</label><canvas id="userWaveCanvas" height="80"></canvas></div>
+        </div>
+        <div class="scorer-pitch-wrap">
+          <label>Pitch contour — shape matters most for Cantonese tones</label>
+          <div class="scorer-pitch-canvases">
+            <canvas id="refPitchCanvas" height="70"></canvas>
+            <canvas id="userPitchCanvas" height="70"></canvas>
           </div>
-          <div class="scorer-tip">💡 <strong>Tip:</strong> Focus on the <em>shape</em> of your pitch curve. Tone 1 = flat high line, Tone 2 = rising curve, Tone 4 = falling curve. Even rough shape matches score well!</div>
+        </div>
+        <div class="scorer-btn-row">
+          <button class="scorer-btn primary" id="scorerRecordBtn" onclick="scorerStartRecord()">⏺ Record yourself</button>
+          <button class="scorer-btn" id="scorerStopBtn" onclick="scorerStopRecord()" style="display:none;">⏹ Stop</button>
+          <button class="scorer-btn" id="scorerPlaybackBtn" onclick="scorerPlayback()" style="display:none;">▶ Playback</button>
+          <button class="scorer-btn primary" id="scorerScoreBtn" onclick="scorerAnalyse()" style="display:none;">📊 Score me</button>
+        </div>
+        <div class="scorer-status" id="scorerStatus">Select a word first, then press 🔊 Listen to hear the reference.</div>
+        <div style="margin-top:.8rem;display:flex;gap:.5rem;">
+          <button class="scorer-btn" onclick="scorerBackToWords()">← Different word</button>
+          <button class="scorer-btn" onclick="scorerBackToTopics()">← Change topic</button>
         </div>
       </div>
+
+    <!-- Results Stage -->
+    <div class="scorer-stage" id="scorerResultStage" style="display:none;">
+      <h3>④ Your results</h3>
+      <div class="scorer-result">
+        <div class="scorer-score-ring" id="scorerRing">—</div>
+        <div class="scorer-score-label" id="scorerScoreLabel">Overall score</div>
+        <div class="scorer-feedback" id="scorerFeedback"></div>
+        <div class="scorer-bars" id="scorerSubBars"></div>
+      </div>
+      <div class="scorer-btn-row">
+        <button class="scorer-btn primary" onclick="scorerResetCurrent()">🔄 Try same word again</button>
+        <button class="scorer-btn" onclick="scorerBackToWords()">📋 Different word</button>
+        <button class="scorer-btn" onclick="scorerBackToTopics()">🗂️ Change topic</button>
+      </div>
     </div>
+  </div>
+</div>
+
+    <!-- Results Stage -->
+    <div class="scorer-stage" id="scorerResultStage" style="display:none;">
+      <h3>④ Your results</h3>
+      <div class="scorer-result">
+        <div class="scorer-score-ring" id="scorerRing">—</div>
+        <div class="scorer-score-label" id="scorerScoreLabel">Overall score</div>
+        <div class="scorer-feedback" id="scorerFeedback"></div>
+        <div class="scorer-bars" id="scorerSubBars"></div>
+      </div>
+      <div class="scorer-btn-row">
+        <button class="scorer-btn primary" onclick="scorerResetCurrent()">🔄 Try same word again</button>
+        <button class="scorer-btn" onclick="scorerBackToWords()">📋 Different word</button>
+        <button class="scorer-btn" onclick="scorerBackToTopics()">🗂️ Change topic</button>
+      </div>
+    </div>
+  </div>
+</div>
     
     <!-- RECORDINGS MANAGER -->
     <div class="panel" id="panel-recordings_manager">
@@ -1736,7 +1766,17 @@ sideItems.forEach(item=>{
     if(panel)panel.classList.add('active');
     if(target==='quiz')loadQuiz();
     if(target==='recordings_manager')renderRecordingsManager();
-    if(target==='pronunciation_scorer')scorerBuildQuickPicks();
+    if(target==='pronunciation_scorer'){
+      scorerBuildTopicGrid();
+      // Reset any ongoing scorer state
+      scorerSelectedTopic = null;
+      scorerSelectedWord = null;
+      scorerCurrentWordList = [];
+      document.getElementById('scorerTopicStage').style.display = 'block';
+      document.getElementById('scorerWordStage').style.display = 'none';
+      document.getElementById('scorerRecordStage').style.display = 'none';
+      document.getElementById('scorerResultStage').style.display = 'none';
+    }
     if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open');
   });
 });
@@ -1829,12 +1869,65 @@ function scorerShowTarget(){
 function scorerPlayReference(){const p=scorerCurrentPhrase;if(!p)return;speak(p.hz,p.jp,1);scorerDrawModelPitch(p.jp);document.getElementById('scorerStatus').textContent='🔊 Playing… now press ⏺ Record yourself.';}
 function scorerPlaySlow(){const p=scorerCurrentPhrase;if(!p)return;speak(p.hz,p.jp,0.45);}
 function scorerDrawModelPitch(jp){
-  const canvas=document.getElementById('refPitchCanvas');if(!canvas)return;
-  const tones=jp.split(' ').map(s=>{const m=s.match(/([1-6])$/);return m?parseInt(m[1]):0;}).filter(t=>t>0);
-  if(!tones.length){scorerClearCanvas('refPitchCanvas');return;}
-  const P={1:[0.9,0.9,0.9],2:[0.5,0.65,0.88],3:[0.5,0.5,0.5],4:[0.75,0.45,0.18],5:[0.2,0.35,0.58],6:[0.22,0.22,0.22]};
-  const pts=[];tones.forEach(t=>pts.push(...(P[t]||[0.5,0.5,0.5])));
-  scorerRefPitchData=pts;scorerDrawPitchCurve(canvas,pts,'#6dcc9e','Reference');
+  const canvas = document.getElementById('refPitchCanvas'); 
+  if(!canvas) return;
+  
+  const syllables = jp.trim().split(/\s+/);
+  const tones = [];
+  for (let syl of syllables) {
+    const match = syl.match(/([1-6])$/);
+    if (match) tones.push(parseInt(match[1]));
+  }
+  
+  if (tones.length === 0) {
+    // Default to a neutral curve if no tones detected
+    for (let i = 0; i < 30; i++) tones.push(3);
+  }
+  
+  // Define pitch shapes for each tone (normalized 0-1 scale, higher = higher pitch)
+  const P = {
+    1: [0.85, 0.85, 0.85, 0.85, 0.85], // High flat
+    2: [0.55, 0.65, 0.78, 0.88, 0.92], // High rising
+    3: [0.55, 0.55, 0.55, 0.55, 0.55], // Mid flat
+    4: [0.65, 0.48, 0.35, 0.25, 0.18], // Low falling
+    5: [0.28, 0.38, 0.52, 0.66, 0.78], // Low rising
+    6: [0.28, 0.28, 0.28, 0.28, 0.28]  // Low flat
+  };
+  
+  let points = [];
+  for (let t of tones) {
+    const shape = P[t] || P[3];
+    points.push(...shape);
+  }
+  
+  // Smooth and resample to 100 points for consistent display
+  const smoothed = [];
+  for (let i = 0; i < points.length; i++) {
+    let sum = points[i];
+    let count = 1;
+    if (i > 0) { sum += points[i-1]; count++; }
+    if (i < points.length - 1) { sum += points[i+1]; count++; }
+    smoothed.push(sum / count);
+  }
+  
+  scorerRefPitchData = scorerResample(smoothed, 80);
+  scorerDrawPitchCurve(canvas, scorerRefPitchData, '#6dcc9e', 'Reference pitch');
+  
+  // Also draw reference waveform placeholder
+  const refWaveCanvas = document.getElementById('refWaveCanvas');
+  if (refWaveCanvas) {
+    const w = refWaveCanvas.offsetWidth || 300;
+    refWaveCanvas.width = w;
+    refWaveCanvas.height = 80;
+    const ctx = refWaveCanvas.getContext('2d');
+    ctx.fillStyle = '#1e2028';
+    ctx.fillRect(0, 0, w, 80);
+    ctx.fillStyle = 'rgba(109,204,158,0.3)';
+    ctx.font = '11px DM Sans, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('📢 Reference waveform', w/2, 45);
+    ctx.textAlign = 'left';
+  }
 }
 function scorerDrawPitchCurve(canvas,data,color,label){
   const W=canvas.offsetWidth||300,H=canvas.offsetHeight||70;canvas.width=W;canvas.height=H;
@@ -1874,6 +1967,18 @@ function scorerClearCanvas(id){
   const c=document.getElementById(id);if(!c)return;const W=c.offsetWidth||300;c.width=W;c.height=80;
   const ctx=c.getContext('2d');ctx.fillStyle='#1e2028';ctx.fillRect(0,0,W,80);
   ctx.fillStyle='rgba(255,255,255,.08)';ctx.font='11px DM Sans,sans-serif';ctx.textAlign='center';ctx.fillText('—',W/2,44);ctx.textAlign='left';
+}
+function scorerResample(arr, n) {
+  if (!arr || arr.length === 0) return new Array(n).fill(0.5);
+  const result = new Array(n);
+  for (let i = 0; i < n; i++) {
+    const srcIdx = (i / (n - 1)) * (arr.length - 1);
+    const lo = Math.floor(srcIdx);
+    const hi = Math.min(lo + 1, arr.length - 1);
+    const t = srcIdx - lo;
+    result[i] = arr[lo] * (1 - t) + arr[hi] * t;
+  }
+  return result;
 }
 async function scorerStartRecord(){
   try{
@@ -1950,6 +2055,209 @@ function scorerPickNew(){document.getElementById('scorerTargetStage').style.disp
 
 updateStorageInfo();
 loadQuiz();
+
+// ============================================================
+//  UPDATED PRONUNCIATION SCORER - Topic-based selection
+// ============================================================
+let scorerSelectedTopic = null;
+let scorerSelectedWord = null;
+let scorerCurrentWordList = [];
+
+// Topic display names mapping
+const SCORER_TOPIC_LABELS = {
+  numbers: "🔢 Numbers",
+  natural: "🌿 Natural Objects",
+  dates: "📅 Dates",
+  quantities: "📏 Quantities & Sizes",
+  directions: "🧭 Directions",
+  time: "⏰ Time",
+  adjectives: "✨ Adjectives",
+  animals: "🐾 Animals",
+  basic_conversation: "💬 Basic Conversation",
+  body: "🫀 Body",
+  buildings: "🏢 Buildings",
+  colours: "🎨 Colours",
+  common_phrases: "🗣️ Common Phrases",
+  cooking: "🍳 Cooking",
+  countries: "🌍 Countries",
+  drinks: "🥤 Drinks",
+  eating_out: "🍜 Eating Out",
+  chinese_restaurant: "🥢 Chinese Restaurant",
+  emotions: "😊 Emotions",
+  family: "👨‍👩‍👧 Family",
+  greetings: "👋 Greetings",
+  health: "🏥 Health",
+  holidays: "🏖️ Holidays",
+  home: "🏠 Home",
+  machines: "⚙️ Machines",
+  motoring: "🚗 Motoring",
+  people: "👥 People",
+  places: "📍 Places",
+  professions: "💼 Professions",
+  pronouns: "🔤 Pronouns",
+  school: "🎒 School",
+  seasons: "🌸 Seasons",
+  special_occasions: "🎉 Special Occasions",
+  sport: "⚽ Sport",
+  christmas: "🎄 Christmas",
+  slang: "🤬 Slang & Sarcasm",
+  verbs: "🏃 Verbs",
+  weather: "🌤️ Weather",
+  classifiers: "🔢 Classifiers",
+  idioms: "🀄 Idioms"
+};
+
+function scorerBuildTopicGrid() {
+  const container = document.getElementById('scorerTopicGrid');
+  if (!container) return;
+  
+  const availableTopics = Object.keys(VOCAB).filter(topic => VOCAB[topic] && VOCAB[topic].length > 0);
+  
+  container.innerHTML = availableTopics.map(topic => `
+    <div class="topic-chip" data-topic="${topic}" onclick="scorerSelectTopic('${topic}')">
+      ${SCORER_TOPIC_LABELS[topic] || topic}
+      <span class="chip-score" style="font-size:.65rem;">${VOCAB[topic].length} words</span>
+    </div>
+  `).join('');
+  
+  document.getElementById('scorerTopicStatus').textContent = `📚 ${availableTopics.length} topics available. Select one to practice pronunciation.`;
+}
+
+function scorerSelectTopic(topicId) {
+  scorerSelectedTopic = topicId;
+  scorerCurrentWordList = VOCAB[topicId] || [];
+  
+  if (scorerCurrentWordList.length === 0) {
+    document.getElementById('scorerTopicStatus').textContent = `⚠️ No words found in this topic. Try another.`;
+    return;
+  }
+  
+  // Hide topic stage, show word stage
+  document.getElementById('scorerTopicStage').style.display = 'none';
+  document.getElementById('scorerWordStage').style.display = 'block';
+  document.getElementById('scorerRecordStage').style.display = 'none';
+  document.getElementById('scorerResultStage').style.display = 'none';
+  
+  document.getElementById('scorerCurrentTopicName').innerHTML = `<span style="color:var(--accent)">${SCORER_TOPIC_LABELS[topicId] || topicId}</span>`;
+  
+  // Build word grid
+  const wordGrid = document.getElementById('scorerWordGrid');
+  wordGrid.innerHTML = scorerCurrentWordList.map((item, idx) => `
+    <button class="scorer-phrase-btn" data-word-idx="${idx}" onclick="scorerSelectWord(${idx})">
+      ${item.hz || item.jp} 
+      <span style="font-size:.68rem;color:var(--text-dim);margin-left:3px;">${item.jp}</span>
+      <span style="font-size:.6rem;color:var(--text-muted);margin-left:4px;">${item.en}</span>
+    </button>
+  `).join('');
+  
+  document.getElementById('scorerStatus').innerHTML = `🎯 ${scorerCurrentWordList.length} words available. Click any to start practicing.`;
+}
+
+function scorerSelectWord(wordIdx) {
+  const word = scorerCurrentWordList[wordIdx];
+  if (!word) return;
+  
+  scorerSelectedWord = word;
+  
+  // Update UI
+  document.getElementById('scorerSelectedWordLabel').innerHTML = `<strong>${word.hz || word.jp}</strong> — ${word.en}`;
+  document.getElementById('scorerPhraseJp').innerHTML = renderJyutping(word.jp);
+  document.getElementById('scorerPhraseHz').textContent = word.hz || word.jp;
+  
+  // Reset recording state
+  scorerUserBlob = null;
+  scorerUserUrl = null;
+  scorerRefPitchData = [];
+  scorerUserPitchData = [];
+  scorerAudioChunks = [];
+  
+  ['refWaveCanvas', 'userWaveCanvas', 'refPitchCanvas', 'userPitchCanvas'].forEach(scorerClearCanvas);
+  
+  // Draw reference pitch contour for this word
+  scorerDrawModelPitch(word.jp);
+  
+  // Show recording stage
+  document.getElementById('scorerWordStage').style.display = 'none';
+  document.getElementById('scorerRecordStage').style.display = 'block';
+  document.getElementById('scorerResultStage').style.display = 'none';
+  
+  // Reset buttons
+  document.getElementById('scorerRecordBtn').style.display = 'inline-flex';
+  document.getElementById('scorerStopBtn').style.display = 'none';
+  document.getElementById('scorerPlaybackBtn').style.display = 'none';
+  document.getElementById('scorerScoreBtn').style.display = 'none';
+  
+  document.getElementById('scorerStatus').innerHTML = `🎤 Now practicing: <strong style="color:var(--accent)">${word.hz || word.jp}</strong>. Press 🔊 Listen, then ⏺ Record.`;
+}
+
+function scorerBackToTopics() {
+  scorerSelectedTopic = null;
+  scorerSelectedWord = null;
+  scorerCurrentWordList = [];
+  
+  document.getElementById('scorerTopicStage').style.display = 'block';
+  document.getElementById('scorerWordStage').style.display = 'none';
+  document.getElementById('scorerRecordStage').style.display = 'none';
+  document.getElementById('scorerResultStage').style.display = 'none';
+  
+  scorerBuildTopicGrid();
+}
+
+function scorerBackToWords() {
+  if (!scorerSelectedTopic) {
+    scorerBackToTopics();
+    return;
+  }
+  
+  document.getElementById('scorerWordStage').style.display = 'block';
+  document.getElementById('scorerRecordStage').style.display = 'none';
+  document.getElementById('scorerResultStage').style.display = 'none';
+  
+  // Rebuild word grid (in case of changes)
+  const wordGrid = document.getElementById('scorerWordGrid');
+  wordGrid.innerHTML = scorerCurrentWordList.map((item, idx) => `
+    <button class="scorer-phrase-btn" data-word-idx="${idx}" onclick="scorerSelectWord(${idx})">
+      ${item.hz || item.jp} 
+      <span style="font-size:.68rem;color:var(--text-dim);margin-left:3px;">${item.jp}</span>
+      <span style="font-size:.6rem;color:var(--text-muted);margin-left:4px;">${item.en}</span>
+    </button>
+  `).join('');
+}
+
+function scorerResetCurrent() {
+  if (!scorerSelectedWord) {
+    scorerBackToWords();
+    return;
+  }
+  
+  // Reset recording state only, keep same word
+  scorerUserBlob = null;
+  scorerUserUrl = null;
+  scorerRefPitchData = [];
+  scorerUserPitchData = [];
+  scorerAudioChunks = [];
+  
+  ['refWaveCanvas', 'userWaveCanvas', 'refPitchCanvas', 'userPitchCanvas'].forEach(scorerClearCanvas);
+  
+  scorerDrawModelPitch(scorerSelectedWord.jp);
+  
+  document.getElementById('scorerRecordStage').style.display = 'block';
+  document.getElementById('scorerResultStage').style.display = 'none';
+  
+  document.getElementById('scorerRecordBtn').style.display = 'inline-flex';
+  document.getElementById('scorerStopBtn').style.display = 'none';
+  document.getElementById('scorerPlaybackBtn').style.display = 'none';
+  document.getElementById('scorerScoreBtn').style.display = 'none';
+  
+  document.getElementById('scorerStatus').innerHTML = `🔄 Try again: <strong>${scorerSelectedWord.hz || scorerSelectedWord.jp}</strong>. Press 🔊 Listen, then ⏺ Record.`;
+}
+
+// Override the old scorerBuildQuickPicks function (replace or comment out)
+function scorerBuildQuickPicks() {
+  // No longer needed - using topic grid instead
+  scorerBuildTopicGrid();
+}
+  
 </script>
 
 updateStorageInfo();
