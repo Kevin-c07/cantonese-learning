@@ -1911,7 +1911,7 @@ const SCORER_PHRASES=[
   {jp:"m4 hai6",hz:"唔係",en:"No"},
   {jp:"hai6 aa3",hz:"係啊",en:"Yes"},
 ];
-let scorerCurrentPhrase=null,scorerMediaRecorder=null,scorerAudioChunks=[],scorerUserBlob=null,scorerUserUrl=null,scorerRefPitchData=[],scorerUserPitchData=[],scorerAudioCtx=null;
+let scorerCurrentPhrase=null,scorerMediaRecorder=null,scorerAudioChunks=[],scorerUserBlob=null,scorerUserUrl=null,scorerRefPitchData=[],scorerUserPitchData=[],scorerAudioCtx=null,scorerSelectedTopic=null,scorerCurrentWordList=[],scorerSelectedWord=null;
 function getAudioCtx(){if(!scorerAudioCtx||scorerAudioCtx.state==='closed')scorerAudioCtx=new(window.AudioContext||window.webkitAudioContext)();return scorerAudioCtx;}
 function scorerBuildQuickPicks(){const c=document.getElementById('scorerQuickPicks');if(!c)return;c.innerHTML=SCORER_PHRASES.map(p=>`<button class="scorer-phrase-btn" onclick='scorerSelectPhrase(${JSON.stringify(p)})'>${p.hz} <span style="font-size:.68rem;color:var(--text-dim);margin-left:3px;">${p.jp}</span></button>`).join('');}
 function scorerSelectPhrase(p){scorerCurrentPhrase=p;document.querySelectorAll('.scorer-phrase-btn').forEach(b=>b.classList.toggle('selected',b.textContent.trim().startsWith(p.hz)));scorerShowTarget();}
