@@ -2261,7 +2261,7 @@ function scorerSelectTopic(topicId) {
   
   scorerCurrentWordList.forEach((item, idx) => {
     const btn = document.createElement('button');
-    btn.textContent = `${item.hz || item.jp} (${item.jp})`;
+    btn.innerHTML = `${item.hz || renderJyutping(item.jp)} <span style="font-size:.7rem;color:var(--text-dim);margin-left:4px;">${item.jp}</span>`;
     btn.style.cssText = 'background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:0.4rem 0.8rem;margin:4px;cursor:pointer;font-family:DM Sans,sans-serif;font-size:0.78rem;color:var(--text-muted);transition:all 0.15s;display:inline-block;';
     btn.type = 'button';
     
@@ -2293,8 +2293,8 @@ function scorerSelectWord(wordIdx) {
   const word = scorerCurrentWordList[wordIdx];
   scorerSelectedWord = word;
   
-  document.getElementById('scorerSelectedWordLabel').innerHTML = `<strong>${word.hz || word.jp}</strong> — ${word.en}`;
-  document.getElementById('scorerPhraseJp').innerHTML = word.jp;
+  document.getElementById('scorerSelectedWordLabel').innerHTML = `<strong>${renderJyutping(word.jp)}</strong> <span style="color:var(--text-muted);font-size:.85rem;"> — ${word.en}</span>`;
+  document.getElementById('scorerPhraseJp').innerHTML = renderJyutping(word.jp);
   document.getElementById('scorerPhraseHz').innerHTML = word.hz || word.jp;
   
   document.getElementById('scorerWordStage').style.display = 'none';
