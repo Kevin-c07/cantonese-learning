@@ -2090,30 +2090,6 @@ function scorerClearCanvas(id){
   const ctx=c.getContext('2d');ctx.fillStyle='#1e2028';ctx.fillRect(0,0,W,80);
   ctx.fillStyle='rgba(255,255,255,.08)';ctx.font='11px DM Sans,sans-serif';ctx.textAlign='center';ctx.fillText('—',W/2,44);ctx.textAlign='left';
 }
-function scorerResample(arr, n) {
-  if (!arr || arr.length === 0) return new Array(n).fill(0.5);
-  const result = new Array(n);
-  for (let i = 0; i < n; i++) {
-    const srcIdx = (i / (n - 1)) * (arr.length - 1);
-    const lo = Math.floor(srcIdx);
-    const hi = Math.min(lo + 1, arr.length - 1);
-    const t = srcIdx - lo;
-    result[i] = arr[lo] * (1 - t) + arr[hi] * t;
-  }
-  return result;
-}
-function scorerResample(arr, n) {
-  if (!arr || arr.length === 0) return new Array(n).fill(0.5);
-  const result = new Array(n);
-  for (let i = 0; i < n; i++) {
-    const srcIdx = (i / (n - 1)) * (arr.length - 1);
-    const lo = Math.floor(srcIdx);
-    const hi = Math.min(lo + 1, arr.length - 1);
-    const t = srcIdx - lo;
-    result[i] = arr[lo] * (1 - t) + arr[hi] * t;
-  }
-  return result;
-}
 async function scorerStartRecord(){
   try{
     const stream=await navigator.mediaDevices.getUserMedia({audio:true});
