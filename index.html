@@ -1232,6 +1232,10 @@ const VOCAB = {
   ],
 };
 
+let scorerSelectedTopic = null;
+let scorerSelectedWord = null;
+let scorerCurrentWordList = [];
+
 // ============================================================
 //  TONE ENGINE
 // ============================================================
@@ -2189,10 +2193,6 @@ loadQuiz();
 // ============================================================
 //  PRONUNCIATION SCORER - FULLY WORKING
 // ============================================================
-
-let scorerSelectedTopic = null;
-let scorerSelectedWord = null;
-let scorerCurrentWordList = [];
 
 function scorerBuildTopicGrid() {
   const container = document.getElementById('scorerTopicGrid');
