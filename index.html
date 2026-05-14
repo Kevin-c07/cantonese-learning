@@ -2187,7 +2187,7 @@ updateStorageInfo();
 loadQuiz();
 
 // ============================================================
-//  PRONUNCIATION SCORER - WORKING VERSION
+//  PRONUNCIATION SCORER - FULLY WORKING
 // ============================================================
 
 let scorerSelectedTopic = null;
@@ -2204,12 +2204,14 @@ function scorerBuildTopicGrid() {
   topics.forEach(topic => {
     const btn = document.createElement('button');
     btn.textContent = `${topic} (${VOCAB[topic].length})`;
-    btn.style.cssText = 'background:#1e2028;border:1px solid #2a2c36;border-radius:20px;padding:6px 12px;margin:4px;cursor:pointer;color:#e8e4dc;';
-    btn.onclick = function() { scorerSelectTopic(topic); };
+    btn.className = 'topic-chip';
+    btn.style.cssText = 'background:#1e2028;border:1px solid #2a2c36;border-radius:20px;padding:8px 16px;margin:5px;cursor:pointer;color:#e8e4dc;';
+    btn.onclick = (function(t) { return function() { scorerSelectTopic(t); }; })(topic);
     container.appendChild(btn);
   });
   
-  document.getElementById('scorerTopicStatus').innerHTML = `📚 ${topics.length} topics available. Click a topic above.`;
+  const statusEl = document.getElementById('scorerTopicStatus');
+  if (statusEl) statusEl.innerHTML = `📚 ${topics.length} topics available. Click any topic above.`;
 }
 
 function scorerSelectTopic(topicId) {
@@ -2232,12 +2234,13 @@ function scorerSelectTopic(topicId) {
   scorerCurrentWordList.forEach((item, idx) => {
     const btn = document.createElement('button');
     btn.textContent = `${item.hz || item.jp} (${item.jp})`;
-    btn.style.cssText = 'background:#1e2028;border:1px solid #2a2c36;border-radius:8px;padding:8px 12px;margin:4px;cursor:pointer;color:#e8e4dc;';
-    btn.onclick = function() { scorerSelectWord(idx); };
+    btn.className = 'scorer-phrase-btn';
+    btn.style.cssText = 'background:#1e2028;border:1px solid #2a2c36;border-radius:8px;padding:8px 12px;margin:5px;cursor:pointer;color:#e8e4dc;';
+    btn.onclick = (function(i) { return function() { scorerSelectWord(i); }; })(idx);
     wordGrid.appendChild(btn);
   });
   
-  document.getElementById('scorerStatus').innerHTML = `🎯 ${scorerCurrentWordList.length} words available. Click any to practice.`;
+  document.getElementById('scorerStatus').innerHTML = `🎯 ${scorerCurrentWordList.length} words. Click any to practice.`;
 }
 
 function scorerSelectWord(wordIdx) {
@@ -2257,7 +2260,10 @@ function scorerSelectWord(wordIdx) {
   document.getElementById('scorerPlaybackBtn').style.display = 'none';
   document.getElementById('scorerScoreBtn').style.display = 'none';
   
-  document.getElementById('scorerStatus').innerHTML = `🎤 Press "Listen" then "Record"`;
+  document.getElementById('scorerStatus').innerHTML = `🎤 Selected: ${word.hz || word.jp}. Press "Listen" then "Record".`;
+  
+  // Draw reference pitch contour
+  scorerDrawModelPitch(word.jp);
 }
 
 function scorerBackToTopics() {
@@ -2269,6 +2275,10 @@ function scorerBackToTopics() {
 }
 
 function scorerBackToWords() {
+  if (!scorerSelectedTopic) {
+    scorerBackToTopics();
+    return;
+  }
   document.getElementById('scorerWordStage').style.display = 'block';
   document.getElementById('scorerRecordStage').style.display = 'none';
   document.getElementById('scorerResultStage').style.display = 'none';
@@ -2281,9 +2291,11 @@ function scorerResetCurrent() {
   document.getElementById('scorerStopBtn').style.display = 'none';
   document.getElementById('scorerPlaybackBtn').style.display = 'none';
   document.getElementById('scorerScoreBtn').style.display = 'none';
+  document.getElementById('scorerStatus').innerHTML = `🔄 Try again: ${scorerSelectedWord.hz || scorerSelectedWord.jp}. Press "Listen" then "Record".`;
+  scorerDrawModelPitch(scorerSelectedWord.jp);
 }
 
-// Make sure the scorer builds when page loads
+// Make sure it builds when page loads
 scorerBuildTopicGrid();
 
 
