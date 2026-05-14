@@ -1926,8 +1926,6 @@ function scorerShowTarget(){
   document.getElementById('scorerScoreBtn').style.display='none';
   document.getElementById('scorerStatus').textContent='Press 🔊 Listen to hear the reference, then press ⏺ Record.';
 }
-function scorerPlayReference(){const p=scorerCurrentPhrase;if(!p)return;speak(p.hz,p.jp,1);scorerDrawModelPitch(p.jp);document.getElementById('scorerStatus').textContent='🔊 Playing… now press ⏺ Record yourself.';}
-function scorerPlaySlow(){const p=scorerCurrentPhrase;if(!p)return;speak(p.hz,p.jp,0.45);}
 function scorerDrawModelPitch(jp){
   const canvas = document.getElementById('refPitchCanvas'); 
   if(!canvas) return;
@@ -1970,6 +1968,7 @@ function scorerDrawModelPitch(jp){
   scorerRefPitchData = scorerResample(smoothed, 80);
   scorerDrawPitchCurve(canvas, scorerRefPitchData, '#6dcc9e', 'Reference pitch');
   
+  // Generate synthetic reference waveform
   const refWaveCanvas = document.getElementById('refWaveCanvas');
   if (refWaveCanvas) {
     const w = refWaveCanvas.offsetWidth || 300;
@@ -1978,11 +1977,36 @@ function scorerDrawModelPitch(jp){
     const ctx = refWaveCanvas.getContext('2d');
     ctx.fillStyle = '#1e2028';
     ctx.fillRect(0, 0, w, 80);
-    ctx.fillStyle = 'rgba(109,204,158,0.3)';
-    ctx.font = '11px DM Sans, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('📢 Reference waveform', w/2, 45);
-    ctx.textAlign = 'left';
+    
+    // Create synthetic waveform based on pitch contour (simulating audio)
+    ctx.beginPath();
+    ctx.strokeStyle = '#6dcc9e';
+    ctx.lineWidth = 1.5;
+    ctx.shadowColor = '#6dcc9e';
+    ctx.shadowBlur = 4;
+    const mid = 40;
+    
+    for (let i = 0; i < w; i++) {
+      const pitchIdx = Math.floor((i / w) * scorerRefPitchData.length);
+      const pitchValue = scorerRefPitchData[pitchIdx] || 0.5;
+      const waveAmp = 20 * pitchValue;
+      const freq = 3 + pitchValue * 5;
+      const y = mid + Math.sin((i / 10) * freq) * waveAmp;
+      if (i === 0) ctx.moveTo(i, y);
+      else ctx.lineTo(i, y);
+    }
+    ctx.stroke();
+    
+    // Add gradient
+    ctx.lineTo(w, 80);
+    ctx.lineTo(0, 80);
+    ctx.closePath();
+    const g = ctx.createLinearGradient(0, 0, 0, 80);
+    g.addColorStop(0, 'rgba(109,204,158,0.2)');
+    g.addColorStop(1, 'rgba(109,204,158,0)');
+    ctx.fillStyle = g;
+    ctx.fill();
+    ctx.shadowBlur = 0;
   }
 }
 function scorerPlayReference(){
@@ -2138,7 +2162,7 @@ function scorerComparePitch(){
   const denom=Math.sqrt(dR*dU);
   return Math.max(0,Math.min(100,Math.round(((denom===0?0:num/denom)+1)/2*100)));
 }
-function scorerScoreRhythm(){const p=scorerCurrentPhrase;if(!p)return 60;const s=p.jp.trim().split(/\s+/).filter(s=>/[a-z]/i.test(s)).length;return Math.max(50,Math.min(92,68+(s<3?10:0)));}
+function scorerScoreRhythm(){const p=scorerSelectedWord;if(!p)return 60;const s=p.jp.trim().split(/\s+/).filter(s=>/[a-z]/i.test(s)).length;return Math.max(50,Math.min(92,68+(s<3?10:0)));}
 function scorerScoreEnergy(){if(!scorerUserPitchData||scorerUserPitchData.length<5)return 45;return scorerUserPitchData.length>20?82:66;}
 function scorerShowResults(overall,pitch,rhythm,energy){
   let color,emoji,msg;
