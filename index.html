@@ -147,7 +147,6 @@
     .topic-bar-track{background:var(--surface2);border-radius:4px;height:8px;overflow:hidden;}
     .topic-bar-fill{height:100%;border-radius:4px;transition:width .5s ease;}
     .topic-bar-pct{font-size:.72rem;color:var(--text-dim);text-align:right;}
-    .streak-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(232,184,109,.12);border:1px solid var(--accent);border-radius:20px;padding:.3rem .9rem;font-size:.82rem;color:var(--accent);margin-bottom:1rem;}
     .btn-primary{background:var(--accent);border:none;border-radius:8px;padding:.6rem 1.5rem;color:var(--bg);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:opacity .15s;}
     .btn-primary:hover{opacity:.85;}
     .btn-primary:disabled{opacity:.3;cursor:not-allowed;}
@@ -197,52 +196,6 @@
       .storage-panel{bottom:10px;right:10px;max-width:240px;padding:.8rem;}
       .convo-line{grid-template-columns:auto 1fr;}
       .convo-hz,.convo-listen{grid-column:1/-1;}
-      
-    @keyframes toastIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
-      .streak-widget{display:flex;align-items:center;gap:.4rem;background:rgba(232,184,109,.1);border:1px solid rgba(232,184,109,.3);border-radius:20px;padding:.25rem .75rem;cursor:default;user-select:none;flex-shrink:0;}
-      .streak-fire{font-size:1rem;line-height:1;}
-      .streak-count{font-family:'Space Mono',monospace;font-size:.85rem;font-weight:700;color:var(--accent);}
-      .streak-label{font-size:.7rem;color:var(--text-muted);}
-      .streak-widget.cold .streak-fire{filter:grayscale(1);opacity:.5;}
-      .streak-widget.cold .streak-count{color:var(--text-dim);}
-      .streak-toast{position:fixed;top:70px;right:20px;background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:.8rem 1.2rem;z-index:500;font-size:.88rem;color:var(--accent);display:flex;align-items:center;gap:.6rem;box-shadow:0 8px 30px rgba(0,0,0,.4);animation:toastIn .3s ease;pointer-events:none;}
-
-    @media(max-width:600px){.scorer-canvases,.scorer-pitch-canvases{grid-template-columns:1fr;}}
-      .scorer-wrap{max-width:760px;}
-      .scorer-phrase-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.45rem .9rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:all .15s;}
-      .scorer-phrase-btn:hover,.scorer-phrase-btn.selected{background:var(--accent);color:var(--bg);border-color:var(--accent);}
-      .scorer-quick-picks{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem;}
-      .scorer-stage{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem;margin-bottom:1rem;}
-      .scorer-stage h3{font-family:'Space Mono',monospace;font-size:.88rem;color:var(--accent2);margin-bottom:.8rem;}
-      .scorer-target{display:flex;align-items:center;gap:1rem;padding:.8rem 1rem;background:var(--surface2);border-radius:10px;margin-bottom:1rem;flex-wrap:wrap;}
-      .scorer-target-jp{font-family:'Space Mono',monospace;font-size:1.1rem;color:var(--accent);flex:1;}
-      .scorer-target-hz{font-family:'Noto Serif TC',serif;font-size:1.4rem;color:var(--text-muted);}
-      .scorer-canvases{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
-      .scorer-canvas-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.7rem;}  
-      .scorer-canvas-wrap label{font-size:.72rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.4rem;}
-      .scorer-canvas-wrap canvas{width:100%;height:80px;display:block;border-radius:6px;}
-      .scorer-pitch-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.7rem;margin-top:.8rem;}
-      .scorer-pitch-wrap label{font-size:.72rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.4rem;}
-      .scorer-pitch-canvases{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-      .scorer-pitch-canvases canvas{width:100%;height:70px;display:block;border-radius:6px;}
-      .scorer-result{background:var(--surface2);border-radius:12px;padding:1.2rem;text-align:center;margin-top:1rem;}
-      .scorer-score-ring{width:90px;height:90px;border-radius:50%;margin:0 auto .8rem;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:1.6rem;font-weight:700;border:4px solid var(--border);transition:all .4s ease;}
-      .scorer-score-label{font-size:.82rem;color:var(--text-muted);margin-bottom:.6rem;}
-      .scorer-feedback{font-size:.88rem;line-height:1.6;color:var(--text-muted);}
-      .scorer-bars{display:flex;flex-direction:column;gap:.4rem;margin-top:.8rem;text-align:left;}
-      .scorer-bar-row{display:grid;grid-template-columns:110px 1fr 36px;gap:.5rem;align-items:center;}
-      .scorer-bar-lbl{font-size:.75rem;color:var(--text-muted);}
-      .scorer-bar-track{background:var(--border);border-radius:4px;height:7px;overflow:hidden;}
-      .scorer-bar-fill{height:100%;border-radius:4px;transition:width .6s ease;}
-      .scorer-bar-pct{font-size:.7rem;color:var(--text-dim);text-align:right;}
-      .scorer-btn-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem;}
-      .scorer-btn{background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:.5rem 1.1rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:.4rem;}
-      .scorer-btn:hover{border-color:var(--accent2);color:var(--accent2);}
-      .scorer-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:700;}
-      .scorer-btn.primary:hover{opacity:.85;}
-      .scorer-btn:disabled{opacity:.35;cursor:not-allowed;}
-      .scorer-status{font-size:.82rem;color:var(--text-muted);min-height:1.4rem;margin-top:.4rem;}
-      .scorer-tip{background:var(--surface2);border-left:3px solid var(--accent2);padding:.6rem .9rem;border-radius:0 8px 8px 0;font-size:.8rem;color:var(--text-muted);margin-top:.8rem;line-height:1.6;}
     }
   </style>
 </head>
@@ -251,7 +204,6 @@
   <button class="hamburger" id="hamburger">☰</button>
   <div class="logo">廣東話 <span>Cantonese Study Hub</span></div>
   <input type="text" class="top-search" placeholder="🔍 search vocab…" id="globalSearch">
-  <div id="streakWidget" class="streak-widget" title="Your daily study streak"><span class="streak-fire">🔥</span><span class="streak-count" id="streakCount">0</span><span class="streak-label">day streak</span></div>
 </div>
 <div class="layout">
   <nav class="sidebar" id="sidebar">
@@ -320,7 +272,6 @@
       <div class="sidebar-label">Practice</div>
       <div class="sidebar-item" data-panel="quiz"><span class="icon">📝</span>Smart Quiz</div>
       <div class="sidebar-item" data-panel="recordings_manager"><span class="icon">🎙️</span>My Recordings</div>
-      <div class="sidebar-item" data-panel="pronunciation_scorer"><span class="icon">🎤</span>Pronunciation Scorer</div>
     </div>
   </nav>
 
@@ -410,74 +361,7 @@
     <!-- QUIZ -->
     <div class="panel" id="panel-quiz"><div class="panel-header"><h2>📝 Smart Quiz</h2><p>Track progress by topic — target weak spots</p></div><div class="quiz-wrap" id="quizWrap"></div></div>
 
-    <!-- PRONUNCIATION SCORER - Updated with topic selection -->
-    <div class="panel" id="panel-pronunciation_scorer">
-      <div class="panel-header"><h2>🎤 Pronunciation Scorer</h2><p>Select a topic → pick a word → listen and record your voice → get instant pitch feedback</p></div>
-      <div class="scorer-wrap">
-        <!-- Topic Selection Stage -->
-        <div class="scorer-stage" id="scorerTopicStage">
-          <h3>① Choose a topic to practice</h3>
-          <div class="topic-grid" id="scorerTopicGrid" style="max-height:300px;overflow-y:auto;margin-bottom:1rem;"></div>
-          <div class="scorer-status" id="scorerTopicStatus">Select a topic above to see available words</div>
-        </div>
 
-        <!-- Word Selection Stage (appears after topic chosen) -->
-        <div class="scorer-stage" id="scorerWordStage" style="display:none;">
-          <h3>② Pick a word to pronounce <span id="scorerCurrentTopicName"></span></h3>
-          <div class="scorer-quick-picks" id="scorerWordGrid" style="max-height:250px;overflow-y:auto;margin-bottom:1rem;"></div>
-          <button class="scorer-btn" onclick="scorerBackToTopics()">← Back to topics</button>
-        </div>
-
-      <!-- Recording Stage -->
-      <div class="scorer-stage" id="scorerRecordStage" style="display:none;">
-        <h3>③ Listen & record: <span id="scorerSelectedWordLabel"></span></h3>
-        <div class="scorer-target">
-          <div><div class="scorer-target-jp" id="scorerPhraseJp">—</div><div class="scorer-target-hz" id="scorerPhraseHz">—</div></div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-            <button class="scorer-btn primary" onclick="scorerPlayReference()">🔊 Listen (normal)</button>
-            <button class="scorer-btn" onclick="scorerPlaySlow()">🐢 Slow</button>
-          </div>
-        </div>
-        <div class="scorer-canvases">
-          <div class="scorer-canvas-wrap"><label>📢 Reference waveform</label><canvas id="refWaveCanvas" height="80"></canvas></div>
-          <div class="scorer-canvas-wrap"><label>🎤 Your waveform</label><canvas id="userWaveCanvas" height="80"></canvas></div>
-        </div>
-        <div class="scorer-pitch-wrap">
-          <label>Pitch contour — shape matters most for Cantonese tones</label>
-          <div class="scorer-pitch-canvases">
-            <canvas id="refPitchCanvas" height="70"></canvas>
-            <canvas id="userPitchCanvas" height="70"></canvas>
-          </div>
-        </div>
-        <div class="scorer-btn-row">
-          <button class="scorer-btn primary" id="scorerRecordBtn" onclick="scorerStartRecord()">⏺ Record yourself</button>
-          <button class="scorer-btn" id="scorerStopBtn" onclick="scorerStopRecord()" style="display:none;">⏹ Stop</button>
-          <button class="scorer-btn" id="scorerPlaybackBtn" onclick="scorerPlayback()" style="display:none;">▶ Playback</button>
-          <button class="scorer-btn primary" id="scorerScoreBtn" onclick="scorerAnalyse()" style="display:none;">📊 Score me</button>
-        </div>
-        <div class="scorer-status" id="scorerStatus">Select a word first, then press 🔊 Listen to hear the reference.</div>
-        <div style="margin-top:.8rem;display:flex;gap:.5rem;">
-          <button class="scorer-btn" onclick="scorerBackToWords()">← Different word</button>
-          <button class="scorer-btn" onclick="scorerBackToTopics()">← Change topic</button>
-        </div>
-      </div>
-
-    <!-- Results Stage -->
-    <div class="scorer-stage" id="scorerResultStage" style="display:none;">
-      <h3>④ Your results</h3>
-      <div class="scorer-result">
-        <div class="scorer-score-ring" id="scorerRing">—</div>
-        <div class="scorer-score-label" id="scorerScoreLabel">Overall score</div>
-        <div class="scorer-feedback" id="scorerFeedback"></div>
-        <div class="scorer-bars" id="scorerSubBars"></div>
-      </div>
-      <div class="scorer-btn-row">
-        <button class="scorer-btn primary" onclick="scorerResetCurrent()">🔄 Try same word again</button>
-        <button class="scorer-btn" onclick="scorerBackToWords()">📋 Different word</button>
-        <button class="scorer-btn" onclick="scorerBackToTopics()">🗂️ Change topic</button>
-      </div>
-    </div>
-  </div>
 </div>
 
     <!-- RECORDINGS MANAGER -->
@@ -1828,65 +1712,6 @@ document.getElementById('stopRecordBtn').addEventListener('click',stopRecording)
 document.getElementById('saveRecordingBtn').addEventListener('click',saveRecording);
 document.getElementById('deleteThisRecBtn').addEventListener('click',deleteCurrentRec);
 document.getElementById('closeModalBtn').addEventListener('click',closeRecordingModal);
-
-(function(){
-  const KS='studyStreak';
-  const KD='lastStudyDate';
-  
-  function today(){
-    const d=new Date();
-    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  }
-  
-  function load(){
-    return {
-      count: parseInt(localStorage.getItem(KS) || '0'),
-      last: localStorage.getItem(KD) || ''
-    };
-  }
-  
-  function save(c,d){
-    localStorage.setItem(KS, String(c));
-    localStorage.setItem(KD, d);
-  }
-  
-  function updateDisplay(count){
-    const streakCountEl = document.getElementById('streakCount');
-    if(streakCountEl){
-      streakCountEl.textContent = count;
-    }
-  }
-  
-  const t = today();
-  const {count, last} = load();
-  
-  if(last === t){
-    // Already studied today
-    updateDisplay(count);
-  }
-  else if(last === ''){
-    // First time ever
-    save(1, t);
-    updateDisplay(1);
-  }
-  else{
-    // Check if yesterday
-    const lastDate = new Date(last);
-    const todayDate = new Date(t);
-    const diff = Math.round((todayDate - lastDate) / 86400000);
-    
-    if(diff === 1){
-      // Consecutive day
-      save(count + 1, t);
-      updateDisplay(count + 1);
-    }
-    else{
-      // Streak broken
-      save(1, t);
-      updateDisplay(1);
-    }
-  }
-})();
 
 // ============================================================
 //  PRONUNCIATION SCORER
