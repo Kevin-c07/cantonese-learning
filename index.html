@@ -5,13 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cantonese Study Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cantonese Study Hub</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root{--bg:#0e0f13;--surface:#161820;--surface2:#1e2028;--border:#2a2c36;--accent:#e8b86d;--accent2:#6d9ee8;--accent3:#e86d8c;--text:#e8e4dc;--text-muted:#7a7a8c;--text-dim:#4a4a5c;--green:#6dcc9e;--red:#e86d6d;--sidebar-w:260px;--t1:#f5c842;--t2:#6dcc9e;--t3:#6d9ee8;--t4:#e86d6d;--t5:#cc8dcc;--t6:#e8b86d;--t0:#9a8c7a;}
     *{margin:0;padding:0;box-sizing:border-box;}
@@ -269,6 +262,15 @@
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
+      <div class="sidebar-label">Intermediate Conversations</div>
+      <div class="sidebar-item" data-panel="meal_talk"><span class="icon">🍽️</span>Meal Talk</div>
+      <div class="sidebar-item" data-panel="family_talk"><span class="icon">👨‍👩‍👧‍👦</span>Family Talk</div>
+      <div class="sidebar-item" data-panel="friends_talk"><span class="icon">🧑‍🤝‍🧑</span>Friends Talk</div>
+      <div class="sidebar-item" data-panel="daily_chat"><span class="icon">💭</span>Daily Small Talk</div>
+      <div class="sidebar-item" data-panel="opinions_feelings"><span class="icon">💗</span>Opinions & Feelings</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
       <div class="sidebar-label">Practice</div>
       <div class="sidebar-item" data-panel="quiz"><span class="icon">📝</span>Smart Quiz</div>
       <div class="sidebar-item" data-panel="recordings_manager"><span class="icon">🎙️</span>My Recordings</div>
@@ -358,11 +360,15 @@
     <div class="panel" id="panel-riddles"><div class="panel-header"><h2>🔮 Chinese Riddles</h2></div><div id="grid-riddles"></div></div>
     <div class="panel" id="panel-mtr"><div class="panel-header"><h2>🚇 Hong Kong MTR</h2></div><div id="grid-mtr"></div></div>
 
+    <!-- INTERMEDIATE CONVERSATIONS -->
+    <div class="panel" id="panel-meal_talk"><div class="panel-header"><h2>🍽️ Meal Talk</h2><p>Phrases for eating together, ordering, and talking about food</p></div><div id="tone-legend-meal_talk"></div><div class="card-grid" id="grid-meal_talk"></div></div>
+    <div class="panel" id="panel-family_talk"><div class="panel-header"><h2>👨‍👩‍👧‍👦 Family Talk</h2><p>Everyday phrases for talking with parents, siblings, and relatives</p></div><div id="tone-legend-family_talk"></div><div class="card-grid" id="grid-family_talk"></div></div>
+    <div class="panel" id="panel-friends_talk"><div class="panel-header"><h2>🧑‍🤝‍🧑 Friends Talk</h2><p>Casual phrases for hanging out and chatting with friends</p></div><div id="tone-legend-friends_talk"></div><div class="card-grid" id="grid-friends_talk"></div></div>
+    <div class="panel" id="panel-daily_chat"><div class="panel-header"><h2>💭 Daily Small Talk</h2><p>General everyday conversation phrases</p></div><div id="tone-legend-daily_chat"></div><div class="card-grid" id="grid-daily_chat"></div></div>
+    <div class="panel" id="panel-opinions_feelings"><div class="panel-header"><h2>💗 Opinions & Feelings</h2><p>Phrases for sharing what you think and how you feel</p></div><div id="tone-legend-opinions_feelings"></div><div class="card-grid" id="grid-opinions_feelings"></div></div>
+
     <!-- QUIZ -->
     <div class="panel" id="panel-quiz"><div class="panel-header"><h2>📝 Smart Quiz</h2><p>Track progress by topic — target weak spots</p></div><div class="quiz-wrap" id="quizWrap"></div></div>
-
-
-</div>
 
     <!-- RECORDINGS MANAGER -->
     <div class="panel" id="panel-recordings_manager">
@@ -1114,6 +1120,217 @@ const VOCAB = {
     {jp:"gaau3 jan4 zi1 yu2",hz:"教人知魚",en:"Teach a man to fish"},
     {jp:"jat1 bou6 jat1 geoi6",hz:"一步一腳印",en:"One step at a time (steady progress)"},
   ],
+  meal_talk:[
+    {jp:"nei5 soeng2 sik6 di1 me1?",hz:"你想食啲咩？",en:"What do you want to eat?"},
+    {jp:"ngo5 jau5 di1 tou5 ngo6",hz:"我有啲肚餓",en:"I'm a bit hungry"},
+    {jp:"zung6 mei6 gau3 baau2",hz:"仲未夠飽",en:"Not full yet"},
+    {jp:"sik6 dak1 m4 dak1 aa3?",hz:"食得唔得呀？",en:"Is this edible/good?"},
+    {jp:"ni1 go3 gei2 hou2 sik6",hz:"呢個幾好食",en:"This is quite tasty"},
+    {jp:"nei5 sik6 zo2 faan6 mei6 aa3?",hz:"你食咗飯未呀？",en:"Have you eaten yet?"},
+    {jp:"sik6 zo2 laa3",hz:"食咗喇",en:"Already eaten"},
+    {jp:"zung6 mei6 sik6",hz:"仲未食",en:"Not eaten yet"},
+    {jp:"ngo5 dei6 jat1 cai4 sik6 faan6 laa1",hz:"我哋一齊食飯啦",en:"Let's eat together"},
+    {jp:"nei5 zung1 ji3 sik6 laat6 ge3 maa3?",hz:"你鍾意食辣嘅嘛？",en:"Do you like spicy food?"},
+    {jp:"ngo5 sik6 dak1 hou2 siu2",hz:"我食得好少",en:"I eat very little"},
+    {jp:"sik6 do1 di1 laa1",hz:"食多啲啦",en:"Eat more"},
+    {jp:"m4 goi1 bong1 ngo5 gaa1 faan6",hz:"唔該幫我加飯",en:"Please give me more rice"},
+    {jp:"ngo5 sik6 baau2 zo2",hz:"我食飽咗",en:"I'm full"},
+    {jp:"ni1 gaan1 caan1 teng1 hou2 ceot1 ming4",hz:"呢間餐廳好出名",en:"This restaurant is famous"},
+    {jp:"ngo5 dei6 giu3 do1 di1 coi3",hz:"我哋叫多啲菜",en:"Let's order more dishes"},
+    {jp:"ni1 go3 mei6 dou6 m4 co3",hz:"呢個味道唔錯",en:"This tastes pretty good"},
+    {jp:"taai3 haam4 laa3",hz:"太鹹喇",en:"Too salty"},
+    {jp:"nei5 sik6 m4 sik6 ngau4 juk6?",hz:"你食唔食牛肉？",en:"Do you eat beef?"},
+    {jp:"ngo5 sou3 sik6 ge3",hz:"我素食嘅",en:"I'm vegetarian"},
+    {jp:"ni1 dip6 sung3 gei2 hou2 sik6",hz:"呢碟餸幾好食",en:"This dish is quite nice"},
+    {jp:"jam2 do1 di1 tong1 laa1",hz:"飲多啲湯啦",en:"Drink more soup"},
+    {jp:"ngo5 dei6 sik6 faai3 di1 laa1",hz:"我哋食快啲啦",en:"Let's eat quickly"},
+    {jp:"maan6 maan2 sik6",hz:"慢慢食",en:"Eat slowly"},
+    {jp:"ni1 dou6 ge3 coi3 hou2 san1 sin1",hz:"呢度嘅菜好新鮮",en:"The vegetables here are fresh"},
+    {jp:"ngo5 dei6 fan1 hoi1 maai4 daan1",hz:"我哋分開埋單",en:"Let's split the bill"},
+    {jp:"gam1 ci3 ngo5 cing2",hz:"今次我請",en:"This time I'll treat"},
+    {jp:"haa6 ci3 nei5 cing2",hz:"下次你請",en:"Next time you treat"},
+    {jp:"ni1 go3 taai3 fei4 gou1 laa3",hz:"呢個太肥膏喇",en:"This is too fatty"},
+    {jp:"ngo5 soeng2 si3 haa5 ni1 go3",hz:"我想試吓呢個",en:"I want to try this"},
+    {jp:"nei5 gaai3 siu6 di1 je5 sik6 laa1",hz:"你介紹啲嘢食啦",en:"Recommend some food"},
+    {jp:"ngo5 sik6 m4 gwaan3 ni1 go3",hz:"我食唔慣呢個",en:"I'm not used to eating this"},
+    {jp:"ni1 gaan1 pou3 tau4 hou2 peng4",hz:"呢間舖頭好平",en:"This shop is cheap"},
+    {jp:"paai4 deoi2 hou2 noi6",hz:"排隊好耐",en:"Long queue"},
+    {jp:"dang2 zo2 hou2 noi6 sin1 jau5 wai2",hz:"等咗好耐先有位",en:"Waited a long time to get a table"},
+    {jp:"ngo5 sik6 laat6 wui5 tou5 tung3",hz:"我食辣會肚痛",en:"I get a stomachache when I eat spicy food"},
+    {jp:"saang1 ge3 dou1 dak1",hz:"生嘅都得",en:"Eating it raw is fine too"},
+    {jp:"ni1 go3 hai6 ziu1 paai4 coi3",hz:"呢個係招牌菜",en:"This is the signature dish"},
+    {jp:"m4 hou2 saai1 je5 sik6",hz:"唔好嘥嘢食",en:"Don't waste food"},
+    {jp:"baau1 faan1 uk1 kei2 sik6",hz:"包返屋企食",en:"Pack it to take home"},
+    {jp:"hou2 hoeng1 aa3",hz:"好香呀",en:"It smells good"},
+  ],
+  family_talk:[
+    {jp:"nei5 gam1 jat6 dim2 aa3?",hz:"你今日點呀？",en:"How was your day?"},
+    {jp:"uk1 kei2 jan4 dou1 hou2 maa3?",hz:"屋企人都好嘛？",en:"Is everyone at home well?"},
+    {jp:"aa3 baa4 aa3 maa1 dou1 hou2",hz:"阿爸阿媽都好",en:"Dad and mum are both well"},
+    {jp:"nei5 zou6 jyun4 fung1 fo3 mei6 aa3?",hz:"你做完功課未呀？",en:"Have you finished your homework?"},
+    {jp:"zou2 di1 fan3 laa1",hz:"早啲瞓啦",en:"Go to sleep early"},
+    {jp:"ngo5 ting1 ziu1 zou2 hei2 san1",hz:"我聽朝早起身",en:"I'll get up early tomorrow"},
+    {jp:"nei5 gei2 si4 faan1 uk1 kei2?",hz:"你幾時返屋企？",en:"When are you coming home?"},
+    {jp:"ngo5 zau6 lei4 faai3 faan1 dou3",hz:"我就嚿快返到",en:"I'll be home soon"},
+    {jp:"siu2 sam1 di1 haang4 lou6",hz:"小心啲行路",en:"Be careful walking"},
+    {jp:"ceot1 heoi3 jiu3 daai3 ze1",hz:"出去要帶遮",en:"Bring an umbrella when going out"},
+    {jp:"nei5 sik6 zo2 joek6 mei6 aa3?",hz:"你食咗藥未呀？",en:"Have you taken your medicine?"},
+    {jp:"aa3 po4 gwa3 zyu6 nei5",hz:"阿婆掛住你",en:"Grandma misses you"},
+    {jp:"gwo3 nin4 jiu3 faan1 hoeng1 haa6",hz:"過年要返鄉下",en:"Need to go back to hometown for new year"},
+    {jp:"ngo5 dei6 jat1 gaa1 jan4 heoi3 leoi5 hang4",hz:"我哋一家人去旅行",en:"Our family is going on a trip"},
+    {jp:"nei5 go3 sai3 lou6 ji4 gaa1 dim2 aa3?",hz:"你個細佬而家點呀？",en:"How's your younger brother now?"},
+    {jp:"aa3 baa4 gam1 jat6 faan1 gung1 ci4",hz:"阿爸今日返工遲",en:"Dad's coming home from work late today"},
+    {jp:"maa1 mi4 giu3 nei5 teng1 din6 waa2",hz:"媽咪叫你聽電話",en:"Mum is calling you to answer the phone"},
+    {jp:"nei5 go1 go1 git3 fan1 mei6 aa3?",hz:"你哥哥結婚未呀？",en:"Has your older brother got married yet?"},
+    {jp:"uk1 kei2 zing2 sau1 gan2",hz:"屋企整修緊",en:"The house is being renovated"},
+    {jp:"ngo5 dei6 ci4 di1 heoi3 taam3 aa3 po4",hz:"我哋遲啲去探阿婆",en:"We'll visit grandma later"},
+    {jp:"nei5 go3 zai2 gei2 daai6 go3 laa3?",hz:"你個仔幾大個喇？",en:"How old is your son now?"},
+    {jp:"keoi5 go3 neoi2 duk6 gan2 siu2 hok6",hz:"佢個女讀緊小學",en:"Her daughter is in primary school"},
+    {jp:"ngo5 lou5 po2 gam1 jat6 m4 syu1 fuk6",hz:"我老婆今日唔舒服",en:"My wife isn't feeling well today"},
+    {jp:"nei5 lou5 gung1 ceot1 caai1 mei6 faan1",hz:"你老公出差未返",en:"Your husband hasn't returned from his trip"},
+    {jp:"uk1 kei2 jan4 zeoi6 maai4 jat1 cai4 sik6 faan6",hz:"屋企人聚埋一齊食飯",en:"The family gathers to eat together"},
+    {jp:"nei5 sai3 go3 go2 zan6 hou2 gwaai1",hz:"你細個嗰陣好乖",en:"You were very well-behaved when little"},
+    {jp:"ngo5 dei6 hou2 noi6 mou5 gin3 aa3 suk1",hz:"我哋好耐冇見阿叔",en:"We haven't seen uncle in ages"},
+    {jp:"aa3 ji1 giu3 nei5 gwo3 lei4 sik6 faan6",hz:"阿姨叫你過嚿食飯",en:"Auntie's calling you over to eat"},
+    {jp:"nei5 je4 je4 san1 tai2 gei2 hou2",hz:"你爺爺身體幾好",en:"Your grandfather's health is quite good"},
+    {jp:"ngo5 dei6 bong1 sau2 sai2 wun2",hz:"我哋幫手洗碗",en:"We help wash the dishes"},
+    {jp:"sai3 lou6 zai2 m4 hou2 zau1 wai4 zau2",hz:"細路仔唔好周圍走",en:"Kids, don't run around"},
+    {jp:"teng1 waa6 di1, m4 hou2 cou4",hz:"聽話啲，唔好嘈",en:"Be obedient, don't make noise"},
+    {jp:"nei5 zou6 mat1 m4 ceot1 seng1 aa3?",hz:"你做乜唔出聲呀？",en:"Why aren't you saying anything?"},
+    {jp:"ngo5 tung4 uk1 kei2 jan4 gong2 zo2",hz:"我同屋企人講咗",en:"I've told my family"},
+    {jp:"aa3 baa4 hou2 siu2 ceot1 seng1",hz:"阿爸好少出聲",en:"Dad rarely speaks up"},
+    {jp:"ngo5 dei6 cyun4 gaa1 heoi3 jam2 caa4",hz:"我哋全家去飲茶",en:"Our whole family goes for dim sum"},
+    {jp:"uk1 kei2 laang5 hei3 waai6 zo2",hz:"屋企冷氣壞咗",en:"The air conditioner at home is broken"},
+    {jp:"nei5 zyu6 dak1 kan5 m4 kan5 uk1 kei2?",hz:"你住得近唔近屋企？",en:"Do you live near your family home?"},
+    {jp:"ngo5 dei6 gaa1 ting4 zeoi6 wui2",hz:"我哋家庭聚會",en:"We have a family gathering"},
+    {jp:"do1 ze6 nei5 ziu3 gu3 uk1 kei2 jan4",hz:"多謝你照顧屋企人",en:"Thank you for taking care of the family"},
+  ],
+  friends_talk:[
+    {jp:"ngo5 dei6 ceot1 heoi3 waan2 laa1",hz:"我哋出去玩啦",en:"Let's go out and hang out"},
+    {jp:"gam1 maan5 zou6 di1 me1 hou2?",hz:"今晚做啲咩好？",en:"What should we do tonight?"},
+    {jp:"nei5 dak1 haan4 maa3?",hz:"你得閒嘛？",en:"Are you free?"},
+    {jp:"ngo5 gei2 mong4 aa3",hz:"我幾忙呀",en:"I'm quite busy"},
+    {jp:"ci4 di1 zoi3 joek3 laa1",hz:"遲啲再約啦",en:"Let's arrange to meet later"},
+    {jp:"ngo5 dei6 hou2 noi6 mou5 gin3",hz:"我哋好耐冇見",en:"We haven't seen each other in ages"},
+    {jp:"nei5 zeoi3 gan2 dim2 aa3?",hz:"你最近點呀？",en:"How have you been recently?"},
+    {jp:"jat1 cai3 dou1 gei2 hou2",hz:"一切都幾好",en:"Everything's quite good"},
+    {jp:"nei5 dou1 mou5 bin3 gwo3",hz:"你都冇變過",en:"You haven't changed at all"},
+    {jp:"ngo5 dei6 heoi3 tai2 hei3 laa1",hz:"我哋去睇戲啦",en:"Let's go watch a movie"},
+    {jp:"gam1 ci3 ngo5 dei6 heoi3 bin1 dou6?",hz:"今次我哋去邊度？",en:"Where shall we go this time?"},
+    {jp:"nei5 daai3 zo2 mou5?",hz:"你帶咗冇？",en:"Have you brought it?"},
+    {jp:"m4 gei3 dak1 daai3 laa3",hz:"唔記得帶喇",en:"Forgot to bring it"},
+    {jp:"nei5 ze3 bei2 ngo5 dak1 m4 dak1?",hz:"你借俾我得唔得？",en:"Can you lend it to me?"},
+    {jp:"ngo5 dei6 jat1 cai4 heoi3 leoi5 hang4",hz:"我哋一齊去旅行",en:"Let's travel together"},
+    {jp:"nei5 soeng2 heoi3 bin1 dou6 waan2?",hz:"你想去邊度玩？",en:"Where do you want to go?"},
+    {jp:"ngo5 dei6 jat1 cai4 daa2 bin1 lou4",hz:"我哋一齊打邊爐",en:"Let's have hot pot together"},
+    {jp:"nei5 dak1 m4 dak1 haan4 gam1 maan5?",hz:"你得唔得閒今晚？",en:"Are you free tonight?"},
+    {jp:"ngo5 dei6 king1 haa5 gai2 sin1",hz:"我哋傾吓偈先",en:"Let's chat for a bit first"},
+    {jp:"ngo5 sam1 ceng4 m4 hou2",hz:"我心情唔好",en:"I'm in a bad mood"},
+    {jp:"nei5 teng1 ngo5 gong2",hz:"你聽我講",en:"Listen to me"},
+    {jp:"nei5 dou1 m4 ming4 ngo5",hz:"你都唔明我",en:"You don't understand me at all"},
+    {jp:"ngo5 dei6 m4 hou2 cou4 gaau1 laa1",hz:"我哋唔好嘈交啦",en:"Let's not argue"},
+    {jp:"nei5 gaai3 ji3 maa3?",hz:"你介意嘛？",en:"Do you mind?"},
+    {jp:"m4 gaai3 ji3",hz:"唔介意",en:"I don't mind"},
+    {jp:"ngo5 dei6 jat1 cai4 haang4 gaai1",hz:"我哋一齊行街",en:"Let's go shopping together"},
+    {jp:"nei5 zoek3 ni1 gin6 saam1 gei2 leng3",hz:"你著呢件衫幾靚",en:"You look nice in this outfit"},
+    {jp:"m4 hou2 gam3 gan2 zoeng1",hz:"唔好咁緊張",en:"Don't be so nervous"},
+    {jp:"fong3 sung1 di1",hz:"放鬆啲",en:"Relax a bit"},
+    {jp:"nei5 seon3 m4 seon3 ngo5?",hz:"你信唔信我？",en:"Do you believe me?"},
+    {jp:"ngo5 bong1 nei5 sau2",hz:"我幫你手",en:"I'll help you out"},
+    {jp:"ngo5 dei6 hai6 hou2 pang4 jau5",hz:"我哋係好朋友",en:"We're good friends"},
+    {jp:"nei5 jau5 mou5 hing3 ceoi3?",hz:"你有冇興趣？",en:"Are you interested?"},
+    {jp:"ngo5 mou5 hing3 ceoi3",hz:"我冇興趣",en:"I'm not interested"},
+    {jp:"ngo5 dei6 heoi3 coeng3 K",hz:"我哋去唱K",en:"Let's go karaoke"},
+    {jp:"nei5 gam1 maan5 jau5 mou5 zit3 muk6?",hz:"你今晚有冇節目？",en:"Do you have plans tonight?"},
+    {jp:"ngo5 mou5 je5 zou6",hz:"我冇嘢做",en:"I have nothing to do"},
+    {jp:"ngo5 dei6 jat1 cai4 haang4 saan1",hz:"我哋一齊行山",en:"Let's go hiking together"},
+    {jp:"nei5 gam1 ci3 dou1 jau5 heoi3?",hz:"你今次都有去？",en:"Are you going this time too?"},
+    {jp:"jat1 cai4 lei4 laa1",hz:"一齊嚿啦",en:"Come together!"},
+  ],
+  daily_chat:[
+    {jp:"gam1 jat6 tin1 hei3 gei2 hou2",hz:"今日天氣幾好",en:"The weather is quite nice today"},
+    {jp:"nei5 gam1 jat6 zou6 zo2 di1 me1?",hz:"你今日做咗啲咩？",en:"What did you do today?"},
+    {jp:"ngo5 gam1 jat6 hou2 gui6",hz:"我今日好攰",en:"I'm very tired today"},
+    {jp:"zou2 di1 jau1 sik1 laa1",hz:"早啲休息啦",en:"Rest early"},
+    {jp:"nei5 fan3 dak1 hou2 maa3?",hz:"你瞓得好嘛？",en:"Did you sleep well?"},
+    {jp:"ngo5 fan3 dak1 m4 hou2",hz:"我瞓得唔好",en:"I didn't sleep well"},
+    {jp:"nei5 gam1 jat6 faan1 gung1 dim2 aa3?",hz:"你今日返工點呀？",en:"How was work today?"},
+    {jp:"gung1 zok3 hou2 mong4",hz:"工作好忙",en:"Work is very busy"},
+    {jp:"lou5 baan2 hou2 jim4",hz:"老闆好嚴",en:"The boss is very strict"},
+    {jp:"tung4 si6 dou1 gei2 hou2",hz:"同事都幾好",en:"Colleagues are quite nice"},
+    {jp:"ngo5 dei6 ci4 di1 zoi3 gong2",hz:"我哋遲啲再講",en:"Let's talk about it later"},
+    {jp:"nei5 zeoi3 gan2 mong4 di1 me1?",hz:"你最近忙啲咩？",en:"What's been keeping you busy lately?"},
+    {jp:"dou1 hai6 ci1 di1 si6",hz:"都係差啲事",en:"Just various things"},
+    {jp:"nei5 zyu6 hai2 bin1 aa3?",hz:"你住喺邊呀？",en:"Where do you live?"},
+    {jp:"ngo5 zyu6 hai2 Gau2 Lung4",hz:"我住喺九龍",en:"I live in Kowloon"},
+    {jp:"nei5 faan1 hok6 jiu3 gei2 noi6?",hz:"你返學要幾耐？",en:"How long does it take you to get to school?"},
+    {jp:"daai6 koi3 bun3 go3 zung1",hz:"大概半個鐘",en:"About half an hour"},
+    {jp:"nei5 gam1 jat6 jau5 mou5 hung1?",hz:"你今日有冇空？",en:"Are you free today?"},
+    {jp:"ngo5 gam1 jat6 dak1 haan4",hz:"我今日得閒",en:"I'm free today"},
+    {jp:"ngo5 ji4 gaa1 mong4 gan2",hz:"我而家忙緊",en:"I'm busy right now"},
+    {jp:"nei5 ji4 gaa1 zou6 gan2 me1 aa3?",hz:"你而家做緊咩呀？",en:"What are you doing right now?"},
+    {jp:"ngo5 hai2 dou6 tai2 syu1",hz:"我喺度睇書",en:"I'm reading a book"},
+    {jp:"nei5 tai2 gan2 me1 zit3 muk6?",hz:"你睇緊咩節目？",en:"What show are you watching?"},
+    {jp:"ngo5 ngaam1 ngaam1 hei2 san1",hz:"我啱啱起身",en:"I just woke up"},
+    {jp:"nei5 sik6 zo2 zou2 caan1 mei6 aa3?",hz:"你食咗早餐未呀？",en:"Have you had breakfast?"},
+    {jp:"lok6 jyu5 laa3, daai3 ze1",hz:"落雨喇，帶遮",en:"It's raining, bring an umbrella"},
+    {jp:"nei5 zeon2 bei6 hou2 mei6 aa3?",hz:"你準備好未呀？",en:"Are you ready?"},
+    {jp:"zung6 mei6, dang2 ngo5 jat1 zan6",hz:"仲未，等我一陣",en:"Not yet, wait a moment"},
+    {jp:"ngo5 dei6 ceot1 faat3 laa1",hz:"我哋出發啦",en:"Let's set off"},
+    {jp:"haang4 faai3 di1",hz:"行快啲",en:"Walk faster"},
+    {jp:"dang2 ngo5 jat1 zan6",hz:"等我一陣",en:"Wait for me a moment"},
+    {jp:"nei5 heoi3 gwo3 go2 dou6 mei6 aa3?",hz:"你去過嗰度未呀？",en:"Have you been there before?"},
+    {jp:"ngo5 mei6 heoi3 gwo3",hz:"我未去過",en:"I haven't been there yet"},
+    {jp:"lou6 cing4 gei2 jyun5?",hz:"路程幾遠？",en:"How far is the journey?"},
+    {jp:"m4 syun3 taai3 jyun5",hz:"唔算太遠",en:"Not too far"},
+    {jp:"nei5 daai3 gau3 cin2 mei6 aa3?",hz:"你帶夠錢未呀？",en:"Do you have enough money?"},
+    {jp:"gau3 laa3",hz:"夠喇",en:"Enough"},
+    {jp:"ngo5 dei6 maan6 maan2 lei4",hz:"我哋慢慢嚿",en:"Take your time coming"},
+    {jp:"nei5 co5 ding6 sin1",hz:"你坐定先",en:"Sit still first"},
+    {jp:"m4 gap1, maan6 maan2 lei4",hz:"唔急，慢慢嚿",en:"No rush, take your time"},
+  ],
+  opinions_feelings:[
+    {jp:"ngo5 gok3 dak1 ni1 go3 gei2 hou2",hz:"我覺得呢個幾好",en:"I think this is quite good"},
+    {jp:"ngo5 m4 tung4 ji3",hz:"我唔同意",en:"I disagree"},
+    {jp:"ngo5 tung4 ji3 nei5 gong2 ge3",hz:"我同意你講嘅",en:"I agree with what you said"},
+    {jp:"ngo5 gok3 dak1 m4 hai6 gam2",hz:"我覺得唔係噉",en:"I don't think it's like that"},
+    {jp:"nei5 dim2 tai2 ni1 gin6 si6?",hz:"你點睇呢件事？",en:"What do you think about this?"},
+    {jp:"ngo5 jau5 zi6 gei2 ge3 nam2 faat3",hz:"我有自己嘅諗法",en:"I have my own opinion"},
+    {jp:"ngo5 gok3 dak1 gei2 hap6 lei5",hz:"我覺得幾合理",en:"I think it's quite reasonable"},
+    {jp:"ngo5 m4 zi1 dim2 daap3 nei5",hz:"我唔知點答你",en:"I don't know how to answer you"},
+    {jp:"ngo5 dou1 hai6 gam2 nam2",hz:"我都係噉諗",en:"I think the same way too"},
+    {jp:"ngo5 jau5 di1 daam1 sam1",hz:"我有啲擔心",en:"I'm a bit worried"},
+    {jp:"m4 sai2 daam1 sam1",hz:"唔使擔心",en:"No need to worry"},
+    {jp:"ngo5 gok3 dak1 hou2 sat1 mong6",hz:"我覺得好失望",en:"I feel quite disappointed"},
+    {jp:"ngo5 hou2 mun5 ji3",hz:"我好滿意",en:"I'm very satisfied"},
+    {jp:"ngo5 jau5 di1 m4 hoi1 sam1",hz:"我有啲唔開心",en:"I'm a bit unhappy"},
+    {jp:"nei5 zou6 dak1 hou2 ngaam1",hz:"你做得好啱",en:"You did it right"},
+    {jp:"ngo5 gok3 dak1 nei5 gong2 dak1 ngaam1",hz:"我覺得你講得啱",en:"I think what you said is right"},
+    {jp:"ngo5 faan2 ji4 gok3 dak1 m4 ngaam1",hz:"我反而覺得唔啱",en:"I actually think it's wrong"},
+    {jp:"ngo5 sam1 ceng4 gei2 fuk1 zaap6",hz:"我心情幾複雜",en:"My feelings are quite complicated"},
+    {jp:"ngo5 gok3 dak1 hou2 giu1 ngou6",hz:"我覺得好驕傲",en:"I feel quite proud"},
+    {jp:"ngo5 gok3 dak1 hou2 mou4 noi6",hz:"我覺得好無奈",en:"I feel quite helpless"},
+    {jp:"nei5 ge3 nam2 faat3 hou2 dak6 bit6",hz:"你嘅諗法好特別",en:"Your way of thinking is quite unique"},
+    {jp:"ngo5 gok3 dak1 nei5 jing1 goi1 si3 haa5",hz:"我覺得你應該試吓",en:"I think you should give it a try"},
+    {jp:"ngo5 jau5 seon3 sam1",hz:"我有信心",en:"I have confidence"},
+    {jp:"ngo5 mou5 seon3 sam1",hz:"我冇信心",en:"I don't have confidence"},
+    {jp:"ngo5 gok3 dak1 aat3 lik6 hou2 daai6",hz:"我覺得壓力好大",en:"I feel a lot of pressure"},
+    {jp:"ngo5 dei6 ji3 gin3 jat1 zi3",hz:"我哋意見一致",en:"Our opinions agree"},
+    {jp:"ngo5 dei6 ji3 gin3 m4 hap6",hz:"我哋意見唔合",en:"Our opinions don't match"},
+    {jp:"nei5 bei2 ngo5 soeng2 zoeng6 zung1 hou2",hz:"你比我想像中好",en:"You're better than I imagined"},
+    {jp:"ngo5 gok3 dak1 jau5 dou6 lei5",hz:"我覺得有道理",en:"I think it makes sense"},
+    {jp:"ngo5 m4 gok3 dak1 jau5 man6 tai4",hz:"我唔覺得有問題",en:"I don't think there's a problem"},
+    {jp:"ngo5 dei6 nam2 faat3 jat1 joeng6",hz:"我哋諗法一樣",en:"We think alike"},
+    {jp:"ngo5 sam1 jap6 min6 hou2 zaang1 zaat3",hz:"我心入面好掙扎",en:"I'm struggling inside"},
+    {jp:"ngo5 dei6 lap6 coeng4 m4 tung4",hz:"我哋立場唔同",en:"We have different stances"},
+    {jp:"nei5 ge3 ji3 gin3 hou2 zung6 jiu3",hz:"你嘅意見好重要",en:"Your opinion is very important"},
+    {jp:"ngo5 mou5 mat1 dak6 bit6 gam2 gok3",hz:"我冇乜特別感覺",en:"I don't have any particular feeling"},
+    {jp:"ngo5 jau5 zung2 m4 on1 ge3 gam2 gok3",hz:"我有種唔安嘅感覺",en:"I have an uneasy feeling"},
+    {jp:"ngo5 gok3 dak1 zi6 gei2 zou6 dak1 m4 gau3",hz:"我覺得自己做得唔夠",en:"I feel I haven't done enough"},
+    {jp:"ngo5 dei6 nam2 sam1 jat1 cang4",hz:"我哋諗深一層",en:"Let's think more deeply"},
+    {jp:"ngo5 gok3 dak1 ni1 joeng2 zeoi3 gan2 jiu3",hz:"我覺得呢樣最緊要",en:"I think this is the most important thing"},
+    {jp:"do1 ze6 nei5 tai2 loeng6 ngo5",hz:"多謝你體諒我",en:"Thank you for understanding me"},
+  ],
 };
 
 // ============================================================
@@ -1236,23 +1453,23 @@ let cachedVoice=null;
 // speak(text, fallbackJp, rate)  — rate: 1=normal, 0.45=slow
 function speak(text, fallbackJp, rate){
   rate = rate || 1;
-  
+
   // Cancel any ongoing speech
   if(window.speechSynthesis){
     window.speechSynthesis.cancel();
   }
-  
+
   // Create utterance
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'zh-HK';
   utterance.rate = rate === 0.45 ? 0.5 : 0.9;  // Slow mode
   utterance.pitch = 1.0;
   utterance.volume = 1;
-  
+
   // Try to get a Cantonese voice
   const voices = window.speechSynthesis.getVoices();
   let cantoneseVoice = null;
-  
+
   for (let i = 0; i < voices.length; i++) {
     const v = voices[i];
     if (v.lang === 'zh-HK' || v.lang === 'zh-Hant-HK' || v.name.toLowerCase().includes('ting-ting') || v.name.toLowerCase().includes('ching')) {
@@ -1260,28 +1477,13 @@ function speak(text, fallbackJp, rate){
       break;
     }
   }
-  
+
   if (cantoneseVoice) {
     utterance.voice = cantoneseVoice;
   }
-  
+
   // Speak
   window.speechSynthesis.speak(utterance);
-}
-function doTTS(text,rate){
-  if(!window.speechSynthesis)return;
-  rate=rate||1;
-  window.speechSynthesis.cancel();
-  function go(voice){
-    const u=new SpeechSynthesisUtterance(text);
-    u.lang='zh-HK';u.rate=rate*0.75;u.pitch=1.0; // 0.75 base, halved for slow
-    if(rate<1)u.rate=0.38; // extra slow for 🐢
-    if(voice)u.voice=voice;
-    window.speechSynthesis.speak(u);
-  }
-  if(cachedVoice){go(cachedVoice);return;}
-  function find(){const vs=window.speechSynthesis.getVoices();const priority=[v=>v.lang==='zh-HK',v=>v.name.toLowerCase().includes('cantonese'),v=>v.lang==='zh-TW',v=>v.lang.startsWith('zh')];for(const t of priority){const f=vs.find(t);if(f){cachedVoice=f;go(f);return;}}go(null);}
-  window.speechSynthesis.getVoices().length>0?find():(window.speechSynthesis.onvoiceschanged=()=>{find();window.speechSynthesis.onvoiceschanged=null;});
 }
 
 // ============================================================
@@ -1295,12 +1497,6 @@ function openRecordingModal(phrase){
   document.getElementById('recordingStatus').textContent='Ready. Click Start.';
   ['startRecordBtn','stopRecordBtn','playbackBtn','saveRecordingBtn'].forEach((id,i)=>document.getElementById(id).style.display=i===0?'inline-block':'none');
   recordedBlob=null;
-  // Show if existing recording
-  const hasRec=hasRecording(phrase);
-  const existNote=document.getElementById('existingRecNote');
-  const delBtn=document.getElementById('deleteThisRecBtn');
-  existNote.style.display=hasRec?'block':'none';
-  delBtn.style.display=hasRec?'inline-block':'none';
 }
 function closeRecordingModal(){document.getElementById('recordingModal').style.display='none';if(mediaRecorder?.state==='recording')mediaRecorder.stop();}
 async function startRecording(){
@@ -1330,13 +1526,6 @@ function saveRecording(){
   reader.onloadend=()=>{saveRecordingToStorage(currentRecordingPhrase,reader.result);alert(`✅ Saved for: "${currentRecordingPhrase}"`);closeRecordingModal();refreshAllGrids();};
   reader.readAsDataURL(recordedBlob);
 }
-function deleteCurrentRec(){
-  if(!confirm(`Delete recording for "${currentRecordingPhrase}"?`))return;
-  deleteRecording(currentRecordingPhrase);
-  document.getElementById('existingRecNote').style.display='none';
-  document.getElementById('deleteThisRecBtn').style.display='none';
-  refreshAllGrids();
-}
 function updateStorageInfo(){const c=Object.keys(loadCustomRecordings()).length;const el=document.getElementById('storageInfo');if(el)el.textContent=`📀 ${c} recording${c!==1?'s':''} saved`;}
 function refreshAllGrids(){Object.keys(VOCAB).forEach(k=>renderGrid(k,VOCAB[k]));}
 function exportAllRecordings(){const r=loadCustomRecordings();if(!Object.keys(r).length){alert('No recordings!');return;}const b=new Blob([JSON.stringify(r)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=`cantonese_recordings_${new Date().toISOString().split('T')[0]}.json`;a.click();URL.revokeObjectURL(u);}
@@ -1348,15 +1537,15 @@ function importRecordings(file){const r=new FileReader();r.onload=e=>{try{const 
 function renderRecordingsManager(){
   const el = document.getElementById('recManagerContent');
   if(!el) return;
-  
+
   const recs = loadCustomRecordings();
   const keys = Object.keys(recs);
-  
+
   if(keys.length === 0){
     el.innerHTML = `<div class="wide-card"><h3>No recordings yet</h3><p>Record your voice on any vocab card — it will appear here so you can manage it.</p></div>`;
     return;
   }
-  
+
   el.innerHTML = `
     <div class="rec-manager">
       <h3>🎙️ ${keys.length} Saved Recording${keys.length !== 1 ? 's' : ''}</h3>
@@ -1367,27 +1556,27 @@ function renderRecordingsManager(){
         <button class="btn-outline" onclick="exportAllRecordings()">📥 Export All</button>
       </div>
     </div>`;
-  
+
   const list = document.getElementById('recList');
   keys.sort().forEach(phrase => {
     const audioData = recs[phrase];
     const item = document.createElement('div');
     item.className = 'rec-item';
     item.style.cssText = 'display:flex;align-items:center;gap:.7rem;padding:.5rem .8rem;background:var(--surface2);border-radius:8px;margin-bottom:.5rem;';
-    
+
     item.innerHTML = `
-      <span class="rec-item-phrase" style="font-family:\'Space Mono\',monospace;color:var(--accent);flex:1;font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${phrase}">${phrase}</span>
+      <span class="rec-item-phrase" style="font-family:'Space Mono',monospace;color:var(--accent);flex:1;font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${phrase}">${phrase}</span>
       <button class="rec-item-play" style="background:none;border:1px solid var(--border);border-radius:5px;padding:2px 8px;color:var(--accent2);cursor:pointer;font-size:.75rem;">▶ Play</button>
       <button class="rec-item-del" style="background:none;border:1px solid var(--border);border-radius:5px;padding:2px 8px;color:var(--red);cursor:pointer;font-size:.75rem;">🗑️ Delete</button>
     `;
-    
+
     const audioObj = new Audio(audioData);
     const playBtn = item.querySelector('.rec-item-play');
     playBtn.onclick = () => {
       audioObj.currentTime = 0;
       audioObj.play().catch(err => console.warn('Play error:', err));
     };
-    
+
     const delBtn = item.querySelector('.rec-item-del');
     delBtn.onclick = () => {
       if(confirm(`Delete recording for "${phrase}"?`)){
@@ -1396,7 +1585,7 @@ function renderRecordingsManager(){
         refreshAllGrids();
       }
     };
-    
+
     list.appendChild(item);
   });
 }
@@ -1441,6 +1630,8 @@ const TOPIC_LABELS={
   school:"School",seasons:"Seasons",special_occasions:"Special Occasions",sport:"Sport",
   christmas:"Christmas",verbs:"Verbs",weather:"Weather",classifiers:"Classifiers",
   idioms:"Idioms",slang:"Slang & Sarcasm (18+)",
+  meal_talk:"Meal Talk",family_talk:"Family Talk",friends_talk:"Friends Talk",daily_chat:"Daily Small Talk",
+  opinions_feelings:"Opinions & Feelings",
 };
 
 function buildPool(topicKeys){
@@ -1621,10 +1812,6 @@ function showResults(){
     if(!topicResults[q.topic])topicResults[q.topic]={correct:0,total:0};
     topicResults[q.topic].total++;
   });
-  // rebuild correct count from stats delta — approximate using overall quizScore
-  const weakFromThis=quizQuestions.reduce((acc,q)=>{
-    if(!acc[q.topic])acc[q.topic]=[];return acc;
-  },{});
 
   const breakdown=Object.entries(topicResults).map(([k,v])=>{
     const score=getTopicScore(k)||0;
@@ -1679,17 +1866,6 @@ sideItems.forEach(item=>{
     if(panel)panel.classList.add('active');
     if(target==='quiz')loadQuiz();
     if(target==='recordings_manager')renderRecordingsManager();
-    if(target==='pronunciation_scorer'){
-      scorerBuildTopicGrid();
-      // Reset any ongoing scorer state
-      scorerSelectedTopic = null;
-      scorerSelectedWord = null;
-      scorerCurrentWordList = [];
-      document.getElementById('scorerTopicStage').style.display = 'block';
-      document.getElementById('scorerWordStage').style.display = 'none';
-      document.getElementById('scorerRecordStage').style.display = 'none';
-      document.getElementById('scorerResultStage').style.display = 'none';
-    }
     if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open');
   });
 });
@@ -1710,470 +1886,10 @@ document.getElementById('manageRecBtn').addEventListener('click',()=>{
 document.getElementById('startRecordBtn').addEventListener('click',startRecording);
 document.getElementById('stopRecordBtn').addEventListener('click',stopRecording);
 document.getElementById('saveRecordingBtn').addEventListener('click',saveRecording);
-document.getElementById('deleteThisRecBtn').addEventListener('click',deleteCurrentRec);
 document.getElementById('closeModalBtn').addEventListener('click',closeRecordingModal);
-
-// ============================================================
-//  PRONUNCIATION SCORER
-// ============================================================
-const SCORER_PHRASES=[
-  {jp:"nei5 hou2",hz:"你好",en:"Hello"},
-  {jp:"do1 ze6",hz:"多謝",en:"Thank you"},
-  {jp:"m4 goi1",hz:"唔該",en:"Excuse me"},
-  {jp:"jat1",hz:"一",en:"One"},
-  {jp:"ji6",hz:"二",en:"Two"},
-  {jp:"saam1",hz:"三",en:"Three"},
-  {jp:"hoi1 sam1",hz:"開心",en:"Happy"},
-  {jp:"hou2 mei6",hz:"好味",en:"Delicious"},
-  {jp:"gei2 do1 cin2",hz:"幾多錢",en:"How much?"},
-  {jp:"ngo5 m4 zi1",hz:"我唔知",en:"I don't know"},
-  {jp:"zou2 san4",hz:"早晨",en:"Good morning"},
-  {jp:"maan5 on1",hz:"晚安",en:"Good evening"},
-  {jp:"m4 hai6",hz:"唔係",en:"No"},
-  {jp:"hai6 aa3",hz:"係啊",en:"Yes"},
-];
-let scorerCurrentPhrase=null,scorerMediaRecorder=null,scorerAudioChunks=[],scorerUserBlob=null,scorerUserUrl=null,scorerRefPitchData=[],scorerUserPitchData=[],scorerAudioCtx=null,scorerSelectedTopic=null,scorerCurrentWordList=[],scorerSelectedWord=null;
-function getAudioCtx(){if(!scorerAudioCtx||scorerAudioCtx.state==='closed')scorerAudioCtx=new(window.AudioContext||window.webkitAudioContext)();return scorerAudioCtx;}
-function scorerBuildQuickPicks(){const c=document.getElementById('scorerQuickPicks');if(!c)return;c.innerHTML=SCORER_PHRASES.map(p=>`<button class="scorer-phrase-btn" onclick='scorerSelectPhrase(${JSON.stringify(p)})'>${p.hz} <span style="font-size:.68rem;color:var(--text-dim);margin-left:3px;">${p.jp}</span></button>`).join('');}
-function scorerSelectPhrase(p){scorerCurrentPhrase=p;document.querySelectorAll('.scorer-phrase-btn').forEach(b=>b.classList.toggle('selected',b.textContent.trim().startsWith(p.hz)));scorerShowTarget();}
-function scorerSetCustom(){const v=document.getElementById('scorerCustomInput').value.trim();if(!v){alert('Type something first.');return;}scorerCurrentPhrase={jp:v,hz:v,en:'(custom)'};scorerShowTarget();}
-function scorerShowTarget(){
-  const p=scorerCurrentPhrase;if(!p)return;
-  document.getElementById('scorerPhraseJp').innerHTML=renderJyutping(p.jp);
-  document.getElementById('scorerPhraseHz').textContent=p.hz;
-  document.getElementById('scorerTargetStage').style.display='block';
-  document.getElementById('scorerResultStage').style.display='none';
-  scorerUserBlob=null;scorerUserUrl=null;scorerRefPitchData=[];scorerUserPitchData=[];
-  ['refWaveCanvas','userWaveCanvas','refPitchCanvas','userPitchCanvas'].forEach(scorerClearCanvas);
-  document.getElementById('scorerRecordBtn').style.display='inline-flex';
-  document.getElementById('scorerStopBtn').style.display='none';
-  document.getElementById('scorerPlaybackBtn').style.display='none';
-  document.getElementById('scorerScoreBtn').style.display='none';
-  document.getElementById('scorerStatus').textContent='Press 🔊 Listen to hear the reference, then press ⏺ Record.';
-}
-function scorerDrawModelPitch(jp){
-  const canvas = document.getElementById('refPitchCanvas'); 
-  if(!canvas) return;
-  
-  const syllables = jp.trim().split(/\s+/);
-  const tones = [];
-  for (let syl of syllables) {
-    const match = syl.match(/([1-6])$/);
-    if (match) tones.push(parseInt(match[1]));
-  }
-  
-  if (tones.length === 0) {
-    for (let i = 0; i < 30; i++) tones.push(3);
-  }
-  
-  const P = {
-    1: [0.85, 0.85, 0.85, 0.85, 0.85],
-    2: [0.55, 0.65, 0.78, 0.88, 0.92],
-    3: [0.55, 0.55, 0.55, 0.55, 0.55],
-    4: [0.65, 0.48, 0.35, 0.25, 0.18],
-    5: [0.28, 0.38, 0.52, 0.66, 0.78],
-    6: [0.28, 0.28, 0.28, 0.28, 0.28]
-  };
-  
-  let points = [];
-  for (let t of tones) {
-    const shape = P[t] || P[3];
-    points.push(...shape);
-  }
-  
-  const smoothed = [];
-  for (let i = 0; i < points.length; i++) {
-    let sum = points[i];
-    let count = 1;
-    if (i > 0) { sum += points[i-1]; count++; }
-    if (i < points.length - 1) { sum += points[i+1]; count++; }
-    smoothed.push(sum / count);
-  }
-  
-  scorerRefPitchData = scorerResample(smoothed, 80);
-  scorerDrawPitchCurve(canvas, scorerRefPitchData, '#6dcc9e', 'Reference pitch');
-  
-  // Generate synthetic reference waveform
-  const refWaveCanvas = document.getElementById('refWaveCanvas');
-  if (refWaveCanvas) {
-    const w = refWaveCanvas.offsetWidth || 300;
-    refWaveCanvas.width = w;
-    refWaveCanvas.height = 80;
-    const ctx = refWaveCanvas.getContext('2d');
-    ctx.fillStyle = '#1e2028';
-    ctx.fillRect(0, 0, w, 80);
-    
-    // Create synthetic waveform based on pitch contour (simulating audio)
-    ctx.beginPath();
-    ctx.strokeStyle = '#6dcc9e';
-    ctx.lineWidth = 1.5;
-    ctx.shadowColor = '#6dcc9e';
-    ctx.shadowBlur = 4;
-    const mid = 40;
-    
-    for (let i = 0; i < w; i++) {
-      const pitchIdx = Math.floor((i / w) * scorerRefPitchData.length);
-      const pitchValue = scorerRefPitchData[pitchIdx] || 0.5;
-      const waveAmp = 20 * pitchValue;
-      const freq = 3 + pitchValue * 5;
-      const y = mid + Math.sin((i / 10) * freq) * waveAmp;
-      if (i === 0) ctx.moveTo(i, y);
-      else ctx.lineTo(i, y);
-    }
-    ctx.stroke();
-    
-    // Add gradient
-    ctx.lineTo(w, 80);
-    ctx.lineTo(0, 80);
-    ctx.closePath();
-    const g = ctx.createLinearGradient(0, 0, 0, 80);
-    g.addColorStop(0, 'rgba(109,204,158,0.2)');
-    g.addColorStop(1, 'rgba(109,204,158,0)');
-    ctx.fillStyle = g;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-  }
-}
-function scorerPlayReference(){
-  const word = scorerSelectedWord;
-  if(!word){
-    const statusEl = document.getElementById('scorerStatus');
-    if(statusEl) statusEl.innerHTML = '⚠️ Please select a word first.';
-    return;
-  }
-  
-  const textToSpeak = word.hz || word.jp;
-  
-  // Cancel any ongoing speech
-  if(window.speechSynthesis){
-    window.speechSynthesis.cancel();
-  }
-  
-  const utterance = new SpeechSynthesisUtterance(textToSpeak);
-  utterance.lang = 'zh-HK';
-  utterance.rate = 0.85;
-  utterance.pitch = 1.0;
-  utterance.volume = 1;
-  
-  // Try to get Cantonese voice
-  const voices = window.speechSynthesis.getVoices();
-  for (let i = 0; i < voices.length; i++) {
-    if (voices[i].lang === 'zh-HK' || voices[i].lang === 'zh-TW' || voices[i].name.toLowerCase().includes('ting') || voices[i].name.toLowerCase().includes('ching')) {
-      utterance.voice = voices[i];
-      break;
-    }
-  }
-  
-  window.speechSynthesis.speak(utterance);
-  
-  const statusEl = document.getElementById('scorerStatus');
-  if(statusEl) statusEl.innerHTML = '🔊 Playing reference... now press ⏺ Record.';
-}
-
-function scorerPlaySlow(){
-  const word = scorerSelectedWord;
-  if(!word) return;
-  
-  const textToSpeak = word.hz || word.jp;
-  
-  if(window.speechSynthesis){
-    window.speechSynthesis.cancel();
-  }
-  
-  const utterance = new SpeechSynthesisUtterance(textToSpeak);
-  utterance.lang = 'zh-HK';
-  utterance.rate = 0.45;
-  utterance.pitch = 1.0;
-  utterance.volume = 1;
-  
-  const voices = window.speechSynthesis.getVoices();
-  for (let i = 0; i < voices.length; i++) {
-    if (voices[i].lang === 'zh-HK' || voices[i].lang === 'zh-TW' || voices[i].name.toLowerCase().includes('ting') || voices[i].name.toLowerCase().includes('ching')) {
-      utterance.voice = voices[i];
-      break;
-    }
-  }
-  
-  window.speechSynthesis.speak(utterance);
-}
-function scorerDrawPitchCurve(canvas,data,color,label){
-  const W=canvas.offsetWidth||300,H=canvas.offsetHeight||70;canvas.width=W;canvas.height=H;
-  const ctx=canvas.getContext('2d');ctx.fillStyle='#1e2028';ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;
-  [0.25,0.5,0.75].forEach(y=>{ctx.beginPath();ctx.moveTo(0,y*H);ctx.lineTo(W,y*H);ctx.stroke();});
-  if(data.length<2)return;
-  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.shadowColor=color;ctx.shadowBlur=8;ctx.lineJoin='round';
-  data.forEach((v,i)=>{const x=(i/(data.length-1))*W,y=H-v*(H*0.8)-H*0.1;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-  ctx.stroke();ctx.shadowBlur=0;
-  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,color+'44');g.addColorStop(1,color+'00');
-  ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fillStyle=g;ctx.fill();
-  ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='10px DM Sans,sans-serif';ctx.fillText(label,6,14);
-}
-function scorerDrawWaveform(canvasId,buf,color){
-  const canvas=document.getElementById(canvasId);if(!canvas||!buf)return;
-  const W=canvas.offsetWidth||300,H=80;canvas.width=W;canvas.height=H;
-  const ctx=canvas.getContext('2d');ctx.fillStyle='#1e2028';ctx.fillRect(0,0,W,H);
-  const data=buf.getChannelData(0),step=Math.ceil(data.length/W),mid=H/2;
-  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.shadowColor=color;ctx.shadowBlur=4;
-  for(let i=0;i<W;i++){let mn=1,mx=-1;for(let j=0;j<step;j++){const v=data[i*step+j]||0;if(v<mn)mn=v;if(v>mx)mx=v;}ctx.moveTo(i,mid+mn*mid*0.9);ctx.lineTo(i,mid+mx*mid*0.9);}
-  ctx.stroke();
-}
-function scorerExtractPitch(buf){
-  const data=buf.getChannelData(0),sr=buf.sampleRate,fSz=Math.floor(sr*0.03),hop=Math.floor(fSz/2),pts=[];
-  for(let i=0;i+fSz<data.length;i+=hop){const f0=scorerAutocorr(data.slice(i,i+fSz),sr);if(f0>60&&f0<600)pts.push(f0);}
-  if(pts.length<3)return[];
-  const mn=Math.min(...pts),mx=Math.max(...pts),rng=mx-mn||1;return pts.map(p=>(p-mn)/rng);
-}
-function scorerAutocorr(frame,sr){
-  const n=frame.length,minL=Math.floor(sr/600),maxL=Math.min(Math.floor(sr/60),n-1);
-  let bL=-1,bC=-Infinity;
-  for(let lag=minL;lag<=maxL;lag++){let c=0;for(let i=0;i<n-lag;i++)c+=frame[i]*frame[i+lag];if(c>bC){bC=c;bL=lag;}}
-  return bL<0?0:sr/bL;
-}
-function scorerClearCanvas(id){
-  const c=document.getElementById(id);if(!c)return;const W=c.offsetWidth||300;c.width=W;c.height=80;
-  const ctx=c.getContext('2d');ctx.fillStyle='#1e2028';ctx.fillRect(0,0,W,80);
-  ctx.fillStyle='rgba(255,255,255,.08)';ctx.font='11px DM Sans,sans-serif';ctx.textAlign='center';ctx.fillText('—',W/2,44);ctx.textAlign='left';
-}
-async function scorerStartRecord(){
-  try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    scorerAudioChunks=[];scorerMediaRecorder=new MediaRecorder(stream);
-    scorerMediaRecorder.ondataavailable=e=>scorerAudioChunks.push(e.data);
-    scorerMediaRecorder.onstop=async ()=>{
-      stream.getTracks().forEach(t=>t.stop());
-      scorerUserBlob=new Blob(scorerAudioChunks,{type:'audio/webm'});
-      scorerUserUrl=URL.createObjectURL(scorerUserBlob);
-      document.getElementById('scorerPlaybackBtn').style.display='inline-flex';
-      document.getElementById('scorerScoreBtn').style.display='inline-flex';
-      document.getElementById('scorerRecordBtn').style.display='inline-flex';
-      document.getElementById('scorerStatus').textContent='✅ Recorded! Press ▶ Playback to check, or 📊 Score me.';
-      try{
-        const fr=new FileReader();
-        fr.onload=async e=>{
-          try{
-            const ac=getAudioCtx(),buf=await ac.decodeAudioData(e.target.result.slice(0));
-            scorerDrawWaveform('userWaveCanvas',buf,'#6d9ee8');
-            scorerUserPitchData=scorerExtractPitch(buf);
-            if(scorerUserPitchData.length>1)scorerDrawPitchCurve(document.getElementById('userPitchCanvas'),scorerUserPitchData,'#6d9ee8','Your pitch');
-          }catch(e){console.warn('decode error',e);}
-        };
-        fr.readAsArrayBuffer(scorerUserBlob);
-      }catch(e){console.warn(e);}
-    };
-    scorerMediaRecorder.start();
-    document.getElementById('scorerRecordBtn').style.display='none';
-    document.getElementById('scorerStopBtn').style.display='inline-flex';
-    document.getElementById('scorerPlaybackBtn').style.display='none';
-    document.getElementById('scorerScoreBtn').style.display='none';
-    document.getElementById('scorerStatus').textContent='🔴 Recording… speak clearly, then press ⏹ Stop.';
-  }catch(e){alert('Microphone access denied. Please allow microphone access and try again.');}
-}
-function scorerStopRecord(){if(scorerMediaRecorder?.state==='recording')scorerMediaRecorder.stop();document.getElementById('scorerStopBtn').style.display='none';}
-function scorerPlayback(){if(scorerUserUrl)new Audio(scorerUserUrl).play();}
-function scorerResample(arr,n){return Array.from({length:n},(_,i)=>{const idx=(i/(n-1))*(arr.length-1),lo=Math.floor(idx),hi=Math.min(lo+1,arr.length-1),t=idx-lo;return arr[lo]*(1-t)+arr[hi]*t;});}
-function scorerAnalyse(){
-  if(!scorerUserBlob){alert('Record yourself first!');return;}
-  const pitch=scorerComparePitch(),rhythm=scorerScoreRhythm(),energy=scorerScoreEnergy();
-  scorerShowResults(Math.round(pitch*0.5+rhythm*0.25+energy*0.25),pitch,rhythm,energy);
-}
-function scorerComparePitch(){
-  const ref=scorerRefPitchData,user=scorerUserPitchData;
-  if(ref.length<3||user.length<3)return 55;
-  const N=20,rR=scorerResample(ref,N),rU=scorerResample(user,N);
-  const mR=rR.reduce((a,b)=>a+b,0)/N,mU=rU.reduce((a,b)=>a+b,0)/N;
-  let num=0,dR=0,dU=0;
-  for(let i=0;i<N;i++){const dr=rR[i]-mR,du=rU[i]-mU;num+=dr*du;dR+=dr*dr;dU+=du*du;}
-  const denom=Math.sqrt(dR*dU);
-  return Math.max(0,Math.min(100,Math.round(((denom===0?0:num/denom)+1)/2*100)));
-}
-function scorerScoreRhythm(){const p=scorerSelectedWord;if(!p)return 60;const s=p.jp.trim().split(/\s+/).filter(s=>/[a-z]/i.test(s)).length;return Math.max(50,Math.min(92,68+(s<3?10:0)));}
-function scorerScoreEnergy(){if(!scorerUserPitchData||scorerUserPitchData.length<5)return 45;return scorerUserPitchData.length>20?82:66;}
-function scorerShowResults(overall,pitch,rhythm,energy){
-  let color,emoji,msg;
-  if(overall>=85){color='#6dcc9e';emoji='🏆';msg='Excellent! Your pitch contour closely matched the reference. Your tones sound very natural!';}
-  else if(overall>=70){color='#f5c842';emoji='🌟';msg='Great effort! The shape is there. Try exaggerating the rise/fall a little more.';}
-  else if(overall>=55){color='#e8b86d';emoji='👍';msg='Getting there! Listen once more and try to match the pitch movement more closely.';}
-  else{color='#e86d6d';emoji='💪';msg='Keep practising! Listen → mimic → repeat. The curves above show where to improve.';}
-  const ring=document.getElementById('scorerRing');
-  ring.style.borderColor=color;ring.style.color=color;ring.textContent=overall+'%';
-  document.getElementById('scorerScoreLabel').textContent=emoji+' Overall pronunciation score';
-  document.getElementById('scorerFeedback').textContent=msg;
-  document.getElementById('scorerSubBars').innerHTML=[
-    {lbl:'Pitch contour',score:pitch},{lbl:'Rhythm / pace',score:rhythm},{lbl:'Voice energy',score:energy}
-  ].map(s=>{const col=s.score>=70?'#6dcc9e':s.score>=50?'#f5c842':'#e86d6d';return`<div class="scorer-bar-row"><div class="scorer-bar-lbl">${s.lbl}</div><div class="scorer-bar-track"><div class="scorer-bar-fill" style="width:${s.score}%;background:${col};"></div></div><div class="scorer-bar-pct">${s.score}%</div></div>`;}).join('');
-  document.getElementById('scorerResultStage').style.display='block';
-  document.getElementById('scorerResultStage').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-function scorerReset(){if(scorerCurrentPhrase)scorerShowTarget();}
-function scorerPickNew(){document.getElementById('scorerTargetStage').style.display='none';document.getElementById('scorerResultStage').style.display='none';scorerCurrentPhrase=null;document.querySelectorAll('.scorer-phrase-btn').forEach(b=>b.classList.remove('selected'));}
 
 updateStorageInfo();
 loadQuiz();
-
-// ============================================================
-//  PRONUNCIATION SCORER - FULLY WORKING
-// ============================================================
-
-function scorerBuildTopicGrid() {
-  const container = document.getElementById('scorerTopicGrid');
-  if (!container) {
-    console.error('scorerTopicGrid container not found');
-    return;
-  }
-  
-  const topics = Object.keys(VOCAB);
-  if (topics.length === 0) {
-    console.error('No topics in VOCAB');
-    return;
-  }
-  
-  container.innerHTML = '';
-  
-  topics.forEach(topic => {
-    const btn = document.createElement('button');
-    btn.textContent = `${topic} (${VOCAB[topic].length})`;
-    btn.style.cssText = 'background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:0.55rem 1.1rem;margin:4px;cursor:pointer;font-family:DM Sans,sans-serif;font-size:0.88rem;color:var(--text-muted);transition:all 0.15s;display:inline-block;';
-    btn.type = 'button';
-    
-    // Add hover effect
-    btn.addEventListener('mouseenter', function() {
-      this.style.borderColor = 'var(--accent2)';
-      this.style.color = 'var(--accent2)';
-    });
-    btn.addEventListener('mouseleave', function() {
-      this.style.borderColor = 'var(--border)';
-      this.style.color = 'var(--text-muted)';
-    });
-    
-    // Use addEventListener instead of onclick
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      scorerSelectTopic(topic);
-    });
-    
-    container.appendChild(btn);
-  });
-  
-  const statusEl = document.getElementById('scorerTopicStatus');
-  if (statusEl) statusEl.innerHTML = `📚 ${topics.length} topics available. Click any topic above.`;
-}
-
-function scorerSelectTopic(topicId) {
-  scorerSelectedTopic = topicId;
-  scorerCurrentWordList = VOCAB[topicId] || [];
-  
-  if (scorerCurrentWordList.length === 0) {
-    document.getElementById('scorerTopicStatus').innerHTML = 'No words in this topic';
-    return;
-  }
-  
-  document.getElementById('scorerTopicStage').style.display = 'none';
-  document.getElementById('scorerWordStage').style.display = 'block';
-  document.getElementById('scorerRecordStage').style.display = 'none';
-  document.getElementById('scorerResultStage').style.display = 'none';
-  
-  document.getElementById('scorerCurrentTopicName').innerHTML = `(${topicId})`;
-  
-  const wordGrid = document.getElementById('scorerWordGrid');
-  if (!wordGrid) {
-    console.error('scorerWordGrid not found');
-    return;
-  }
-  
-  wordGrid.innerHTML = '';
-  
-  scorerCurrentWordList.forEach((item, idx) => {
-    const btn = document.createElement('button');
-    btn.innerHTML = `${item.hz || renderJyutping(item.jp)} <span style="font-size:.7rem;color:var(--text-dim);margin-left:4px;">${item.jp}</span>`;
-    btn.style.cssText = 'background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:0.4rem 0.8rem;margin:4px;cursor:pointer;font-family:DM Sans,sans-serif;font-size:0.78rem;color:var(--text-muted);transition:all 0.15s;display:inline-block;';
-    btn.type = 'button';
-    
-    // Add hover effect
-    btn.addEventListener('mouseenter', function() {
-      this.style.borderColor = 'var(--accent2)';
-      this.style.color = 'var(--accent2)';
-    });
-    btn.addEventListener('mouseleave', function() {
-      this.style.borderColor = 'var(--border)';
-      this.style.color = 'var(--text-muted)';
-    });
-    
-    // Use addEventListener for reliability
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      scorerSelectWord(idx);
-    });
-    
-    wordGrid.appendChild(btn);
-  });
-  
-  const statusEl = document.getElementById('scorerStatus');
-  if (statusEl) statusEl.innerHTML = `🎯 ${scorerCurrentWordList.length} words. Click any to practice.`;
-}
-
-function scorerSelectWord(wordIdx) {
-  const word = scorerCurrentWordList[wordIdx];
-  scorerSelectedWord = word;
-  
-  document.getElementById('scorerSelectedWordLabel').innerHTML = `<strong>${renderJyutping(word.jp)}</strong> <span style="color:var(--text-muted);font-size:.85rem;"> — ${word.en}</span>`;
-  document.getElementById('scorerPhraseJp').innerHTML = renderJyutping(word.jp);
-  document.getElementById('scorerPhraseHz').innerHTML = word.hz || word.jp;
-  
-  document.getElementById('scorerWordStage').style.display = 'none';
-  document.getElementById('scorerRecordStage').style.display = 'block';
-  document.getElementById('scorerResultStage').style.display = 'none';
-  
-  document.getElementById('scorerRecordBtn').style.display = 'inline-flex';
-  document.getElementById('scorerStopBtn').style.display = 'none';
-  document.getElementById('scorerPlaybackBtn').style.display = 'none';
-  document.getElementById('scorerScoreBtn').style.display = 'none';
-  
-  document.getElementById('scorerStatus').innerHTML = `🎤 Selected: ${word.hz || word.jp}. Press "Listen" then "Record".`;
-  
-  // Draw reference pitch contour
-  scorerDrawModelPitch(word.jp);
-}
-
-function scorerBackToTopics() {
-  document.getElementById('scorerTopicStage').style.display = 'block';
-  document.getElementById('scorerWordStage').style.display = 'none';
-  document.getElementById('scorerRecordStage').style.display = 'none';
-  document.getElementById('scorerResultStage').style.display = 'none';
-  scorerBuildTopicGrid();
-}
-
-function scorerBackToWords() {
-  if (!scorerSelectedTopic) {
-    scorerBackToTopics();
-    return;
-  }
-  document.getElementById('scorerWordStage').style.display = 'block';
-  document.getElementById('scorerRecordStage').style.display = 'none';
-  document.getElementById('scorerResultStage').style.display = 'none';
-}
-
-function scorerResetCurrent() {
-  document.getElementById('scorerRecordStage').style.display = 'block';
-  document.getElementById('scorerResultStage').style.display = 'none';
-  document.getElementById('scorerRecordBtn').style.display = 'inline-flex';
-  document.getElementById('scorerStopBtn').style.display = 'none';
-  document.getElementById('scorerPlaybackBtn').style.display = 'none';
-  document.getElementById('scorerScoreBtn').style.display = 'none';
-  document.getElementById('scorerStatus').innerHTML = `🔄 Try again: ${scorerSelectedWord.hz || scorerSelectedWord.jp}. Press "Listen" then "Record".`;
-  scorerDrawModelPitch(scorerSelectedWord.jp);
-}
-
-// Build scorer grid at page end
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', scorerBuildTopicGrid);
-} else {
-  scorerBuildTopicGrid();
-}
-
-
 </script>
 </body>
 </html>
