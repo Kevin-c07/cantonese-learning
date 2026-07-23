@@ -200,8 +200,15 @@
     }
 
     /* STORAGE PANEL */
-    .storage-panel{position:fixed;bottom:20px;right:20px;background:var(--surface);padding:1rem;border-radius:12px;border:1px solid var(--border);z-index:100;max-width:280px;font-size:.8rem;}
-    .storage-panel h4{font-size:.85rem;margin-bottom:.5rem;color:var(--accent);}
+    .storage-panel{position:fixed;bottom:20px;right:20px;background:var(--surface);padding:1rem;border-radius:12px;border:1px solid var(--border);z-index:100;max-width:280px;font-size:.8rem;transition:padding .2s;}
+    .storage-panel.minimized{padding:.5rem .7rem;max-width:none;width:auto;cursor:pointer;}
+    .storage-panel-header{display:flex;align-items:center;justify-content:space-between;gap:.6rem;}
+    .storage-panel h4{font-size:.85rem;color:var(--accent);}
+    .storage-panel.minimized h4{margin-bottom:0;}
+    .storage-minimize-btn{background:var(--surface2);border:1px solid var(--border);border-radius:6px;width:22px;height:22px;line-height:1;color:var(--text-muted);cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
+    .storage-minimize-btn:hover{border-color:var(--accent2);color:var(--accent2);}
+    #storagePanelBody{margin-top:.5rem;}
+    .storage-panel.minimized #storagePanelBody{display:none;}
     .storage-buttons{display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap;}
     .small-btn{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:.2rem .5rem;color:var(--text-muted);cursor:pointer;font-size:.7rem;flex:1;text-align:center;}
     .small-btn:hover{background:var(--accent2);color:var(--bg);}
@@ -470,14 +477,19 @@
   </div>
 </div>
 
-<div class="storage-panel">
-  <h4>💾 Voice Recordings</h4>
-  <div class="storage-buttons">
-    <button id="exportAllBtn" class="small-btn">📥 Export</button>
-    <button id="importAllBtn" class="small-btn">📤 Import</button>
-    <button id="manageRecBtn" class="small-btn">⚙️ Manage</button>
+<div class="storage-panel" id="storagePanel">
+  <div class="storage-panel-header">
+    <h4>💾 Voice Recordings</h4>
+    <button id="storageMinimizeBtn" class="storage-minimize-btn" title="Minimize">➖</button>
   </div>
-  <div id="storageInfo" style="font-size:.7rem;margin-top:.5rem;color:var(--text-muted);"></div>
+  <div id="storagePanelBody">
+    <div class="storage-buttons">
+      <button id="exportAllBtn" class="small-btn">📥 Export</button>
+      <button id="importAllBtn" class="small-btn">📤 Import</button>
+      <button id="manageRecBtn" class="small-btn">⚙️ Manage</button>
+    </div>
+    <div id="storageInfo" style="font-size:.7rem;margin-top:.5rem;color:var(--text-muted);"></div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7/dist/hanzi-writer.min.js"></script>
@@ -2604,6 +2616,26 @@ document.getElementById('startRecordBtn').addEventListener('click',startRecordin
 document.getElementById('stopRecordBtn').addEventListener('click',stopRecording);
 document.getElementById('saveRecordingBtn').addEventListener('click',saveRecording);
 document.getElementById('closeModalBtn').addEventListener('click',closeRecordingModal);
+
+// Storage panel minimize/expand
+function setStoragePanelMinimized(minimized){
+  const panel=document.getElementById('storagePanel');
+  const btn=document.getElementById('storageMinimizeBtn');
+  if(!panel)return;
+  panel.classList.toggle('minimized',minimized);
+  if(btn){btn.textContent=minimized?'➕':'➖';btn.title=minimized?'Expand':'Minimize';}
+  localStorage.setItem('storagePanelMinimized',minimized?'1':'0');
+}
+document.getElementById('storageMinimizeBtn').addEventListener('click',(e)=>{
+  e.stopPropagation();
+  const panel=document.getElementById('storagePanel');
+  setStoragePanelMinimized(!panel.classList.contains('minimized'));
+});
+document.getElementById('storagePanel').addEventListener('click',()=>{
+  const panel=document.getElementById('storagePanel');
+  if(panel.classList.contains('minimized'))setStoragePanelMinimized(false);
+});
+setStoragePanelMinimized(localStorage.getItem('storagePanelMinimized')==='1');
 
 updateStorageInfo();
 loadQuiz();
