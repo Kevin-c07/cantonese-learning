@@ -183,6 +183,7 @@
     .char-chip.selected{border-color:var(--accent);background:rgba(232,184,109,.12);color:var(--accent);}
     .char-stage{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.3rem;}
     .char-stage-header{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap;}
+    .char-stage-meaning{font-size:1.05rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.01em;}
     .char-stage-hanzi{font-family:'Noto Serif TC',serif;font-size:1.6rem;color:var(--accent);}
     .char-stage-info{font-size:.82rem;color:var(--text-muted);}
     .char-writer-target{background:var(--surface2);border:1px solid var(--border);border-radius:14px;margin:0 auto;touch-action:none;display:flex;align-items:center;justify-content:center;overflow:hidden;}
@@ -431,6 +432,7 @@
         </div>
         <div class="char-grid" id="charPickerGrid"></div>
         <div class="char-stage" id="charStage" style="display:none;">
+          <div class="char-stage-meaning" id="charStageMeaning"></div>
           <div class="char-stage-header">
             <span class="char-stage-hanzi" id="charStageChar"></span>
             <span class="char-stage-info" id="charStageInfo"></span>
@@ -1968,6 +1970,32 @@ function cwGetCharSet(){
 }
 const CW_ALL_CHARS = cwGetCharSet();
 
+// Build a lookup so Free Practice can show what each character means.
+// Prefers a standalone single-character vocab entry (exact meaning);
+// falls back to the meaning of the first word that contains the character.
+function cwBuildCharMeaningMap(){
+  const map = {};
+  Object.values(VOCAB).forEach(arr=>{
+    arr.forEach(item=>{
+      if(item.hz && item.hz.length===1 && /[\u4e00-\u9fff]/.test(item.hz) && !map[item.hz]){
+        map[item.hz] = {exact:true, en:item.en};
+      }
+    });
+  });
+  Object.values(VOCAB).forEach(arr=>{
+    arr.forEach(item=>{
+      if(!item.hz) return;
+      for(const ch of item.hz){
+        if(/[\u4e00-\u9fff]/.test(ch) && !map[ch]){
+          map[ch] = {exact:false, en:item.en, hz:item.hz, jp:item.jp};
+        }
+      }
+    });
+  });
+  return map;
+}
+const CW_CHAR_MEANINGS = cwBuildCharMeaningMap();
+
 function cwRenderPicker(filterStr){
   const el = document.getElementById('charPickerGrid');
   if(!el) return;
@@ -2002,6 +2030,18 @@ function cwSelectCharacter(ch){
   cwQuizActive = false;
   document.getElementById('charStage').style.display = 'block';
   document.getElementById('charStageChar').textContent = ch;
+
+  const meaningEl = document.getElementById('charStageMeaning');
+  if(meaningEl){
+    const meaning = CW_CHAR_MEANINGS[ch];
+    if(!meaning){
+      meaningEl.textContent = '';
+    } else if(meaning.exact){
+      meaningEl.textContent = meaning.en;
+    } else {
+      meaningEl.textContent = `${meaning.en} (from ${meaning.hz})`;
+    }
+  }
   document.getElementById('charStageInfo').textContent = 'Loading stroke data…';
   document.getElementById('charStageFeedback').textContent = '';
   document.getElementById('charStepIndicator').innerHTML = '';
