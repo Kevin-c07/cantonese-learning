@@ -304,6 +304,9 @@
       <div class="sidebar-item" data-panel="friends_talk"><span class="icon">🧑‍🤝‍🧑</span>Friends Talk</div>
       <div class="sidebar-item" data-panel="daily_chat"><span class="icon">💭</span>Daily Small Talk</div>
       <div class="sidebar-item" data-panel="opinions_feelings"><span class="icon">💗</span>Opinions & Feelings</div>
+      <div class="sidebar-item" data-panel="making_plans"><span class="icon">📆</span>Making Plans</div>
+      <div class="sidebar-item" data-panel="work_school_talk"><span class="icon">💼</span>Work/School Talk</div>
+      <div class="sidebar-item" data-panel="phone_texting"><span class="icon">📱</span>Phone/Texting</div>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
@@ -403,6 +406,9 @@
     <div class="panel" id="panel-friends_talk"><div class="panel-header"><h2>🧑‍🤝‍🧑 Friends Talk</h2><p>Casual phrases for hanging out and chatting with friends</p></div><div id="tone-legend-friends_talk"></div><div class="card-grid" id="grid-friends_talk"></div></div>
     <div class="panel" id="panel-daily_chat"><div class="panel-header"><h2>💭 Daily Small Talk</h2><p>General everyday conversation phrases</p></div><div id="tone-legend-daily_chat"></div><div class="card-grid" id="grid-daily_chat"></div></div>
     <div class="panel" id="panel-opinions_feelings"><div class="panel-header"><h2>💗 Opinions & Feelings</h2><p>Phrases for sharing what you think and how you feel</p></div><div id="tone-legend-opinions_feelings"></div><div class="card-grid" id="grid-opinions_feelings"></div></div>
+    <div class="panel" id="panel-making_plans"><div class="panel-header"><h2>📆 Making Plans</h2><p>Phrases for arranging to meet up, scheduling, and confirming details</p></div><div id="tone-legend-making_plans"></div><div class="card-grid" id="grid-making_plans"></div></div>
+    <div class="panel" id="panel-work_school_talk"><div class="panel-header"><h2>💼 Work/School Talk</h2><p>Phrases for talking about your job, classes, deadlines, and exams</p></div><div id="tone-legend-work_school_talk"></div><div class="card-grid" id="grid-work_school_talk"></div></div>
+    <div class="panel" id="panel-phone_texting"><div class="panel-header"><h2>📱 Phone/Texting</h2><p>Phrases for calls, messages, and everyday phone etiquette</p></div><div id="tone-legend-phone_texting"></div><div class="card-grid" id="grid-phone_texting"></div></div>
 
     <!-- QUIZ -->
     <div class="panel" id="panel-quiz"><div class="panel-header"><h2>📝 Smart Quiz</h2><p>Track progress by topic — target weak spots</p></div><div class="quiz-wrap" id="quizWrap"></div></div>
@@ -1422,6 +1428,104 @@ const VOCAB = {
     {jp:"ngo5 dei6 nam2 sam1 jat1 cang4",hz:"我哋諗深一層",en:"Let's think more deeply"},
     {jp:"ngo5 gok3 dak1 ni1 joeng2 zeoi3 gan2 jiu3",hz:"我覺得呢樣最緊要",en:"I think this is the most important thing"},
     {jp:"do1 ze6 nei5 tai2 loeng6 ngo5",hz:"多謝你體諒我",en:"Thank you for understanding me"},
+  ],
+  making_plans:[
+    {jp:"ngo5 dei6 gei2 si4 gin3 min6 hou2?",hz:"我哋幾時見面好？",en:"When should we meet?"},
+    {jp:"ting1 jat6 dak1 m4 dak1 haan4?",hz:"聽日得唔得閒？",en:"Are you free tomorrow?"},
+    {jp:"ngo5 dei6 joek3 gei2 dim2?",hz:"我哋約幾點？",en:"What time shall we arrange?"},
+    {jp:"ngo5 dei6 hai2 bin1 dou6 gin3?",hz:"我哋喺邊度見？",en:"Where shall we meet?"},
+    {jp:"bat1 jyu4 ngo5 dei6 joek3 sing1 kei4 luk6",hz:"不如我哋約星期六",en:"How about we arrange for Saturday"},
+    {jp:"ngo5 jiu3 tai2 haa5 si4 gaan3 biu2",hz:"我要睇吓時間表",en:"I need to check my schedule"},
+    {jp:"ngo5 dei6 goi2 kei4 dak1 m4 dak1?",hz:"我哋改期得唔得？",en:"Can we reschedule?"},
+    {jp:"ngo5 lam4 si4 jau5 si6",hz:"我臨時有事",en:"Something came up last minute"},
+    {jp:"ngo5 dei6 cui3 siu1 zo2 laa1",hz:"我哋取消咗啦",en:"Let's cancel it"},
+    {jp:"gei3 dak1 zou2 di1 dou3",hz:"記得早啲到",en:"Remember to arrive early"},
+    {jp:"ngo5 dei6 hai2 mun4 hau2 dang2",hz:"我哋喺門口等",en:"We'll wait at the entrance"},
+    {jp:"nei5 wui5 ci4 dou3 maa3?",hz:"你會遲到嗎？",en:"Will you be late?"},
+    {jp:"ngo5 ho2 nang4 ci4 siu2 siu2",hz:"我可能遲少少",en:"I might be a bit late"},
+    {jp:"dou3 si4 gin3",hz:"到時見",en:"See you then"},
+    {jp:"ngo5 dei6 gei2 si4 zoi3 joek3?",hz:"我哋幾時再約？",en:"When shall we meet again?"},
+    {jp:"ni1 go3 sing1 kei4 dou1 dak1 haan4",hz:"呢個星期都得閒",en:"I'm free this whole week"},
+    {jp:"ngo5 jiu3 tai4 zou2 zau2",hz:"我要提早走",en:"I need to leave early"},
+    {jp:"nei5 jau5 me1 daa2 syun3?",hz:"你有咩打算？",en:"What are your plans?"},
+    {jp:"ngo5 dei6 jat1 cai4 heoi3 bin1 dou6 hou2?",hz:"我哋一齊去邊度好？",en:"Where should we go together?"},
+    {jp:"ngo5 dei6 gai3 waak6 zo2 mei6?",hz:"我哋計劃咗未？",en:"Have we planned it yet?"},
+    {jp:"nei5 ho2 ji5 pui3 hap6 ngo5 ge3 si4 gaan3 maa3?",hz:"你可唔可以配合我嘅時間嗎？",en:"Can you fit around my schedule?"},
+    {jp:"ngo5 dei6 deng6 zo2 wai2 mei6?",hz:"我哋訂咗位未？",en:"Have we booked a table yet?"},
+    {jp:"lok6 jyu5 ge3 waa6 dim2 syun3?",hz:"落雨嘅話點算？",en:"What if it rains?"},
+    {jp:"jau5 hau6 bei6 gai3 waak6 maa3?",hz:"有後備計劃嗎？",en:"Is there a backup plan?"},
+    {jp:"ngo5 bong1 nei5 lau4 wai2",hz:"我幫你留位",en:"I'll save you a spot"},
+    {jp:"ngo5 dei6 gei2 dim2 zaap6 hap6?",hz:"我哋幾點集合？",en:"What time shall we gather?"},
+    {jp:"tai4 cin4 tung1 zi1 ngo5",hz:"提前通知我",en:"Let me know in advance"},
+    {jp:"ni1 go3 si4 gaan3 ngaam1 m4 ngaam1?",hz:"呢個時間岩唔岩？",en:"Is this time OK?"},
+    {jp:"ngo5 ci4 di1 fuk1 nei5",hz:"我遲啲覆你",en:"I'll reply to you later"},
+    {jp:"jat1 jin4 wai4 ding6",hz:"一言為定",en:"It's settled then"},
+  ],
+  work_school_talk:[
+    {jp:"nei5 gei2 dim2 faan1 gung1?",hz:"你幾點返工？",en:"What time do you start work?"},
+    {jp:"ngo5 gam1 jat6 jiu3 hoi1 wui2",hz:"我今日要開會",en:"I have a meeting today"},
+    {jp:"fung1 fo3 gaau1 zo2 mei6?",hz:"功課交咗未？",en:"Have you handed in the homework?"},
+    {jp:"lou5 baan2 giu3 ngo5 gaa1 baan1",hz:"老闆叫我加班",en:"The boss asked me to work overtime"},
+    {jp:"gam1 jat6 hou2 do1 je5 zou6",hz:"今日好多嘢做",en:"There's a lot to do today"},
+    {jp:"gei2 si4 gaau1 kei4?",hz:"幾時交期？",en:"What's the deadline?"},
+    {jp:"ngo5 dei6 gam1 jat6 haau2 si5",hz:"我哋今日考試",en:"We have an exam today"},
+    {jp:"ngo5 jiu3 wan1 syu1",hz:"我要溫書",en:"I need to study"},
+    {jp:"ni1 fan6 bou3 gou3 mei6 zou6 jyun4",hz:"呢份報告未做完",en:"This report isn't finished yet"},
+    {jp:"ngo5 cing2 gaa3",hz:"我請假",en:"I'm taking leave"},
+    {jp:"nei5 lou5 baan2 jim4 m4 jim4?",hz:"你老闆嚴唔嚴？",en:"Is your boss strict?"},
+    {jp:"tung4 si6 bong1 ngo5 sau2",hz:"同事幫我手",en:"My colleague helped me out"},
+    {jp:"gam1 jat6 fong3 gung1 gei2 dim2?",hz:"今日放工幾點？",en:"What time do you finish work today?"},
+    {jp:"ngo5 dei6 jiu3 hoi1 wui2 king1 ni1 gin6 si6",hz:"我哋要開會傾呢件事",en:"We need a meeting to discuss this"},
+    {jp:"ni1 go3 gai3 waak6 gei2 si4 gaau1?",hz:"呢個計劃幾時交？",en:"When's this project due?"},
+    {jp:"ngo5 sing1 zo2 zik1",hz:"我升咗職",en:"I got promoted"},
+    {jp:"ngo5 gam1 jat6 jiu3 gin3 haak3",hz:"我今日要見客",en:"I have a client meeting today"},
+    {jp:"ngo5 dei6 gung1 si1 hou2 mong4",hz:"我哋公司好忙",en:"Our company is very busy"},
+    {jp:"ngo5 duk6 gan2 daai6 hohk6",hz:"我讀緊大學",en:"I'm currently studying at university"},
+    {jp:"nei5 duk6 bin1 fo1?",hz:"你讀邊科？",en:"What subject are you studying?"},
+    {jp:"ngo5 gam1 jat6 jau5 caak1 jim6",hz:"我今日有測驗",en:"I have a test today"},
+    {jp:"lou5 si1 waa6 jiu3 gaau1 fung1 fo3",hz:"老師話要交功課",en:"The teacher said homework is due"},
+    {jp:"ngo5 dei6 jiu3 gaau1 siu2 zou2 bou3 gou3",hz:"我哋要交小組報告",en:"We need to hand in a group report"},
+    {jp:"ngo5 bat1 zo2 jip6",hz:"我畢咗業",en:"I graduated"},
+    {jp:"ngo5 wan2 dou3 san1 gung1",hz:"我搵到新工",en:"I found a new job"},
+    {jp:"ngo5 ci4 zo2 zik1",hz:"我辭咗職",en:"I resigned"},
+    {jp:"ni1 fan6 gung1 jan4 gung1 gei2 do1?",hz:"呢份工人工幾多？",en:"How much does this job pay?"},
+    {jp:"ngo5 jiu3 min6 si5",hz:"我要面試",en:"I have an interview"},
+    {jp:"nei5 gei2 si4 fong3 syu2 gaa3?",hz:"你幾時放暑假？",en:"When do you start summer holidays?"},
+    {jp:"ngo5 dei6 fong3 zo2 hok6",hz:"我哋放咗學",en:"We've finished school for the day"},
+    {jp:"aat3 lik6 hou2 daai6",hz:"壓力好大",en:"The pressure is intense"},
+    {jp:"ngo5 gam1 jat6 gaa1 baan1",hz:"我今日加班",en:"I'm working overtime today"},
+  ],
+  phone_texting:[
+    {jp:"daa2 din6 waa2 bei2 ngo5",hz:"打電話俾我",en:"Call me"},
+    {jp:"send go3 seon3 sik1 bei2 ngo5",hz:"send個信息俾我",en:"Send me a message"},
+    {jp:"nei5 bou6 din6 waa2 mou5 din6",hz:"你部電話冇電",en:"Your phone has no battery"},
+    {jp:"ngo5 daa2 nei5 din6 waa2 nei5 m4 teng1",hz:"我打你電話你唔聽",en:"I called you but you didn't answer"},
+    {jp:"seon3 hou6 hou2 caa1",hz:"訊號好差",en:"The signal is really bad"},
+    {jp:"ngo5 send zo2 whatsapp bei2 nei5",hz:"我send咗whatsapp俾你",en:"I sent you a WhatsApp message"},
+    {jp:"nei5 tai2 zo2 mei6?",hz:"你睇咗未？",en:"Have you seen it (the message)?"},
+    {jp:"ngo5 fuk1 gan2 nei5",hz:"我覆緊你",en:"I'm replying to you"},
+    {jp:"m4 hou2 ji3 si1, ci4 fuk1",hz:"唔好意思，遲覆",en:"Sorry for the late reply"},
+    {jp:"ngo5 bou6 din6 waa2 baau3 zo2 gei1",hz:"我部電話爆咗機",en:"My phone crashed"},
+    {jp:"bong1 ngo5 daa2 bei2 keoi5",hz:"幫我打俾佢",en:"Help me call them"},
+    {jp:"keoi5 mou5 teng1 din6 waa2",hz:"佢冇聽電話",en:"They didn't pick up the phone"},
+    {jp:"ngo5 jap6 m4 dou2 mong5",hz:"我入唔到網",en:"I can't get online"},
+    {jp:"nei5 din6 waa2 gei2 do1 hou6?",hz:"你電話幾多號？",en:"What's your phone number?"},
+    {jp:"gei3 dak1 fuk1 ngo5",hz:"記得覆我",en:"Remember to reply to me"},
+    {jp:"keoi5 send co3 jan4",hz:"佢send錯人",en:"They sent it to the wrong person"},
+    {jp:"nei5 zoeng1 soeng2 send bei2 ngo5",hz:"你張相send俾我",en:"Send me the photo"},
+    {jp:"ngo5 bou6 din6 waa2 daam6 gei1",hz:"我部電話宕機",en:"My phone froze"},
+    {jp:"ngo5 WhatsApp nei5",hz:"我WhatsApp你",en:"I'll WhatsApp you"},
+    {jp:"ngo5 lau6 teng1 zo2 go3 din6 waa2",hz:"我漏聽咗個電話",en:"I missed a call"},
+    {jp:"keoi5 ji5 duk6 bat1 wui4",hz:"佢已讀不回",en:"They read it but didn't reply"},
+    {jp:"nei5 ho2 m4 ho2 ji5 si6 zoeng6 tung1 waa2?",hz:"你可唔可以視像通話？",en:"Can you video call?"},
+    {jp:"ngo5 dei6 WhatsApp king1",hz:"我哋WhatsApp傾",en:"Let's chat on WhatsApp"},
+    {jp:"m4 goi1 send go3 wai6 zi3 bei2 ngo5",hz:"唔該send個位置俾我",en:"Please send me your location"},
+    {jp:"ngo5 seon3 sik1 send zo2 mei6 sing4 gung1",hz:"我信息send咗未成功",en:"My message failed to send"},
+    {jp:"bong1 ngo5 zit6 tou4",hz:"幫我截圖",en:"Screenshot it for me"},
+    {jp:"ngo5 ji4 gaa1 ceot1 gan2 gaai1 m4 fong1 bin6 teng1 din6 waa2",hz:"我而家出緊街唔方便聽電話",en:"I'm out and about so it's not convenient to take calls"},
+    {jp:"sau1 m4 sau1 dou3 ngo5 go3 seon3 sik1?",hz:"收唔收到我個信息？",en:"Did you get my message?"},
+    {jp:"ngo5 daa2 co3 din6 waa2",hz:"我打錯電話",en:"I dialed the wrong number"},
+    {jp:"din6 waa2 mou5 seon3 hou6",hz:"電話冇訊號",en:"There's no phone signal"},
   ],
 };
 
