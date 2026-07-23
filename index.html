@@ -134,6 +134,7 @@
     .stat-pill.green .num{color:var(--green);}
     .stat-pill.red .num{color:var(--red);}
     .stat-pill.gold .num{color:var(--accent);}
+    .streak-badge{background:rgba(232,184,109,.1);border:1px solid rgba(232,184,109,.25);border-radius:10px;padding:.6rem 1rem;font-size:.85rem;color:var(--accent);margin-bottom:1rem;}
     .topic-bars{margin:1.2rem 0;}
     .topic-bar-row{display:grid;grid-template-columns:120px 1fr 40px;gap:.5rem;align-items:center;margin-bottom:.5rem;}
     .topic-bar-label{font-size:.78rem;color:var(--text-muted);text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
@@ -170,6 +171,33 @@
     .tone-guide-card .tone-num{font-size:2rem;font-weight:700;font-family:'Space Mono',monospace;}
     .tone-guide-card .tone-name{font-size:.8rem;color:var(--text-muted);margin:.2rem 0;}
     .tone-guide-card .tone-desc{font-size:.75rem;color:var(--text-dim);}
+
+    /* CHARACTER WRITING PRACTICE */
+    .char-picker-bar{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;}
+    .char-mode-toggle{display:flex;gap:.5rem;flex-wrap:wrap;}
+    .char-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;max-height:220px;overflow-y:auto;padding:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;}
+    .char-grid::-webkit-scrollbar{width:4px;}
+    .char-grid::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+    .char-chip{background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;width:44px;height:44px;font-family:'Noto Serif TC',serif;font-size:1.3rem;color:var(--text);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .char-chip:hover{border-color:var(--accent);color:var(--accent);}
+    .char-chip.selected{border-color:var(--accent);background:rgba(232,184,109,.12);color:var(--accent);}
+    .char-stage{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.3rem;}
+    .char-stage-header{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap;}
+    .char-stage-hanzi{font-family:'Noto Serif TC',serif;font-size:1.6rem;color:var(--accent);}
+    .char-stage-info{font-size:.82rem;color:var(--text-muted);}
+    .char-writer-target{background:var(--surface2);border:1px solid var(--border);border-radius:14px;margin:0 auto;touch-action:none;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .char-writer-target svg{touch-action:none;}
+    .char-stage-controls{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;justify-content:center;}
+    .char-stage-feedback{margin-top:.9rem;font-size:.92rem;font-weight:500;text-align:center;min-height:1.4rem;color:var(--accent2);}
+    .char-step-indicator{display:flex;justify-content:center;gap:4px;margin-top:.8rem;flex-wrap:wrap;}
+    .char-step-dot{width:9px;height:9px;border-radius:50%;background:var(--border);transition:background .2s;}
+    .char-step-dot.done{background:var(--green);}
+    .char-step-dot.current{background:var(--accent);}
+    @media(max-width:768px){
+      .char-chip{width:40px;height:40px;font-size:1.15rem;}
+      .char-stage-controls{flex-direction:column;align-items:stretch;}
+      .char-stage-controls button{width:100%;}
+    }
 
     /* STORAGE PANEL */
     .storage-panel{position:fixed;bottom:20px;right:20px;background:var(--surface);padding:1rem;border-radius:12px;border:1px solid var(--border);z-index:100;max-width:280px;font-size:.8rem;}
@@ -273,6 +301,7 @@
     <div class="sidebar-section">
       <div class="sidebar-label">Practice</div>
       <div class="sidebar-item" data-panel="quiz"><span class="icon">📝</span>Smart Quiz</div>
+      <div class="sidebar-item" data-panel="character_writing"><span class="icon">✍️</span>Character Writing</div>
       <div class="sidebar-item" data-panel="recordings_manager"><span class="icon">🎙️</span>My Recordings</div>
     </div>
   </nav>
@@ -370,6 +399,53 @@
     <!-- QUIZ -->
     <div class="panel" id="panel-quiz"><div class="panel-header"><h2>📝 Smart Quiz</h2><p>Track progress by topic — target weak spots</p></div><div class="quiz-wrap" id="quizWrap"></div></div>
 
+    <!-- CHARACTER WRITING PRACTICE -->
+    <div class="panel" id="panel-character_writing">
+      <div class="panel-header"><h2>✍️ Character Writing Practice</h2><p>Test yourself topic by topic — trace each stroke with your finger and see exactly which stroke goes first, second, third…</p></div>
+
+      <div class="quiz-modes" style="margin-bottom:1.2rem;">
+        <button class="quiz-mode-btn active" id="cwTabQuiz">📝 Topic Quiz</button>
+        <button class="quiz-mode-btn" id="cwTabFree">🔍 Free Practice (any character)</button>
+      </div>
+
+      <!-- TOPIC QUIZ (smart-quiz style) -->
+      <div id="cwTopicQuizSection">
+        <div class="quiz-wrap" id="charQuizWrap"></div>
+      </div>
+
+      <!-- FREE PRACTICE (pick any single character) -->
+      <div id="cwFreePracticeSection" style="display:none;">
+        <div class="char-picker-bar">
+          <input type="text" class="top-search" id="charSearchInput" placeholder="🔍 filter or paste any 漢字…" style="width:100%;max-width:240px;">
+          <div class="char-mode-toggle">
+            <button class="quiz-mode-btn active" id="charModeGuide">📖 Stroke Order Guide</button>
+            <button class="quiz-mode-btn" id="charModeQuiz">✍️ Practice Writing</button>
+          </div>
+        </div>
+        <div class="char-grid" id="charPickerGrid"></div>
+        <div class="char-stage" id="charStage" style="display:none;">
+          <div class="char-stage-header">
+            <span class="char-stage-hanzi" id="charStageChar"></span>
+            <span class="char-stage-info" id="charStageInfo"></span>
+          </div>
+          <div class="char-writer-target" id="charWriterTarget"></div>
+          <div class="char-step-indicator" id="charStepIndicator"></div>
+          <div class="char-stage-controls" id="charStageControlsGuide">
+            <button class="btn-outline" id="charBtnPrevStep">⏮ Previous stroke</button>
+            <button class="btn-primary" id="charBtnNextStep">▶ Next stroke</button>
+            <button class="btn-outline" id="charBtnAnimateAll">🎬 Play full animation</button>
+            <button class="btn-outline" id="charBtnResetGuide">↺ Reset</button>
+          </div>
+          <div class="char-stage-controls" id="charStageControlsQuiz" style="display:none;">
+            <button class="btn-primary" id="charBtnStartQuiz">✍️ Start tracing quiz</button>
+            <button class="btn-outline" id="charBtnHint">💡 Hint (show next stroke)</button>
+            <button class="btn-outline" id="charBtnResetQuiz">↺ Reset</button>
+          </div>
+          <div class="char-stage-feedback" id="charStageFeedback">Pick a character above to begin.</div>
+        </div>
+      </div>
+    </div>
+
     <!-- RECORDINGS MANAGER -->
     <div class="panel" id="panel-recordings_manager">
       <div class="panel-header"><h2>🎙️ My Recordings</h2><p>Manage all your saved voice recordings — play, delete, or export individual ones</p></div>
@@ -404,6 +480,7 @@
   <div id="storageInfo" style="font-size:.7rem;margin-top:.5rem;color:var(--text-muted);"></div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7/dist/hanzi-writer.min.js"></script>
 <script>
 // ============================================================
 //  VOCABULARY  — jp=Jyutping  hz=漢字  en=English
@@ -1852,6 +1929,645 @@ function showResults(){
 }
 
 // ============================================================
+//  CHARACTER WRITING PRACTICE — powered by HanziWriter
+//  Guide mode: step through strokes one at a time (or full animation)
+//  Quiz mode: trace each stroke with mouse/finger, graded live
+// ============================================================
+let cwCurrentChar = null;
+let cwWriter = null;
+let cwStrokeCount = 0;
+let cwStepIndex = 0;      // how many strokes have been shown in guide mode
+let cwUiMode = 'guide';   // 'guide' | 'quiz'
+let cwQuizActive = false;
+
+function cwGetCharSet(){
+  const set = new Set();
+  Object.values(VOCAB).forEach(arr=>{
+    arr.forEach(item=>{
+      if(item.hz){
+        for(const ch of item.hz){
+          if(/[\u4e00-\u9fff]/.test(ch)) set.add(ch);
+        }
+      }
+    });
+  });
+  return Array.from(set).sort((a,b)=>a.localeCompare(b,'zh-Hant'));
+}
+const CW_ALL_CHARS = cwGetCharSet();
+
+function cwRenderPicker(filterStr){
+  const el = document.getElementById('charPickerGrid');
+  if(!el) return;
+  let list = CW_ALL_CHARS;
+  if(filterStr){
+    const chars = Array.from(filterStr).filter(c=>/[\u4e00-\u9fff]/.test(c));
+    if(chars.length){
+      list = CW_ALL_CHARS.filter(c=>chars.includes(c));
+      if(!list.length) list = chars; // allow practicing a char not in vocab
+    }
+  }
+  el.innerHTML = list.map(c=>`<button class="char-chip${c===cwCurrentChar?' selected':''}" onclick="cwSelectCharacter('${c}')">${c}</button>`).join('');
+}
+
+function cwStrokeIndicator(){
+  const el = document.getElementById('charStepIndicator');
+  if(!el) return;
+  if(!cwStrokeCount){ el.innerHTML=''; return; }
+  let dots = '';
+  for(let i=0;i<cwStrokeCount;i++){
+    let cls = '';
+    if(i < cwStepIndex) cls = 'done';
+    else if(i === cwStepIndex) cls = 'current';
+    dots += `<div class="char-step-dot ${cls}"></div>`;
+  }
+  el.innerHTML = dots;
+}
+
+function cwSelectCharacter(ch){
+  cwCurrentChar = ch;
+  cwStepIndex = 0;
+  cwQuizActive = false;
+  document.getElementById('charStage').style.display = 'block';
+  document.getElementById('charStageChar').textContent = ch;
+  document.getElementById('charStageInfo').textContent = 'Loading stroke data…';
+  document.getElementById('charStageFeedback').textContent = '';
+  document.getElementById('charStepIndicator').innerHTML = '';
+
+  document.querySelectorAll('.char-chip').forEach(b=>b.classList.toggle('selected', b.textContent===ch));
+
+  const target = document.getElementById('charWriterTarget');
+  target.innerHTML = '';
+  const size = Math.max(220, Math.min(window.innerWidth - 80, 320));
+  target.style.width = size + 'px';
+  target.style.height = size + 'px';
+
+  if(typeof HanziWriter === 'undefined'){
+    document.getElementById('charStageInfo').textContent = 'Could not load the stroke-order library (check your internet connection).';
+    return;
+  }
+
+  cwWriter = HanziWriter.create(target, ch, {
+    width: size,
+    height: size,
+    padding: 14,
+    showOutline: true,
+    strokeAnimationSpeed: 1,
+    delayBetweenStrokes: 250,
+    strokeColor: '#e8e4dc',
+    radicalColor: '#e8b86d',
+    outlineColor: 'rgba(232,228,220,0.18)',
+    highlightColor: '#e8b86d',
+    drawingColor: '#6dcc9e',
+    onLoadCharDataSuccess: function(charData){
+      cwStrokeCount = charData.strokes.length;
+      document.getElementById('charStageInfo').textContent = `${cwStrokeCount} strokes — tap "Next stroke" to reveal them one by one`;
+      cwStrokeIndicator();
+    },
+    onLoadCharDataError: function(){
+      document.getElementById('charStageInfo').textContent = '⚠️ No stroke data found for this character.';
+    }
+  });
+
+  // make sure we land back in whichever mode (guide/quiz) was active
+  if(cwUiMode === 'quiz'){
+    document.getElementById('charStageFeedback').textContent = 'Tap "Start tracing quiz" to begin writing this character with your finger.';
+  } else {
+    document.getElementById('charStageFeedback').textContent = 'Tap "Next stroke" to see stroke 1, or "Play full animation" to watch it all at once.';
+  }
+}
+
+function cwSetMode(mode){
+  cwUiMode = mode;
+  const guideBtn = document.getElementById('charModeGuide');
+  const quizBtn = document.getElementById('charModeQuiz');
+  const guideControls = document.getElementById('charStageControlsGuide');
+  const quizControls = document.getElementById('charStageControlsQuiz');
+  guideBtn.classList.toggle('active', mode==='guide');
+  quizBtn.classList.toggle('active', mode==='quiz');
+  guideControls.style.display = mode==='guide' ? 'flex' : 'none';
+  quizControls.style.display = mode==='quiz' ? 'flex' : 'none';
+  if(cwWriter){
+    if(cwQuizActive){ cwWriter.cancelQuiz(); cwQuizActive=false; }
+    cwWriter.hideCharacter();
+    cwWriter.showOutline();
+    cwStepIndex = 0;
+    cwStrokeIndicator();
+  }
+  const fb = document.getElementById('charStageFeedback');
+  if(fb){
+    fb.textContent = mode==='quiz'
+      ? 'Tap "Start tracing quiz" to begin writing this character with your finger.'
+      : 'Tap "Next stroke" to see stroke 1, or "Play full animation" to watch it all at once.';
+  }
+}
+
+function cwNextStroke(){
+  if(!cwWriter || !cwStrokeCount) return;
+  if(cwStepIndex >= cwStrokeCount){
+    document.getElementById('charStageFeedback').textContent = '✅ All strokes shown! Tap Reset to go through it again.';
+    return;
+  }
+  const strokeNum = cwStepIndex;
+  cwWriter.animateStroke(strokeNum, {
+    onComplete: function(){
+      cwStepIndex++;
+      cwStrokeIndicator();
+      const remaining = cwStrokeCount - cwStepIndex;
+      document.getElementById('charStageFeedback').textContent = remaining > 0
+        ? `Stroke ${cwStepIndex} of ${cwStrokeCount} shown — tap "Next stroke" for stroke ${cwStepIndex+1}.`
+        : `🎉 That's all ${cwStrokeCount} strokes! Tap Reset to review from the start.`;
+    }
+  });
+}
+
+function cwPrevStroke(){
+  if(!cwWriter || cwStepIndex <= 0) return;
+  cwWriter.hideCharacter();
+  cwWriter.showOutline();
+  cwStepIndex = Math.max(0, cwStepIndex - 1);
+  cwStrokeIndicator();
+  // rebuild the picture by replaying strokes up to the new step index
+  cwReplayUpTo(cwStepIndex);
+  document.getElementById('charStageFeedback').textContent = `Back to stroke ${cwStepIndex} of ${cwStrokeCount}.`;
+}
+
+function cwReplayUpTo(count){
+  if(!cwWriter) return;
+  cwWriter.hideCharacter();
+  cwWriter.showOutline();
+  let i = 0;
+  function step(){
+    if(i>=count) return;
+    cwWriter.animateStroke(i, {onComplete:function(){ i++; step(); }});
+  }
+  // speed these up since it's just a "rewind" — use a quick sequential animation
+  step();
+}
+
+function cwPlayFullAnimation(){
+  if(!cwWriter) return;
+  cwWriter.hideCharacter();
+  cwStepIndex = 0;
+  cwStrokeIndicator();
+  document.getElementById('charStageFeedback').textContent = '▶ Watch closely — playing all strokes in order…';
+  cwWriter.animateCharacter({
+    onComplete: function(){
+      cwStepIndex = cwStrokeCount;
+      cwStrokeIndicator();
+      document.getElementById('charStageFeedback').textContent = `🎉 Done! That's the full stroke order for ${cwCurrentChar} (${cwStrokeCount} strokes).`;
+    }
+  });
+}
+
+function cwResetGuide(){
+  if(!cwWriter) return;
+  if(cwQuizActive){ cwWriter.cancelQuiz(); cwQuizActive=false; }
+  cwWriter.hideCharacter();
+  cwWriter.showOutline();
+  cwStepIndex = 0;
+  cwStrokeIndicator();
+  document.getElementById('charStageFeedback').textContent = 'Reset. Tap "Next stroke" to start from stroke 1.';
+}
+
+function cwStartQuiz(){
+  if(!cwWriter) return;
+  cwWriter.hideCharacter();
+  cwQuizActive = true;
+  document.getElementById('charStageFeedback').textContent = `✍️ Trace stroke 1 of ${cwStrokeCount} with your finger or mouse…`;
+  cwWriter.quiz({
+    showHintAfterMisses: 2,
+    onMistake: function(strokeData){
+      document.getElementById('charStageFeedback').textContent = `❌ Not quite — try stroke ${strokeData.strokeNum+1} again. (${strokeData.mistakesOnStroke} miss${strokeData.mistakesOnStroke===1?'':'es'} on this stroke)`;
+    },
+    onCorrectStroke: function(strokeData){
+      const next = strokeData.strokeNum + 2;
+      const done = strokeData.strokesRemaining === 0;
+      document.getElementById('charStageFeedback').textContent = done
+        ? '🎉 Almost there — finishing up…'
+        : `✅ Stroke ${strokeData.strokeNum+1} of ${cwStrokeCount} correct! Now draw stroke ${next}.`;
+    },
+    onComplete: function(summary){
+      cwQuizActive = false;
+      const total = summary.totalMistakes;
+      document.getElementById('charStageFeedback').textContent = total===0
+        ? `🏆 Perfect! You wrote ${cwCurrentChar} with zero mistakes!`
+        : `🎉 Great job! You completed ${cwCurrentChar} with ${total} mistake${total===1?'':'s'} total.`;
+    }
+  });
+}
+
+function cwGiveHint(){
+  if(!cwWriter || !cwQuizActive) return;
+  if(typeof cwWriter.highlightStroke === 'function'){
+    // HanziWriter doesn't expose the current quiz stroke directly, so nudge via showOutline briefly
+  }
+  document.getElementById('charStageFeedback').textContent = '💡 Take your time — trace the shape shown by the faint outline, starting from the usual top-left stroke.';
+}
+
+function cwResetQuiz(){
+  if(!cwWriter) return;
+  if(cwQuizActive){ cwWriter.cancelQuiz(); cwQuizActive=false; }
+  cwWriter.hideCharacter();
+  cwWriter.showOutline();
+  document.getElementById('charStageFeedback').textContent = 'Reset. Tap "Start tracing quiz" to try again.';
+}
+
+function cwInit(){
+  cwRenderPicker('');
+  const searchInput = document.getElementById('charSearchInput');
+  if(searchInput && !searchInput._cwBound){
+    searchInput._cwBound = true;
+    searchInput.addEventListener('input', function(){ cwRenderPicker(this.value.trim()); });
+    searchInput.addEventListener('keydown', function(e){
+      if(e.key==='Enter'){
+        const chars = Array.from(this.value.trim()).filter(c=>/[\u4e00-\u9fff]/.test(c));
+        if(chars.length) cwSelectCharacter(chars[0]);
+      }
+    });
+  }
+  const guideBtn = document.getElementById('charModeGuide');
+  const quizBtn = document.getElementById('charModeQuiz');
+  if(guideBtn && !guideBtn._cwBound){ guideBtn._cwBound=true; guideBtn.addEventListener('click', ()=>cwSetMode('guide')); }
+  if(quizBtn && !quizBtn._cwBound){ quizBtn._cwBound=true; quizBtn.addEventListener('click', ()=>cwSetMode('quiz')); }
+
+  const nextBtn = document.getElementById('charBtnNextStep');
+  const prevBtn = document.getElementById('charBtnPrevStep');
+  const animBtn = document.getElementById('charBtnAnimateAll');
+  const resetGuideBtn = document.getElementById('charBtnResetGuide');
+  const startQuizBtn = document.getElementById('charBtnStartQuiz');
+  const hintBtn = document.getElementById('charBtnHint');
+  const resetQuizBtn = document.getElementById('charBtnResetQuiz');
+
+  if(nextBtn && !nextBtn._cwBound){ nextBtn._cwBound=true; nextBtn.addEventListener('click', cwNextStroke); }
+  if(prevBtn && !prevBtn._cwBound){ prevBtn._cwBound=true; prevBtn.addEventListener('click', cwPrevStroke); }
+  if(animBtn && !animBtn._cwBound){ animBtn._cwBound=true; animBtn.addEventListener('click', cwPlayFullAnimation); }
+  if(resetGuideBtn && !resetGuideBtn._cwBound){ resetGuideBtn._cwBound=true; resetGuideBtn.addEventListener('click', cwResetGuide); }
+  if(startQuizBtn && !startQuizBtn._cwBound){ startQuizBtn._cwBound=true; startQuizBtn.addEventListener('click', cwStartQuiz); }
+  if(hintBtn && !hintBtn._cwBound){ hintBtn._cwBound=true; hintBtn.addEventListener('click', cwGiveHint); }
+  if(resetQuizBtn && !resetQuizBtn._cwBound){ resetQuizBtn._cwBound=true; resetQuizBtn.addEventListener('click', cwResetQuiz); }
+
+  // auto-select the first character the first time this panel is opened
+  if(!cwCurrentChar && CW_ALL_CHARS.length){
+    cwSelectCharacter(CW_ALL_CHARS[0]);
+  }
+}
+
+// ============================================================
+//  CHARACTER WRITING — TOPIC QUIZ (mirrors the Smart Quiz UX)
+//  Pick a topic (or several), get tested on writing each
+//  character with your finger, and track per-topic accuracy.
+// ============================================================
+let charQuizStats = JSON.parse(localStorage.getItem('charQuizStats')||'{}');
+function saveCharStats(){ localStorage.setItem('charQuizStats', JSON.stringify(charQuizStats)); }
+function getCharTopicScore(topic){
+  const s = charQuizStats[topic];
+  if(!s || s.total===0) return null;
+  return Math.round(s.correct/s.total*100);
+}
+function recordCharAnswer(topic, correct){
+  if(!charQuizStats[topic]) charQuizStats[topic] = {correct:0,total:0};
+  charQuizStats[topic].total++;
+  if(correct) charQuizStats[topic].correct++;
+  saveCharStats();
+}
+
+function cwGetTopicChars(topicKey){
+  const seen = new Set();
+  const list = [];
+  (VOCAB[topicKey]||[]).forEach(item=>{
+    if(!item.hz) return;
+    for(const ch of item.hz){
+      if(/[\u4e00-\u9fff]/.test(ch) && !seen.has(ch)){
+        seen.add(ch);
+        list.push({char:ch, topic:topicKey, example:item});
+      }
+    }
+  });
+  return list;
+}
+
+function cwTopicsWithChars(){
+  return Object.keys(TOPIC_LABELS).filter(k=>VOCAB[k] && cwGetTopicChars(k).length>0);
+}
+
+function cwBuildCharPool(topics){
+  let pool = [];
+  topics.forEach(t=>{ pool = pool.concat(cwGetTopicChars(t)); });
+  return pool;
+}
+
+function cwBuildCharQuestions(pool,n){
+  const shuffled = [...pool].sort(()=>Math.random()-0.5);
+  return shuffled.slice(0, Math.min(n, shuffled.length));
+}
+
+// quiz runtime state
+let cwQuizPool=[], cwQuizQuestions=[], cwQuizIdx=0, cwQuizScore=0;
+let cwQHideOutline=false, cwQActiveWriterRef=null;
+
+function cwLoadQuizHome(){
+  const wrap = document.getElementById('charQuizWrap');
+  if(!wrap) return;
+  wrap.innerHTML = cwBuildQuizHomeHtml();
+  cwAttachQuizHomeEvents();
+}
+
+function cwBuildQuizHomeHtml(){
+  const allTopics = cwTopicsWithChars();
+  const weakTopics = allTopics.filter(k=>{const s=getCharTopicScore(k); return s!==null && s<70;});
+  const totalQ = Object.values(charQuizStats).reduce((a,b)=>a+b.total,0);
+  const totalC = Object.values(charQuizStats).reduce((a,b)=>a+b.correct,0);
+  const streakHtml = totalQ>0 ? `<div class="streak-badge">🔥 ${totalQ} characters practiced · ${Math.round(totalC/totalQ*100)}% written cleanly</div>` : '';
+
+  return `
+    ${streakHtml}
+    <div class="wide-card" style="margin-bottom:1rem;">
+      <h3>Test your handwriting, topic by topic</h3>
+      <p style="margin-bottom:.8rem;">Pick a topic and trace each character's strokes with your finger. Just like the vocab quiz, we track your accuracy per topic so you know what to drill.</p>
+      <div class="quiz-modes">
+        <button class="quiz-mode-btn active" id="cwModeAll">🌐 All Topics</button>
+        <button class="quiz-mode-btn" id="cwModePick">📌 Pick Topics</button>
+        ${weakTopics.length>0?`<button class="quiz-mode-btn" id="cwModeWeak">🎯 Weak Spots (${weakTopics.length} topic${weakTopics.length!==1?'s':''})</button>`:''}
+      </div>
+      <div id="cwTopicPicker" style="display:none;">
+        <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:.5rem;">Select topics to practice writing:</p>
+        <div class="topic-grid">${allTopics.map(k=>{
+          const score=getCharTopicScore(k);
+          let chipScore='',chipClass='';
+          if(score!==null){chipClass=score>=80?'good':score>=50?'mid':'bad';chipScore=`<span class="chip-score ${chipClass}">${score}%</span>`;}
+          return `<div class="topic-chip" data-topic="${k}" onclick="cwToggleTopic(this)">${TOPIC_LABELS[k]||k}${chipScore}</div>`;
+        }).join('')}</div>
+      </div>
+      <div style="margin-top:1rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;">
+        <span style="font-size:.85rem;color:var(--text-muted);">Characters:</span>
+        <select id="cwQuizLength" style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.3rem .6rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;">
+          <option value="8">8 — Quick round</option>
+          <option value="15" selected>15 — Standard</option>
+          <option value="30">30 — Long practice</option>
+          <option value="999">All</option>
+        </select>
+        <label style="display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--text-muted);cursor:pointer;">
+          <input type="checkbox" id="cwHideOutlineToggle"> Hide outline (harder)
+        </label>
+        <button class="btn-primary" id="cwStartQuizBtn">Start Writing Quiz →</button>
+      </div>
+    </div>
+    ${cwBuildStatsPanel(allTopics)}
+  `;
+}
+
+function cwBuildStatsPanel(allTopics){
+  const attempted = allTopics.filter(k=>charQuizStats[k]&&charQuizStats[k].total>0);
+  if(attempted.length===0) return `<div class="wide-card"><h3>📊 Your Writing Progress</h3><p style="color:var(--text-dim);">Complete a writing quiz to see your stats here.</p></div>`;
+  const bars = attempted.sort((a,b)=>{const sa=getCharTopicScore(a)||0, sb=getCharTopicScore(b)||0; return sa-sb;}).map(k=>{
+    const s = getCharTopicScore(k)||0;
+    const col = s>=80?'var(--green)':s>=50?'var(--accent)':'var(--red)';
+    return `<div class="topic-bar-row">
+      <div class="topic-bar-label" title="${TOPIC_LABELS[k]}">${TOPIC_LABELS[k]||k}</div>
+      <div class="topic-bar-track"><div class="topic-bar-fill" style="width:${s}%;background:${col};"></div></div>
+      <div class="topic-bar-pct">${s}%</div>
+    </div>`;
+  }).join('');
+  const totalQ = Object.values(charQuizStats).reduce((a,b)=>a+b.total,0);
+  const totalC = Object.values(charQuizStats).reduce((a,b)=>a+b.correct,0);
+  return `
+    <div class="stats-screen">
+      <h3>📊 Your Writing Progress</h3>
+      <div class="stats-summary">
+        <div class="stat-pill gold"><div class="num">${totalQ}</div><div class="lbl">Practiced</div></div>
+        <div class="stat-pill green"><div class="num">${totalC}</div><div class="lbl">Clean writes</div></div>
+        <div class="stat-pill red"><div class="num">${totalQ-totalC}</div><div class="lbl">Needs work</div></div>
+        <div class="stat-pill"><div class="num" style="color:var(--accent2);">${totalQ>0?Math.round(totalC/totalQ*100):0}%</div><div class="lbl">Accuracy</div></div>
+      </div>
+      <div class="topic-bars">${bars}</div>
+      <div class="btn-row">
+        <button class="btn-outline" onclick="if(confirm('Reset all character writing stats?')){charQuizStats={};saveCharStats();cwLoadQuizHome();}">🗑️ Reset stats</button>
+      </div>
+    </div>`;
+}
+
+function cwAttachQuizHomeEvents(){
+  const modeAll=document.getElementById('cwModeAll');
+  const modePick=document.getElementById('cwModePick');
+  const modeWeak=document.getElementById('cwModeWeak');
+  const picker=document.getElementById('cwTopicPicker');
+  const startBtn=document.getElementById('cwStartQuizBtn');
+  let mode='all';
+
+  if(modeAll)modeAll.onclick=()=>{mode='all';[modeAll,modePick,modeWeak].forEach(b=>b&&b.classList.remove('active'));modeAll.classList.add('active');if(picker)picker.style.display='none';};
+  if(modePick)modePick.onclick=()=>{mode='pick';[modeAll,modePick,modeWeak].forEach(b=>b&&b.classList.remove('active'));modePick.classList.add('active');if(picker)picker.style.display='block';};
+  if(modeWeak)modeWeak.onclick=()=>{mode='weak';[modeAll,modePick,modeWeak].forEach(b=>b&&b.classList.remove('active'));modeWeak.classList.add('active');if(picker)picker.style.display='none';};
+
+  if(startBtn)startBtn.onclick=()=>{
+    const allTopics = cwTopicsWithChars();
+    let topics=[];
+    if(mode==='all') topics=allTopics;
+    else if(mode==='weak'){ topics=allTopics.filter(k=>{const s=getCharTopicScore(k);return s===null||s<70;}); if(!topics.length) topics=allTopics; }
+    else { topics=Array.from(document.querySelectorAll('#cwTopicPicker .topic-chip.selected')).map(c=>c.dataset.topic); if(!topics.length) topics=allTopics; }
+    const n = parseInt(document.getElementById('cwQuizLength').value)||15;
+    cwQHideOutline = document.getElementById('cwHideOutlineToggle').checked;
+    cwStartTopicQuiz(topics,n);
+  };
+}
+
+function cwToggleTopic(el){ el.classList.toggle('selected'); }
+
+function cwStartTopicQuiz(topics,n){
+  cwQuizPool = cwBuildCharPool(topics);
+  cwQuizQuestions = cwBuildCharQuestions(cwQuizPool,n);
+  cwQuizIdx=0; cwQuizScore=0;
+  cwShowCharQuestion();
+}
+
+function cwQSetStepDots(count,doneCount){
+  const el = document.getElementById('cwQStepIndicator');
+  if(!el) return;
+  let dots='';
+  for(let i=0;i<count;i++){ dots += `<div class="char-step-dot ${i<doneCount?'done':''}"></div>`; }
+  el.innerHTML = dots;
+}
+
+function cwShowCharQuestion(){
+  const wrap = document.getElementById('charQuizWrap');
+  if(!wrap) return;
+  if(cwQuizIdx >= cwQuizQuestions.length){ cwShowCharResults(); return; }
+  const q = cwQuizQuestions[cwQuizIdx];
+  const pips = cwQuizQuestions.map((_,i)=>`<div class="quiz-pip ${i<cwQuizIdx?'done':''}"></div>`).join('');
+  const topicLabel = TOPIC_LABELS[q.topic]||q.topic;
+
+  wrap.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.4rem;">
+      <span style="font-size:.78rem;color:var(--text-dim);">Character ${cwQuizIdx+1} / ${cwQuizQuestions.length}</span>
+      <span style="font-size:.72rem;background:var(--surface2);padding:2px 8px;border-radius:10px;color:var(--accent2);">📌 ${topicLabel}</span>
+      <span style="font-size:.78rem;color:var(--green);">✅ ${cwQuizScore} clean</span>
+    </div>
+    <div class="quiz-progress">${pips}</div>
+    <div class="char-stage">
+      <div class="char-stage-header">
+        <span class="char-stage-hanzi" id="cwQCharDisplay">${q.char}</span>
+        <span class="char-stage-info" id="cwQCharInfo">Loading…</span>
+        <button class="btn-outline" id="cwHintBtn" style="margin-left:auto;font-size:.78rem;padding:.35rem .7rem;">💡 Show meaning</button>
+      </div>
+      <div id="cwQHintText" style="display:none;font-size:.85rem;color:var(--text-muted);margin-bottom:.6rem;"></div>
+      <div class="char-writer-target" id="cwQWriterTarget"></div>
+      <div class="char-step-indicator" id="cwQStepIndicator"></div>
+      <div class="char-stage-feedback" id="cwQFeedback">Trace stroke 1 with your finger…</div>
+      <div class="char-stage-controls">
+        <button class="btn-outline" id="cwSkipBtn">⏭ Skip this one</button>
+        <button class="btn-primary" id="cwNextBtn" style="display:none;">Next character →</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('cwHintBtn').onclick = ()=>{
+    const hintEl = document.getElementById('cwQHintText');
+    hintEl.style.display = hintEl.style.display==='none' ? 'block' : 'none';
+  };
+  document.getElementById('cwSkipBtn').onclick = ()=>{
+    if(cwQActiveWriterRef){ try{ cwQActiveWriterRef.cancelQuiz(); }catch(e){} }
+    cwFinishCharQuestion(q,false,true);
+  };
+  document.getElementById('cwNextBtn').onclick = ()=>{ cwQuizIdx++; cwShowCharQuestion(); };
+
+  cwRunCharQuestion(q);
+}
+
+function cwRunCharQuestion(q){
+  const target = document.getElementById('cwQWriterTarget');
+  target.innerHTML = '';
+  const size = Math.max(200, Math.min(window.innerWidth-80, 300));
+  target.style.width = size+'px';
+  target.style.height = size+'px';
+
+  const hintEl = document.getElementById('cwQHintText');
+  hintEl.textContent = q.example ? `Hint: ${q.example.hz} (${q.example.jp}) — ${q.example.en}` : '';
+
+  if(typeof HanziWriter==='undefined'){
+    document.getElementById('cwQCharInfo').textContent = '⚠️ Could not load the stroke-order library.';
+    return;
+  }
+
+  let mistakesThisChar = 0;
+  let finished = false;
+  const writer = HanziWriter.create(target, q.char, {
+    width:size, height:size, padding:14,
+    showOutline: !cwQHideOutline,
+    strokeColor:'#e8e4dc', radicalColor:'#e8b86d',
+    outlineColor:'rgba(232,228,220,0.18)', highlightColor:'#e8b86d', drawingColor:'#6dcc9e',
+    onLoadCharDataSuccess: function(charData){
+      const strokeCount = charData.strokes.length;
+      document.getElementById('cwQCharInfo').textContent = `${strokeCount} strokes`;
+      cwQSetStepDots(strokeCount,0);
+      writer.quiz({
+        showHintAfterMisses: 3,
+        onMistake: function(strokeData){
+          mistakesThisChar++;
+          const fb=document.getElementById('cwQFeedback');
+          if(fb) fb.textContent = `❌ Try stroke ${strokeData.strokeNum+1} again.`;
+        },
+        onCorrectStroke: function(strokeData){
+          cwQSetStepDots(strokeCount, strokeData.strokeNum+1);
+          const fb=document.getElementById('cwQFeedback');
+          if(fb) fb.textContent = strokeData.strokesRemaining>0
+            ? `✅ Stroke ${strokeData.strokeNum+1} of ${strokeCount} correct!`
+            : `🎉 Finishing up…`;
+        },
+        onComplete: function(summary){
+          if(finished) return;
+          finished = true;
+          cwFinishCharQuestion(q, summary.totalMistakes<=2, false);
+        }
+      });
+    },
+    onLoadCharDataError: function(){
+      document.getElementById('cwQCharInfo').textContent = '⚠️ No stroke data — skipping this one.';
+      if(!finished){ finished=true; setTimeout(()=>cwFinishCharQuestion(q,false,true), 700); }
+    }
+  });
+  cwQActiveWriterRef = writer;
+}
+
+function cwFinishCharQuestion(q,correct,skipped){
+  recordCharAnswer(q.topic, correct);
+  if(correct) cwQuizScore++;
+  const fb = document.getElementById('cwQFeedback');
+  if(fb) fb.textContent = skipped ? '⏭ Skipped.' : (correct ? '🏆 Nicely written!' : '✏️ Good attempt — that one needs a bit more practice.');
+  const nextBtn = document.getElementById('cwNextBtn');
+  const skipBtn = document.getElementById('cwSkipBtn');
+  if(nextBtn) nextBtn.style.display='inline-block';
+  if(skipBtn) skipBtn.style.display='none';
+}
+
+function cwShowCharResults(){
+  const wrap = document.getElementById('charQuizWrap');
+  const total = cwQuizQuestions.length, pct = total ? Math.round(cwQuizScore/total*100) : 0;
+  const topicResults = {};
+  cwQuizQuestions.forEach(q=>{ if(!topicResults[q.topic]) topicResults[q.topic]={correct:0,total:0}; topicResults[q.topic].total++; });
+
+  const breakdown = Object.keys(topicResults).map(k=>{
+    const score = getCharTopicScore(k)||0;
+    const col = score>=80?'var(--green)':score>=50?'var(--accent)':'var(--red)';
+    return `<div class="topic-bar-row">
+      <div class="topic-bar-label">${TOPIC_LABELS[k]||k}</div>
+      <div class="topic-bar-track"><div class="topic-bar-fill" style="width:${score}%;background:${col};"></div></div>
+      <div class="topic-bar-pct">${score}%</div>
+    </div>`;
+  }).join('');
+
+  const medal = pct===100?'🏆':pct>=80?'🌟':pct>=60?'👍':'💪';
+  const msg = pct===100?'Perfect! Every character written cleanly!':pct>=80?'Excellent handwriting practice!':pct>=60?'Good work — keep practising those strokes!':'Keep going — stroke order gets easier with repetition!';
+
+  const topicScores = Object.keys(topicResults).map(k=>({k,s:getCharTopicScore(k)||0})).sort((a,b)=>a.s-b.s);
+  const weakestTopic = topicScores[0];
+  const sameTopicsJson = JSON.stringify(Object.keys(topicResults));
+
+  wrap.innerHTML = `
+    <div class="stats-screen">
+      <h3>${medal} Writing Quiz Complete!</h3>
+      <div class="stats-summary">
+        <div class="stat-pill gold"><div class="num">${total}</div><div class="lbl">Characters</div></div>
+        <div class="stat-pill green"><div class="num">${cwQuizScore}</div><div class="lbl">Clean writes</div></div>
+        <div class="stat-pill red"><div class="num">${total-cwQuizScore}</div><div class="lbl">Needs work</div></div>
+        <div class="stat-pill"><div class="num" style="color:var(--accent2);">${pct}%</div><div class="lbl">Score</div></div>
+      </div>
+      <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:1rem;">${msg}</p>
+      ${breakdown?`<h4 style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.6rem;">Topics this round (cumulative %)</h4><div class="topic-bars">${breakdown}</div>`:''}
+      ${weakestTopic&&weakestTopic.s<80?`<div style="background:rgba(232,109,109,.08);border:1px solid rgba(232,109,109,.2);border-radius:10px;padding:.8rem 1rem;margin:1rem 0;font-size:.85rem;color:var(--text-muted);">🎯 <strong style="color:var(--red);">Weakest topic: ${TOPIC_LABELS[weakestTopic.k]}</strong> — ${weakestTopic.s}% accuracy. Retry below to improve!</div>`:''}
+      <div class="btn-row">
+        <button class="btn-primary" onclick="cwLoadQuizHome()">🏠 Back to menu</button>
+        ${weakestTopic&&weakestTopic.s<80?`<button class="btn-outline" onclick='cwStartTopicQuiz(["${weakestTopic.k}"],20)'>🔁 Drill ${TOPIC_LABELS[weakestTopic.k]}</button>`:''}
+        <button class="btn-outline" onclick='cwStartTopicQuiz(${sameTopicsJson},${total})'>🔄 Same topics again</button>
+      </div>
+    </div>
+  `;
+}
+
+// tab switching between "Topic Quiz" and "Free Practice"
+function cwInitPanel(){
+  const tabQuiz = document.getElementById('cwTabQuiz');
+  const tabFree = document.getElementById('cwTabFree');
+  const quizSection = document.getElementById('cwTopicQuizSection');
+  const freeSection = document.getElementById('cwFreePracticeSection');
+
+  if(tabQuiz && !tabQuiz._cwBound){
+    tabQuiz._cwBound = true;
+    tabQuiz.addEventListener('click', ()=>{
+      tabQuiz.classList.add('active'); tabFree.classList.remove('active');
+      quizSection.style.display='block'; freeSection.style.display='none';
+    });
+  }
+  if(tabFree && !tabFree._cwBound){
+    tabFree._cwBound = true;
+    tabFree.addEventListener('click', ()=>{
+      tabFree.classList.add('active'); tabQuiz.classList.remove('active');
+      freeSection.style.display='block'; quizSection.style.display='none';
+      cwInit();
+    });
+  }
+  cwLoadQuizHome();
+}
+
+// ============================================================
 //  NAVIGATION
 // ============================================================
 const sideItems=document.querySelectorAll('.sidebar-item');
@@ -1865,6 +2581,7 @@ sideItems.forEach(item=>{
     const panel=document.getElementById('panel-'+target);
     if(panel)panel.classList.add('active');
     if(target==='quiz')loadQuiz();
+    if(target==='character_writing')cwInitPanel();
     if(target==='recordings_manager')renderRecordingsManager();
     if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open');
   });
